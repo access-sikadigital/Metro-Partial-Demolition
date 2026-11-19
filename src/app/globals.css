@@ -1,0 +1,328 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ============ Metro Partial Demolition — Design System ============
+   From the 2026 brand guidelines.
+
+   Off-Black #151515 · Yellow #FBB428 · Off-White #FEFFF7
+   Dark Gray #3E3E3E · Concrete #C7C7C7 · Plaster #F2F1EF
+
+   Menseal (display) for short, loud lines only. Google Sans Flex for
+   everything people actually read. Geometric graphic elements — chamfered
+   squares, hazard stripes, grids and dot patterns — give sections structure.
+=================================================================== */
+
+@font-face {
+  font-family: "Menseal";
+  src: url("/fonts/Menseal-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Menseal";
+  src: url("/fonts/Menseal-ExtraBold.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Menseal";
+  src: url("/fonts/Menseal-Black.woff2") format("woff2");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+/* Variable font, every axis but weight pinned at build time and subset to
+   Latin — 41 KB for the whole 400–800 range. */
+@font-face {
+  font-family: "Google Sans Flex";
+  src: url("/fonts/GoogleSansFlex-Variable.woff2") format("woff2");
+  font-weight: 400 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme inline {
+  --radius-sm: 0;
+  --radius-md: 0;
+  --radius-lg: 0;
+  --font-body: "Google Sans Flex", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Menseal", "Google Sans Flex", ui-sans-serif, sans-serif;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-destructive: var(--destructive);
+  /* Named brand colours — used directly where a surface is a brand colour
+     rather than a role (bands, panels, type on photography). */
+  --color-ink: var(--ink);
+  --color-graphite: var(--graphite);
+  --color-concrete: var(--concrete);
+  --color-plaster: var(--plaster);
+  --color-paper: var(--paper);
+  --color-hivis: var(--hivis);
+}
+
+:root {
+  --ink: #151515;
+  --graphite: #3e3e3e;
+  --concrete: #c7c7c7;
+  --plaster: #f2f1ef;
+  --paper: #fefff7;
+  --hivis: #fbb428;
+
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --card: #ffffff;
+  --card-foreground: var(--ink);
+  --primary: var(--hivis);
+  /* Off-black on yellow is 10.4:1 — yellow panels can carry body copy. */
+  --primary-foreground: var(--ink);
+  --muted: var(--plaster);
+  /* 7.0:1 on paper. */
+  --muted-foreground: #505050;
+  --border: rgb(21 21 21 / 0.12);
+  --input: rgb(21 21 21 / 0.2);
+  --ring: var(--hivis);
+  --destructive: #c62828;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+  }
+
+  /* overflow-wrap: break-word (not anywhere) — only breaks a word that can't
+     fit a line on its own, so grid tracks don't collapse a heading to one
+     character wide. Menseal is a wide face; this matters at 320px. */
+  h1,
+  h2,
+  h3,
+  h4 {
+    overflow-wrap: break-word;
+    hyphens: none;
+  }
+
+  a,
+  span {
+    overflow-wrap: break-word;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  a[href],
+  label[for],
+  summary,
+  select:not(:disabled),
+  input[type="file"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  button:disabled,
+  [aria-disabled="true"] {
+    cursor: not-allowed;
+  }
+
+  ::selection {
+    background: var(--hivis);
+    color: var(--ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--hivis);
+    outline-offset: 3px;
+  }
+}
+
+/* ---------------------------------------------------------------- type */
+
+/* Menseal display. Uppercase, tight leading, for short impactful lines only —
+   the guidelines reserve it for headlines and titles, never body copy. */
+@utility font-display {
+  font-family: var(--font-display);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.005em;
+  line-height: 1.02;
+}
+
+/* Small tracked label — the "BRAND GUIDELINES · 2026" device from the deck.
+   Fluid so the longest label still fits a 320px phone. */
+@utility eyebrow {
+  font-family: var(--font-body);
+  font-size: clamp(0.625rem, 2.3vw, 0.72rem);
+  letter-spacing: clamp(0.16em, 0.8vw, 0.28em);
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--eyebrow-color, var(--ink));
+}
+
+@utility container-wide {
+  width: 100%;
+  margin-inline: auto;
+  max-width: 88rem;
+  padding-inline: clamp(1rem, 4.5vw, 4rem);
+}
+
+/* The yellow ribbon behind a phrase — lifted from the logo, where
+   "PARTIAL DEMOLITION" sits on a slanted yellow bar. The slanted ends come
+   from a 105° gradient; box-decoration-break gives each wrapped line its own
+   bar instead of one bar torn across the break. */
+@utility ribbon {
+  color: var(--ink);
+  background-image: linear-gradient(
+    105deg,
+    transparent 0.28em,
+    var(--hivis) 0.28em,
+    var(--hivis) calc(100% - 0.28em),
+    transparent calc(100% - 0.28em)
+  );
+  padding-inline: 0.42em;
+  margin-inline: -0.14em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+/* ---------------------------------------------------------------- shapes */
+
+/* "Shape 1" from the graphic elements: a square with its top-left corner cut
+   off at 45°. Size of the cut is a variable so cards and buttons share it. */
+@utility chamfer {
+  clip-path: polygon(var(--cut, 18px) 0, 100% 0, 100% 100%, 0 100%, 0 var(--cut, 18px));
+}
+@utility chamfer-br {
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% calc(100% - var(--cut, 18px)),
+    calc(100% - var(--cut, 18px)) 100%,
+    0 100%
+  );
+}
+@utility chamfer-both {
+  clip-path: polygon(
+    var(--cut, 18px) 0,
+    100% 0,
+    100% calc(100% - var(--cut, 18px)),
+    calc(100% - var(--cut, 18px)) 100%,
+    0 100%,
+    0 var(--cut, 18px)
+  );
+}
+
+/* ---------------------------------------------------------------- patterns */
+
+/* Hazard stripe. Two colours as variables so it can run yellow/black on dark
+   bands and black/yellow on yellow ones. */
+@utility hazard {
+  background-image: repeating-linear-gradient(
+    -55deg,
+    var(--hz-a, var(--hivis)) 0 14px,
+    var(--hz-b, var(--ink)) 14px 28px
+  );
+}
+
+/* The "Grid" element — thin construction-drawing lines. */
+@utility pattern-grid {
+  background-image:
+    linear-gradient(var(--grid-color, rgb(255 255 255 / 0.06)) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color, rgb(255 255 255 / 0.06)) 1px, transparent 1px);
+  background-size: var(--grid-size, 56px) var(--grid-size, 56px);
+}
+
+/* "Pattern 1" — 8px squares on a 28px pitch. A conic gradient paints only the
+   top-left 8×8 quadrant of each tile, so the dots are square like the source. */
+@utility pattern-dots {
+  background-image: conic-gradient(
+    from 270deg at 8px 8px,
+    var(--dot-color, var(--hivis)) 0 25%,
+    transparent 0 100%
+  );
+  background-size: 28px 28px;
+}
+
+/* ---------------------------------------------------------------- icons */
+
+/* Brand icons are single-colour SVGs; masking them lets `color` tint them. */
+@utility brand-icon {
+  display: inline-block;
+  flex-shrink: 0;
+  background-color: currentColor;
+  -webkit-mask: var(--icon) center / contain no-repeat;
+  mask: var(--icon) center / contain no-repeat;
+}
+
+/* ---------------------------------------------------------------- motion */
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@utility animate-marquee {
+  animation: marquee var(--marquee-duration, 40s) linear infinite;
+}
+
+/* Swipe that starts over a marquee must still scroll the page on a phone. */
+@utility marquee-viewport {
+  overflow: hidden;
+  touch-action: pan-y;
+  overscroll-behavior-x: contain;
+}
+
+@keyframes hazard-slide {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    /* Two stripe periods: 28px / sin(55°) = 34.18px each, so the loop is seamless. */
+    background-position: 68.36px 0;
+  }
+}
+@utility animate-hazard {
+  animation: hazard-slide 2.4s linear infinite;
+}
+
+@keyframes slow-zoom {
+  from {
+    transform: scale(1.04);
+  }
+  to {
+    transform: scale(1.12);
+  }
+}
+@utility animate-slow-zoom {
+  animation: slow-zoom 22s ease-out forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .animate-hazard,
+  .animate-slow-zoom {
+    animation: none;
+  }
+}
