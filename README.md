@@ -39,7 +39,9 @@ framer-motion · Lenis smooth scroll · react-hook-form + zod.
 Quote submissions go through a Server Action (`src/lib/lead.actions.ts`) that
 re-validates the form and posts it to the GoHighLevel webhook, with phone
 numbers normalised to +61, a spam honeypot, and first-touch UTM / click-id
-attribution (`src/lib/tracking.ts`).
+attribution (`src/lib/tracking.ts`). Photos are uploaded from the browser
+straight to Vercel Blob (store `metro-quote-photos`, Sydney) through short-lived
+tokens from `src/app/api/photo-upload/route.ts`; only their URLs go to GHL.
 
 ## Where things live
 
@@ -77,4 +79,4 @@ Everything below is a **placeholder** — search the code for `PLACEHOLDER`:
 - [ ] Production domain — `SITE_URL` in `src/app/layout.tsx`
 - [ ] Metro's own Google Tag Manager ID — `GTM_ID` in `src/app/layout.tsx`
       (empty = GTM is not loaded at all)
-- [ ] `GHL_WEBHOOK_URL` and the Cloudinary variables — see `.env.example`
+- [x] `GHL_WEBHOOK_URL` and `BLOB_READ_WRITE_TOKEN` — set in Vercel (see `.env.example`)

@@ -1,29 +1,26 @@
 /**
- * Direct-to-Cloudinary photo upload for the quote form.
+ * Photo upload for the quote form, via Vercel Blob.
  *
  * The quote goes to GoHighLevel as flat JSON, which cannot carry a file — so the
- * browser uploads to Cloudinary first and only the resulting URLs are sent on.
- * Needs an UNSIGNED upload preset in the client's Cloudinary account.
+ * browser uploads each photo straight to Vercel Blob first, and only the
+ * resulting public URLs are sent on with the lead (`photo_urls`).
  *
- * Set both of these before go-live:
- *   NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=<cloud name>
- *   NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET=<unsigned preset name>
+ * The browser asks /api/photo-upload for a short-lived token per file; that
+ * route holds BLOB_READ_WRITE_TOKEN (added automatically when the Blob store is
+ * connected to the Vercel project) and enforces the type and size limits below.
  *
- * With them unset the field still validates and the form still submits — it just
- * reports that photos could not be attached, rather than silently dropping them.
+ * A failed upload never blocks the lead: the form still submits and adds a
+ * `photo_note` so the crew knows to ask for the photos.
  */
 
-const CLOUD_NAME = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
-const UPLOAD_PRESET = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
+import { upload } from "@vercel/blob/client";
 
 export const MAX_FILE_BYTES = 10 * 1024 * 1024;
 export const ACCEPTED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/heic"];
 export const MAX_FILES = 5;
+export const UPLOAD_FOLDER = "quote-photos";
 
-export const uploadConfigured = Boolean(CLOUD_NAME && UPLOAD_PRESET);
-
-export type UploadResult =
-  { ok: true; urls: string[] } | { ok: false; reason: "not-configured" | "failed" };
+export type UploadResult = { ok: true; urls: string[] } | { ok: false; reason: "failed" };
 
 /** Rejects anything oversized or not an image, so the user hears about it here. */
 export function validateFiles(files: File[]): string | null {
@@ -39,25 +36,30 @@ export function validateFiles(files: File[]): string | null {
   return null;
 }
 
+/** "My Kitchen (1).JPG" → "my-kitchen-1.jpg", so the stored URL stays clean. */
+function safeName(name: string): string {
+  const dot = name.lastIndexOf(".");
+  const base = (dot > 0 ? name.slice(0, dot) : name)
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 60);
+  const ext = dot > 0 ? name.slice(dot + 1).toLowerCase().replace(/[^a-z0-9]/g, "") : "jpg";
+  return `${base || "photo"}.${ext || "jpg"}`;
+}
+
 export async function uploadPhotos(files: File[]): Promise<UploadResult> {
   if (files.length === 0) return { ok: true, urls: [] };
-  if (!uploadConfigured) return { ok: false, reason: "not-configured" };
-
-  const endpoint = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
 
   try {
     const urls = await Promise.all(
       files.map(async (file) => {
-        const body = new FormData();
-        body.append("file", file);
-        body.append("upload_preset", UPLOAD_PRESET!);
-        body.append("folder", "quote-form");
-
-        const res = await fetch(endpoint, { method: "POST", body });
-        if (!res.ok) throw new Error(`Cloudinary responded ${res.status}`);
-        const json = (await res.json()) as { secure_url?: string };
-        if (!json.secure_url) throw new Error("Cloudinary returned no URL");
-        return json.secure_url;
+        const blob = await upload(`${UPLOAD_FOLDER}/${safeName(file.name)}`, file, {
+          access: "public",
+          handleUploadUrl: "/api/photo-upload",
+          contentType: file.type,
+        });
+        return blob.url;
       }),
     );
     return { ok: true, urls };

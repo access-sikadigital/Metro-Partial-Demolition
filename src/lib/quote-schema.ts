@@ -58,7 +58,13 @@ export const quoteSchema = z.object({
     .min(2, "Please enter your suburb or postcode")
     .max(100)
     // Letters, numbers, spaces and , . ' - only (covers "South Yarra" and "3141").
-    .regex(/^[\p{L}\d][\p{L}\d ,.'-]*$/u, "Enter a valid suburb or postcode"),
+    .regex(/^[\p{L}\d][\p{L}\d ,.'-]*$/u, "Enter a valid suburb or postcode")
+    // A suburb name ("Richmond", "Richmond 3121") or a 4-digit postcode — not
+    // a random number like "323233".
+    .refine(
+      (v) => /\p{L}/u.test(v) || /^\d{4}$/.test(v),
+      "Enter a suburb name or a 4-digit postcode",
+    ),
   /**
    * MULTI-SELECT. Deck build note 2: the lead record must store every option
    * ticked, not just the first.

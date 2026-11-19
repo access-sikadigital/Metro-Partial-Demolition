@@ -110,9 +110,8 @@ export function QuoteForm({
   }
 
   /** Photo failures are noted for the crew, never allowed to block the lead. */
-  function noteFor(reason: "not-configured" | "failed", count: number) {
-    const why = reason === "not-configured" ? "uploads are not configured" : "the upload failed";
-    return `Customer attached ${count} photo(s) but ${why}. Follow up for them.`;
+  function noteFor(count: number) {
+    return `Customer attached ${count} photo(s) but the upload failed. Follow up for them.`;
   }
 
   const onSubmit = async (values: QuoteValues, event?: BaseSyntheticEvent) => {
@@ -127,7 +126,7 @@ export function QuoteForm({
     if (photos) {
       const upload = await uploadPhotos(files);
       if (upload.ok) photoUrls = upload.urls;
-      else photoNote = noteFor(upload.reason, files.length);
+      else photoNote = noteFor(files.length);
     }
 
     const failMessage = `Something went wrong sending your request. Please try again, or call us on ${SITE.phone} and we'll sort it straight away.`;
