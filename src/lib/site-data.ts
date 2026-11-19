@@ -73,14 +73,17 @@ export const quoteForm = {
 
 /** "What do you need done?" — multi-select. `value` is what travels to GHL. */
 export const quoteServiceOptions = [
-  { value: "partial-demolition", label: "Partial / rear-of-house demolition" },
-  { value: "full-house-demolition", label: "Full house demolition" },
-  { value: "wall-removal", label: "Wall removal" },
-  { value: "kitchen-bathroom-laundry", label: "Kitchen, bathroom or laundry strip out" },
-  { value: "internal-strip-out", label: "Internal or commercial strip out" },
+  { value: "partial-demolition", label: "Partial demolition" },
+  { value: "strip-out", label: "Strip out" },
+  { value: "kitchen-demolition", label: "Kitchen removal or demolition" },
+  { value: "bathroom-demolition", label: "Bathroom demolition" },
+  { value: "extension-demolition", label: "Extension demolition" },
+  { value: "garage-demolition", label: "Garage demolition" },
+  { value: "shed-demolition", label: "Shed demolition" },
+  { value: "driveway-removal", label: "Driveway removal" },
   { value: "rubbish-removal", label: "Rubbish removal" },
-  { value: "outbuildings", label: "Garage, shed, deck or pergola" },
-  { value: "asbestos", label: "Asbestos removal" },
+  { value: "tile-removal", label: "Tile removal" },
+  // Catch-all, so a job that doesn't fit the list still comes through as a lead.
   { value: "other", label: "Something else" },
 ];
 
