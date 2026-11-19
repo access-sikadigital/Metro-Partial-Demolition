@@ -15,7 +15,21 @@ function isAuPhone(raw: string): boolean {
   let d = raw.replace(/[^\d+]/g, "");
   if (d.startsWith("+61")) d = "0" + d.slice(3);
   else if (d.startsWith("61") && d.length === 11) d = "0" + d.slice(2);
-  return /^0[2-8]\d{8}$/.test(d);
+  // 04 = mobile; 02/03/07/08 = landline. Rejects the rest (05, 06, 1300…).
+  if (!/^0[23478]\d{8}$/.test(d)) return false;
+  // Rejects obvious junk like 0444 444 444 or 0400 000 000.
+  return !/^0\d(\d)\1{7}$/.test(d);
+}
+
+/**
+ * First AND last name: at least two words, and the first and last word each
+ * have two or more letters ("John Smith", "Mary-Jane O'Neil", "Li Ng").
+ */
+function hasFirstAndLastName(raw: string): boolean {
+  const words = raw.trim().split(/\s+/);
+  if (words.length < 2) return false;
+  const letters = (w: string) => (w.match(/\p{L}/gu) ?? []).length;
+  return letters(words[0]) >= 2 && letters(words[words.length - 1]) >= 2;
 }
 
 export const quoteSchema = z.object({
@@ -26,10 +40,12 @@ export const quoteSchema = z.object({
     .max(100)
     // Letters (any language), spaces, hyphens, apostrophes and dots only — no
     // digits or other symbols. Must start with a letter.
-    .regex(/^\p{L}[\p{L} .'-]*$/u, "Name can only contain letters"),
+    .regex(/^\p{L}[\p{L} .'-]*$/u, "Name can only contain letters")
+    .refine(hasFirstAndLastName, "Please enter your first and last name"),
   // Required here, unlike earlier versions of this form. The deck makes it a
   // required field so a quote can actually be sent in writing.
-  email: z.email("Please enter a valid email").max(255),
+  // Trimmed and lowercased so GHL matches repeat enquiries to the same contact.
+  email: z.string().trim().toLowerCase().pipe(z.email("Please enter a valid email").max(255)),
   phone: z
     .string()
     .trim()

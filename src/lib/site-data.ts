@@ -111,6 +111,21 @@ export function thankYouPathFor(pathname: string): string {
   return THANK_YOU_PATHS[pathname.replace(/\/$/, "")] ?? "/thank-you";
 }
 
+/**
+ * The `source` value sent to GoHighLevel with each lead, so GHL workflows can
+ * tell which landing page a lead came from. Same labels as the Demo Bros build.
+ * Anything not listed (the hub at "/") falls back to the generic label.
+ */
+export const LEAD_SOURCES: Record<string, string> = {
+  "/house-demolition": "House Demolition Landing Page",
+  "/strip-out": "Strip-Out Landing Page",
+  "/rubbish-removal": "Rubbish Removal Landing Page",
+};
+
+export function leadSourceFor(pathname: string): string {
+  return LEAD_SOURCES[pathname.replace(/\/$/, "")] ?? "Website Landing Page Quote Form";
+}
+
 /* ============================ SHARED CLAIMS ============================ */
 
 export const tickerClaims = [

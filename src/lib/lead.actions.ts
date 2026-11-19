@@ -1,7 +1,7 @@
 "use server";
 
 import { leadSchema, type LeadInput } from "./quote-schema";
-import { quoteServiceOptions, timingOptions } from "./site-data";
+import { leadSourceFor, quoteServiceOptions, timingOptions } from "./site-data";
 import { normaliseAuPhone, sendToWebhook } from "./ghl";
 
 function labelFor(options: { value: string; label: string }[], value: string): string {
@@ -65,7 +65,8 @@ export async function submitLead(input: LeadInput): Promise<SubmitLeadResult> {
     timing: data.timing ? labelFor(timingOptions, data.timing) : "",
     timing_slug: data.timing,
     details: data.comments ?? "",
-    source: "Website Landing Page Quote Form",
+    // Per landing page (e.g. "Strip-Out Landing Page"), from the page path.
+    source: leadSourceFor(data.page || "/"),
     page: data.page || "",
     page_url: data.pageUrl || "",
     referrer: data.referrer || "",
