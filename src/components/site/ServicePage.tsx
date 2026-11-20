@@ -94,10 +94,10 @@ function Hero({ page }: { page: ServicePageContent }) {
           <img
             src={hero.imageMobile}
             alt=""
-            className="animate-slow-zoom h-full w-full object-cover opacity-40 grayscale-[30%]"
+            className="animate-slow-zoom h-full w-full object-cover opacity-75 grayscale-[15%]"
           />
         </picture>
-        <div className="absolute inset-0 bg-gradient-to-b from-ink/80 via-ink/85 to-ink lg:bg-gradient-to-r lg:from-ink lg:via-ink/88 lg:to-ink/55" />
+        <div className="absolute inset-0 bg-gradient-to-b from-ink/80 via-ink/85 to-ink/95 lg:bg-gradient-to-r lg:from-ink/95 lg:from-0% lg:via-ink/90 lg:via-45% lg:to-ink/20 lg:to-100%" />
         <div className="pattern-grid absolute inset-0" />
         <div className="pattern-dots absolute bottom-0 left-0 h-40 w-48 opacity-25 sm:h-56 sm:w-72" />
       </div>
