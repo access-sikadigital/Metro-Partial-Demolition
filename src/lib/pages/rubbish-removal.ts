@@ -20,8 +20,8 @@ export const rubbishRemoval: ServicePageContent = {
       { icon: "barrow", label: "You don't lift, sort or carry anything" },
       { icon: "tipper", label: "Sorted and recycled where we can" },
     ],
-    imageDesktop: "/images/loader-overhead.jpg",
-    imageMobile: "/images/crew-shovel.jpg",
+    imageDesktop: "/images/hero/rubbish-removal-desktop.jpg",
+    imageMobile: "/images/hero/rubbish-removal-mobile.jpg",
   },
 
   services: {
@@ -31,6 +31,10 @@ export const rubbishRemoval: ServicePageContent = {
     items: [
       {
         slug: "household",
+        image: {
+          src: "/images/services/household.jpg",
+          alt: "Two crew carrying an old armchair to the truck past a mattress and washing machine",
+        },
         icon: "barrow",
         title: "Household & hard rubbish",
         detail:
@@ -39,6 +43,10 @@ export const rubbishRemoval: ServicePageContent = {
       },
       {
         slug: "clearouts",
+        image: {
+          src: "/images/services/clearouts.jpg",
+          alt: "Garage half cleared, worker carrying boxes out to a skip in the driveway",
+        },
         icon: "forklift",
         title: "Garage, shed & whole house clear-outs",
         detail:
@@ -47,6 +55,10 @@ export const rubbishRemoval: ServicePageContent = {
       },
       {
         slug: "yard",
+        image: {
+          src: "/images/services/yard.jpg",
+          alt: "Overgrown backyard being cleared, green waste loaded into a wheelbarrow",
+        },
         icon: "shovel",
         title: "Yard & garden clean-ups",
         detail:
@@ -55,6 +67,10 @@ export const rubbishRemoval: ServicePageContent = {
       },
       {
         slug: "heavy",
+        image: {
+          src: "/images/services/heavy.jpg",
+          alt: "Skid-steer loading broken concrete and bricks into a tipper truck",
+        },
         icon: "bricks",
         title: "Concrete, brick, decks & sheds",
         detail:
@@ -63,6 +79,10 @@ export const rubbishRemoval: ServicePageContent = {
       },
       {
         slug: "estates",
+        image: {
+          src: "/images/services/estates.jpg",
+          alt: "Crew member carefully packing a framed photo while the owner sorts keepsakes",
+        },
         icon: "stairs",
         title: "Hoarding & deceased estates",
         detail:
@@ -71,6 +91,10 @@ export const rubbishRemoval: ServicePageContent = {
       },
       {
         slug: "sites",
+        image: {
+          src: "/images/services/sites.jpg",
+          alt: "New build frame being cleaned up, offcuts loaded into a skip and the slab swept",
+        },
         icon: "tipper",
         title: "Building site clean-ups",
         detail:

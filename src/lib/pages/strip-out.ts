@@ -23,8 +23,8 @@ export const stripOut: ServicePageContent = {
       { icon: "builder", label: "Asbestos handled in-house — no third contractor" },
       { icon: "tipper", label: "Skip, rubbish and clean-up included" },
     ],
-    imageDesktop: "/images/jackhammer-slab.jpg",
-    imageMobile: "/images/breaker-wall.jpg",
+    imageDesktop: "/images/hero/strip-out-desktop.jpg",
+    imageMobile: "/images/hero/strip-out-mobile.jpg",
   },
 
   services: {
@@ -34,6 +34,10 @@ export const stripOut: ServicePageContent = {
     items: [
       {
         slug: "kitchen-bathroom-laundry",
+        image: {
+          src: "/images/services/kitchen-bathroom-laundry.jpg",
+          alt: "Kitchen stripped back with cabinets out, plumbing capped and the floor protected",
+        },
         icon: "sledgehammer",
         title: "Kitchen, bathroom & laundry strip out",
         detail:
@@ -42,6 +46,10 @@ export const stripOut: ServicePageContent = {
       },
       {
         slug: "internal-strip-out",
+        image: {
+          src: "/images/services/internal-strip-out.jpg",
+          alt: "Room stripped back to the timber frame, debris bagged and the floor swept",
+        },
         icon: "floor-plan",
         title: "Internal strip out",
         detail:
@@ -50,6 +58,10 @@ export const stripOut: ServicePageContent = {
       },
       {
         slug: "wall-tile-removal",
+        image: {
+          src: "/images/services/wall-tile-removal.jpg",
+          alt: "Worker chipping old bathroom wall tiles off with a demolition hammer",
+        },
         icon: "bricks",
         title: "Wall & tile removal",
         detail:
@@ -58,6 +70,10 @@ export const stripOut: ServicePageContent = {
       },
       {
         slug: "commercial",
+        image: {
+          src: "/images/services/commercial.jpg",
+          alt: "Office defit at dusk with ceiling tiles out and partitions coming down",
+        },
         icon: "tower-crane",
         title: "Office & retail defits",
         detail:
@@ -66,6 +82,10 @@ export const stripOut: ServicePageContent = {
       },
       {
         slug: "floors",
+        image: {
+          src: "/images/services/floors.jpg",
+          alt: "Worker scraping old floor tiles back to the concrete slab",
+        },
         icon: "trowel",
         title: "Floor coverings & screed",
         detail:
@@ -74,6 +94,10 @@ export const stripOut: ServicePageContent = {
       },
       {
         slug: "asbestos",
+        image: {
+          src: "/images/services/asbestos.jpg",
+          alt: "Asbestos crew in coveralls and respirators lowering a whole fibro sheet onto plastic sheeting",
+        },
         icon: "builder",
         title: "Asbestos removal",
         detail:

@@ -20,8 +20,8 @@ export const houseDemolition: ServicePageContent = {
       { icon: "floor-plan", label: "Permits and all four disconnections handled" },
       { icon: "builder", label: "Asbestos removed by our own licensed crew" },
     ],
-    imageDesktop: "/images/excavator-wall.jpg",
-    imageMobile: "/images/excavator-sky.jpg",
+    imageDesktop: "/images/hero/house-demolition-desktop.jpg",
+    imageMobile: "/images/hero/house-demolition-mobile.jpg",
   },
 
   services: {
@@ -31,6 +31,10 @@ export const houseDemolition: ServicePageContent = {
     items: [
       {
         slug: "rear-of-house",
+        image: {
+          src: "/images/services/rear-of-house.jpg",
+          alt: "Rear extension removed and the junction wall sealed with a heavy tarp, house still standing",
+        },
         icon: "excavator",
         title: "Rear-of-house & extension demolition",
         detail:
@@ -39,6 +43,10 @@ export const houseDemolition: ServicePageContent = {
       },
       {
         slug: "wall-removal",
+        image: {
+          src: "/images/services/wall-removal.jpg",
+          alt: "Wall opened between kitchen and living room, ceiling held on temporary steel props",
+        },
         icon: "bricks",
         title: "Wall removal",
         detail:
@@ -47,6 +55,10 @@ export const houseDemolition: ServicePageContent = {
       },
       {
         slug: "full-house",
+        image: {
+          src: "/images/services/full-house.jpg",
+          alt: "Block cleared and levelled after a full house demolition, excavator and tipper on site",
+        },
         icon: "demolition-machine",
         title: "Full house demolition",
         detail:
@@ -55,6 +67,10 @@ export const houseDemolition: ServicePageContent = {
       },
       {
         slug: "outbuildings",
+        image: {
+          src: "/images/services/outbuildings.jpg",
+          alt: "Crew lifting the boards off an old timber deck under a pergola",
+        },
         icon: "dozer",
         title: "Garages, sheds, decks & pergolas",
         detail:
@@ -63,6 +79,10 @@ export const houseDemolition: ServicePageContent = {
       },
       {
         slug: "concrete",
+        image: {
+          src: "/images/services/concrete.jpg",
+          alt: "Mini excavator breaking up an old concrete driveway while dust is hosed down",
+        },
         icon: "tipper",
         title: "Concrete, driveway & slab removal",
         detail:
@@ -71,6 +91,10 @@ export const houseDemolition: ServicePageContent = {
       },
       {
         slug: "asbestos",
+        image: {
+          src: "/images/services/asbestos.jpg",
+          alt: "Asbestos crew in coveralls and respirators lowering a whole fibro sheet onto plastic sheeting",
+        },
         icon: "builder",
         title: "Asbestos removal",
         detail:

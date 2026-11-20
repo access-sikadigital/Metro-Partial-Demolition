@@ -25,7 +25,15 @@ export interface ServicePageContent {
     eyebrow: string;
     title: string;
     lede: string;
-    items: { slug: string; icon: string; title: string; detail: string; price: string | null }[];
+    items: {
+      slug: string;
+      icon: string;
+      title: string;
+      detail: string;
+      price: string | null;
+      /** Card photo (4:3), in /public/images/services. */
+      image: Img;
+    }[];
   };
 
   pricing: {

@@ -214,30 +214,47 @@ function Services({ page, index }: SectionProps) {
         <div className="mt-10 grid gap-4 sm:grid-cols-2 sm:gap-5 lg:mt-14 lg:grid-cols-3">
           {s.items.map((item, i) => (
             <Reveal key={item.slug} delay={(i % 3) * 0.06}>
-              <article className="group chamfer relative flex h-full flex-col bg-white p-6 transition-transform duration-300 [--cut:22px] hover:-translate-y-1 sm:p-7">
-                <HazardBand className="absolute inset-x-0 top-0 h-1.5 origin-left scale-x-0 transition-transform duration-500 group-hover:scale-x-100" />
-                <div className="flex items-start justify-between gap-4">
-                  <IconTile name={item.icon} />
-                  <span className="font-display text-sm text-ink/20">
+              <article className="group chamfer relative flex h-full flex-col bg-white transition-transform duration-300 [--cut:22px] hover:-translate-y-1">
+                {/* Photo of the service, with the brand icon tile overlapping its
+                    bottom edge so the card keeps its original identity. */}
+                <div className="relative aspect-[3/2] overflow-hidden bg-ink">
+                  <img
+                    src={item.image.src}
+                    alt={item.image.alt}
+                    width={800}
+                    height={600}
+                    loading="lazy"
+                    decoding="async"
+                    className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  />
+                  <div
+                    aria-hidden
+                    className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-ink/45 to-transparent"
+                  />
+                  <span className="font-display absolute top-3 right-3 bg-ink/75 px-2 py-1 text-xs text-hivis">
                     {String(i + 1).padStart(2, "0")}
                   </span>
+                  <HazardBand className="absolute inset-x-0 top-0 h-1.5 origin-left scale-x-0 transition-transform duration-500 group-hover:scale-x-100" />
                 </div>
-                <h3 className="font-display mt-6 text-[1.05rem] leading-tight text-ink sm:text-[1.15rem]">
-                  {item.title}
-                </h3>
-                <p className="mt-3 flex-1 text-[0.95rem] leading-relaxed text-muted-foreground">
-                  {item.detail}
-                </p>
-                <div className="mt-6 border-t border-ink/10 pt-4">
-                  {item.price ? (
-                    <span className="font-display text-sm text-ink">
-                      <span className="ribbon">{item.price}</span>
-                    </span>
-                  ) : (
-                    <span className="text-xs font-bold tracking-[0.14em] text-graphite uppercase">
-                      Quoted on the job
-                    </span>
-                  )}
+                <div className="relative flex flex-1 flex-col px-6 pb-6 sm:px-7 sm:pb-7">
+                  <IconTile name={item.icon} className="relative z-10 -mt-7" />
+                  <h3 className="font-display mt-5 text-[1.05rem] leading-tight text-ink sm:text-[1.15rem]">
+                    {item.title}
+                  </h3>
+                  <p className="mt-3 flex-1 text-[0.95rem] leading-relaxed text-muted-foreground">
+                    {item.detail}
+                  </p>
+                  <div className="mt-6 border-t border-ink/10 pt-4">
+                    {item.price ? (
+                      <span className="font-display text-sm text-ink">
+                        <span className="ribbon">{item.price}</span>
+                      </span>
+                    ) : (
+                      <span className="text-xs font-bold tracking-[0.14em] text-graphite uppercase">
+                        Quoted on the job
+                      </span>
+                    )}
+                  </div>
                 </div>
               </article>
             </Reveal>
