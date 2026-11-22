@@ -17,7 +17,7 @@ import { SITE, TRUST, hub, servicePages, sharedGuarantees, testimonials } from "
 /**
  * The main landing page is a hub, exactly like the Demo Bros project: its job
  * is to send each visitor to the right service landing page. Three doors —
- * /house-demolition, /strip-out, /rubbish-removal — linked from the hero, the
+ * /partial-demolition, /strip-out, /rubbish-removal — linked from the hero, the
  * service cards, the reviews band and the final CTA.
  */
 export function HubPage() {

@@ -1,12 +1,19 @@
+import type { ServiceSlug } from "./pages/types";
+
 // Shared content for Metro Partial Demolition.
 //
 // Same shape as the Demo Bros project: one main landing page ("/") that routes
-// visitors to three dedicated landing pages, each with its own hero form,
-// pricing, process, FAQs and thank-you URL:
+// visitors to dedicated landing pages, each with its own hero form, pricing,
+// process, FAQs and thank-you URL. Google Ads ad group → page map is in
+// docs/google-ads/01-campaign-build.md.
 //
-//   /house-demolition   → src/lib/pages/house-demolition.ts
-//   /strip-out          → src/lib/pages/strip-out.ts
-//   /rubbish-removal    → src/lib/pages/rubbish-removal.ts
+//   /partial-demolition            → src/lib/pages/partial-demolition.ts
+//   /strip-out                     → src/lib/pages/strip-out.ts
+//   /kitchen-demolition            → src/lib/pages/kitchen-bathroom.ts
+//   /bathroom-demolition           → src/lib/pages/kitchen-bathroom.ts
+//   /garage-shed-driveway-removal  → src/lib/pages/garage-shed-driveway.ts
+//   /rubbish-removal               → src/lib/pages/rubbish-removal.ts
+//   /house-demolition              → src/lib/pages/house-demolition.ts (not in ads at launch)
 //
 // This file holds what every page shares: business facts, prices, the quote
 // form options, the main-page (hub) content, reviews and the footer.
@@ -102,8 +109,12 @@ export const timingOptions = [
  * right one from the page it was submitted on.
  */
 export const THANK_YOU_PATHS: Record<string, string> = {
+  "/partial-demolition": "/thank-you-partial-demolition",
   "/house-demolition": "/thank-you-house-demolition",
   "/strip-out": "/thank-you-strip-out",
+  "/kitchen-demolition": "/thank-you-kitchen-demolition",
+  "/bathroom-demolition": "/thank-you-bathroom-demolition",
+  "/garage-shed-driveway-removal": "/thank-you-garage-shed-driveway",
   "/rubbish-removal": "/thank-you-rubbish-removal",
 };
 
@@ -117,13 +128,34 @@ export function thankYouPathFor(pathname: string): string {
  * Anything not listed (the hub at "/") falls back to the generic label.
  */
 export const LEAD_SOURCES: Record<string, string> = {
+  "/partial-demolition": "Partial Demolition Landing Page",
   "/house-demolition": "House Demolition Landing Page",
   "/strip-out": "Strip-Out Landing Page",
+  "/kitchen-demolition": "Kitchen Demolition Landing Page",
+  "/bathroom-demolition": "Bathroom Demolition Landing Page",
+  "/garage-shed-driveway-removal": "Garage Shed Driveway Landing Page",
   "/rubbish-removal": "Rubbish Removal Landing Page",
 };
 
 export function leadSourceFor(pathname: string): string {
   return LEAD_SOURCES[pathname.replace(/\/$/, "")] ?? "Website Landing Page Quote Form";
+}
+
+/**
+ * Services ticked in the quote form when it loads on each landing page, so the
+ * visitor has one less field to fill and GHL gets a clean service tag. They
+ * can still change it.
+ */
+export const DEFAULT_SERVICES: Record<string, string[]> = {
+  "/partial-demolition": ["partial-demolition"],
+  "/strip-out": ["strip-out"],
+  "/kitchen-demolition": ["kitchen-demolition"],
+  "/bathroom-demolition": ["bathroom-demolition"],
+  "/rubbish-removal": ["rubbish-removal"],
+};
+
+export function defaultServicesFor(pathname: string): string[] {
+  return DEFAULT_SERVICES[pathname.replace(/\/$/, "")] ?? [];
 }
 
 /* ============================ SHARED CLAIMS ============================ */
@@ -154,7 +186,7 @@ export const stats = [
 export const hub = {
   hero: {
     eyebrow: "Metro · Melbourne demolition",
-    lines: ["House demolition.", "Strip-outs."],
+    lines: ["Partial demolition.", "Strip-outs."],
     ribbon: "Rubbish removal.",
     sub: "One Melbourne crew for the part of the job nobody else wants to do. Fixed, itemised price in writing within 24 hours — and the part you're keeping stays protected.",
     pick: "Pick your job",
@@ -181,14 +213,14 @@ export const hub = {
  */
 export const servicePages = [
   {
-    path: "/house-demolition",
+    path: "/partial-demolition",
     n: "01",
     icon: "excavator",
-    title: "House & Partial Demolition",
-    short: "House demolition",
+    title: "Partial Demolition",
+    short: "Partial demolition",
     blurb:
-      "Rear-of-house and extension demolition, wall removals and full knock-down rebuilds — permits, disconnections and asbestos handled.",
-    covers: ["Partial & rear-of-house", "Load-bearing wall removal", "Full house knock-down"],
+      "Rear-of-house and extension demolition, wall removals, garages, sheds and driveways — the part you're keeping stays propped and protected.",
+    covers: ["Rear-of-house & extensions", "Wall removal", "Garages, sheds & driveways"],
     from: `Walls from ${PRICING.wall}`,
     image: "/images/excavator-wall.jpg",
     imageAlt: "An excavator taking down a brick wall",
@@ -287,7 +319,7 @@ export type Testimonial = {
   quote: string;
   rating: number;
   /** Which landing pages show this review. The hub shows them all. */
-  pages: ("house-demolition" | "strip-out" | "rubbish-removal")[];
+  pages: ServiceSlug[];
 };
 
 /**
@@ -304,7 +336,7 @@ export const testimonials: Testimonial[] = [
     quote:
       "They took the back half of our house off while we were still living in the front. Everything was propped and sealed off properly, and the price on the quote was exactly what we paid.",
     rating: 5,
-    pages: ["house-demolition"],
+    pages: ["partial-demolition", "house-demolition"],
   },
   {
     name: "Daniel M.",
@@ -320,7 +352,7 @@ export const testimonials: Testimonial[] = [
     quote:
       "Kitchen out and the wall to the dining room gone in two days. They found asbestos in the old splashback and just dealt with it — no surprise invoice.",
     rating: 5,
-    pages: ["strip-out", "house-demolition"],
+    pages: ["kitchen-demolition", "partial-demolition", "strip-out", "house-demolition"],
   },
   {
     name: "Tom W.",
@@ -328,7 +360,7 @@ export const testimonials: Testimonial[] = [
     quote:
       "Old brick garage and the slab under it, gone in a day. Neighbours were told in advance and the driveway was left cleaner than it's been in years.",
     rating: 5,
-    pages: ["house-demolition", "rubbish-removal"],
+    pages: ["garage-shed-driveway-removal", "house-demolition", "rubbish-removal"],
   },
   {
     name: "Elena V.",
@@ -336,7 +368,7 @@ export const testimonials: Testimonial[] = [
     quote:
       "Third-floor unit with one tiny lift and they still had it stripped by knock-off. Floors and hallway covered the whole way. Couldn't fault them.",
     rating: 5,
-    pages: ["strip-out"],
+    pages: ["bathroom-demolition", "strip-out"],
   },
   {
     name: "Marcus L.",
@@ -372,8 +404,21 @@ export const testimonials: Testimonial[] = [
   },
 ];
 
-export function reviewsFor(page: Testimonial["pages"][number]) {
-  return testimonials.filter((t) => t.pages.includes(page)).slice(0, 6);
+/** Pages that borrow another page's reviews rather than having their own tags. */
+const REVIEW_FALLBACK: Partial<Record<ServiceSlug, ServiceSlug>> = {
+  "partial-demolition": "house-demolition",
+  "kitchen-demolition": "strip-out",
+  "bathroom-demolition": "strip-out",
+  "garage-shed-driveway-removal": "house-demolition",
+};
+
+export function reviewsFor(page: ServiceSlug) {
+  const own = testimonials.filter((t) => t.pages.includes(page));
+  const fallback = REVIEW_FALLBACK[page];
+  const borrowed = fallback
+    ? testimonials.filter((t) => t.pages.includes(fallback) && !own.includes(t))
+    : [];
+  return [...own, ...borrowed].slice(0, 6);
 }
 
 /* =========================== SERVICE AREA =========================== */

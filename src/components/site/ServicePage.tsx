@@ -25,7 +25,7 @@ import { SITE, quoteForm, reviewsFor } from "@/lib/site-data";
 import type { ServicePageContent } from "@/lib/pages/types";
 
 /**
- * One service landing page (house demolition, strip-out or rubbish removal),
+ * One service landing page (partial demolition, strip-out, rubbish removal, …),
  * rendered from its content file. Same section line-up as the Demo Bros
  * service pages; every section either proves the offer or points back at the
  * form.

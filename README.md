@@ -6,19 +6,24 @@ pages — rebuilt in the Metro brand (2026 brand guidelines).
 
 ## Pages
 
-| Route | What it is |
-| --- | --- |
-| `/` | Main landing page (hub) — general hero, links to the three services |
-| `/house-demolition` | House & partial demolition landing page |
-| `/strip-out` | Strip-outs landing page |
-| `/rubbish-removal` | Rubbish removal landing page |
-| `/thank-you` | Shown after a quote from the main page |
-| `/thank-you-house-demolition`, `/thank-you-strip-out`, `/thank-you-rubbish-removal` | One per service, so each can fire its own ad conversion |
-| any other URL | Branded 404 (`src/app/not-found.tsx`) |
+| Route | Google Ads ad groups | What it is |
+| --- | --- | --- |
+| `/` | — | Main landing page (hub), links to the three core services |
+| `/partial-demolition` | Partial Demolition, Extension, Brand | Core money page: rear-of-house, extensions, walls |
+| `/strip-out` | Strip Out, Tile Removal | Strip-outs landing page |
+| `/kitchen-demolition` | Kitchen | Strip-out page with kitchen hero, prices and FAQs |
+| `/bathroom-demolition` | Bathroom | Strip-out page with bathroom hero, prices and FAQs |
+| `/garage-shed-driveway-removal` | Garage, Shed, Driveway | Backyard demolition: outbuildings, slabs, driveways |
+| `/rubbish-removal` | Rubbish Removal | Rubbish removal landing page |
+| `/house-demolition` | — (not in ads at launch) | Full house demolition |
+| `/thank-you-*` | — | One per landing page; each pushes `generate_lead` to the dataLayer |
+| any other URL | — | Branded 404 (`src/app/not-found.tsx`) |
 
-The quote form redirects to the thank-you page matching the page it was sent
-from (inline form or pop-up). Each thank-you page also pushes a
-`generate_lead` event to the GTM `dataLayer` with the form source.
+The quote form pre-ticks the page's service (`DEFAULT_SERVICES` in
+`site-data.ts`), sends a `source` label to GHL (`LEAD_SOURCES`) and redirects to
+the page's own thank-you URL (`THANK_YOU_PATHS`).
+
+Google Ads build sheet and start-to-finish task list: `docs/google-ads/`.
 
 ## Running it
 
