@@ -19,7 +19,7 @@ What to take from it:
 - **Rubbish removal gets cheap clicks but converts at under 3%.** Lots of low-value, price-shopping searches. Metro tests it at a capped budget (20% of demand per the audit) and has to prove job value before it scales.
 - **Full house demolition is the most expensive lead.** Metro has no full-house keywords in the audit, so there's no full-house campaign at launch. The `/house-demolition` page stays live, but no ads point to it.
 - **All three campaigns are "Limited by budget" on Maximise clicks.** That's fine while you're collecting data. Demo Bros' Partial & Strip campaign has enough conversions now (~35–40/month) to test Maximise conversions. Raise that with John separately; it's not part of this build.
-- **One conversion goal: Submit lead forms (Website).** Metro uses the same goal, plus calls (section 5).
+- **One conversion goal: Submit lead forms (Website).** Metro uses the same goal, plus calls (section 6).
 
 ## 2. Campaign structure
 
