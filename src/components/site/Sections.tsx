@@ -1,14 +1,14 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { MapPin } from "lucide-react";
+import { Building2, HardHat, House, Landmark, MapPin } from "lucide-react";
 
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
 import { CtaButton } from "./CtaButton";
 import { useQuoteModal } from "./QuoteModal";
 import { GoogleRatingBadge, Stars } from "./GoogleRating";
-import { Bricks, IconTile } from "./Brand";
+import { Bricks } from "./Brand";
 import {
   CTA_LABEL,
   SITE,
@@ -82,27 +82,39 @@ export function Stats() {
   );
 }
 
-export function Audiences({ index }: { index?: string }) {
+const AUDIENCE_ICONS = {
+  home: House,
+  builder: HardHat,
+  developer: Building2,
+  government: Landmark,
+} as const;
+
+/** "Who we work with": simple icon + label strip, laid out like the Demo Bros section. */
+export function Audiences({ index: _index }: { index?: string }) {
   return (
-    <section className="bg-paper py-16 sm:py-20 lg:py-24">
+    <section className="border-y border-ink/10 bg-plaster py-16 sm:py-20">
       <div className="container-wide">
-        <SectionHeading index={index} eyebrow={audiences.eyebrow} title={audiences.title} />
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:mt-12 lg:grid-cols-4">
-          {audiences.items.map((a, i) => (
-            <Reveal key={a.label} delay={i * 0.06}>
-              <div className="group h-full border-2 border-ink/10 bg-white p-6 transition-colors duration-300 hover:border-ink">
-                <IconTile
-                  name={a.icon}
-                  tone="ink"
-                  className="transition-colors duration-300 group-hover:bg-hivis group-hover:text-ink"
-                />
-                <h3 className="font-display mt-6 text-lg text-ink">{a.label}</h3>
-                <p className="mt-2.5 text-[0.95rem] leading-relaxed text-muted-foreground">
-                  {a.detail}
-                </p>
-              </div>
-            </Reveal>
-          ))}
+        <Reveal>
+          <h2 className="font-display text-center text-2xl text-ink uppercase sm:text-3xl">
+            {audiences.title}
+          </h2>
+        </Reveal>
+        <div className="mt-10 grid grid-cols-2 gap-y-10 sm:mt-12 lg:grid-cols-4">
+          {audiences.items.map((a, i) => {
+            const Icon = AUDIENCE_ICONS[a.icon];
+            return (
+              <Reveal
+                key={a.label}
+                delay={i * 0.06}
+                className={`flex flex-col items-center gap-4 px-4 text-center ${
+                  i % 2 === 1 ? "border-l border-ink/10" : ""
+                } ${i === 2 ? "lg:border-l lg:border-ink/10" : ""}`}
+              >
+                <Icon className="h-14 w-14 text-ink" strokeWidth={1.25} aria-hidden="true" />
+                <span className="text-base font-bold text-ink">{a.label}</span>
+              </Reveal>
+            );
+          })}
         </div>
       </div>
     </section>

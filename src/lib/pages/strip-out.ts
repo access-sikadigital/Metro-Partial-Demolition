@@ -237,7 +237,7 @@ export const stripOut: ServicePageContent = {
   },
 
   builders: {
-    eyebrow: "Builders & designers",
+    eyebrow: "Builders & trades",
     title: "Why builders keep calling.",
     lead: "Renovation strip outs and commercial defits sequenced to your program, so your trades never stand around waiting on demo.",
     points: [

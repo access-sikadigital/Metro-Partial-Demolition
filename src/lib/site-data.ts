@@ -283,33 +283,16 @@ export const sharedGuarantees = [
 /* ============================ AUDIENCES ============================ */
 
 export const audiences = {
-  eyebrow: "Who we work with",
-  title: "Jobs like yours, every week.",
+  eyebrow: "Our clients",
+  title: "Who we work with",
+  // Same four as Demo Bros. No architects/designers: they don't hire demolition crews.
   items: [
-    {
-      icon: "stairs",
-      label: "Homeowners",
-      detail:
-        "Renovations, extensions and clear-outs — often while the family is still living there.",
-    },
-    {
-      icon: "builder",
-      label: "Builders",
-      detail:
-        "Demolition and clean-ups sequenced to your program, so your trades roll straight on.",
-    },
-    {
-      icon: "floor-plan",
-      label: "Architects & designers",
-      detail: "Your drawings and your cut line, to the millimetre — with photos at every stage.",
-    },
-    {
-      icon: "tower-crane",
-      label: "Developers",
-      detail: "Knock-downs and staged works across multiple sites, quoted tender-ready.",
-    },
+    { icon: "home", label: "Homeowners" },
+    { icon: "builder", label: "Builders" },
+    { icon: "developer", label: "Developers" },
+    { icon: "government", label: "Government" },
   ],
-};
+} as const;
 
 /* ============================== REVIEWS ============================== */
 
@@ -372,9 +355,9 @@ export const testimonials: Testimonial[] = [
   },
   {
     name: "Marcus L.",
-    role: "Architect, Fitzroy",
+    role: "Builder, Fitzroy",
     quote:
-      "Worked to our drawings to the millimetre and photographed every stage. That documentation alone saves us hours with clients.",
+      "Took out exactly what was on the plans and photographed every stage. That documentation alone saves us hours with our clients.",
     rating: 5,
     pages: ["house-demolition", "strip-out"],
   },
