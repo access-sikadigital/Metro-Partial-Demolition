@@ -10,7 +10,7 @@ import { QuoteForm } from "./QuoteForm";
 import { FloatingContact } from "./FloatingContact";
 import { StickyMobileCta } from "./StickyMobileCta";
 import { GoogleRatingBadge } from "./GoogleRating";
-import { BrandIcon, Bricks, HazardBand, IconTile } from "./Brand";
+import { Bricks, HazardBand, IconTile } from "./Brand";
 import {
   Audiences,
   CtaRow,
@@ -133,16 +133,20 @@ function Hero({ page }: { page: ServicePageContent }) {
             {hero.sub}
           </motion.p>
 
+          {/* Everything this page covers, by name only, so someone who searched
+              "brick removal" sees at a glance they've landed in the right place.
+              Same list as the photo cards in the services section below. */}
           <motion.ul
             variants={rise}
-            className="mt-7 grid gap-3 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-4"
+            aria-label="What we do"
+            className="mt-7 grid gap-x-6 gap-y-2.5 sm:grid-cols-2"
           >
-            {hero.bullets.map((b) => (
-              <li key={b.label} className="flex items-start gap-3">
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center bg-white/[0.07] text-hivis ring-1 ring-white/10">
-                  <BrandIcon name={b.icon} className="h-5 w-5" />
+            {page.services.items.map((item) => (
+              <li key={item.slug} className="flex items-start gap-2.5">
+                <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center bg-hivis text-ink">
+                  <Check className="h-3.5 w-3.5" strokeWidth={3} />
                 </span>
-                <span className="pt-1.5 text-[0.92rem] leading-snug text-paper/85">{b.label}</span>
+                <span className="text-[0.95rem] leading-snug font-semibold text-paper">{item.title}</span>
               </li>
             ))}
           </motion.ul>
