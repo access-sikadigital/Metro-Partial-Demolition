@@ -10,10 +10,16 @@ import { PRICING, SITE, TRUST } from "@/lib/site-data";
 // PLACEHOLDER — production domain. Open Graph / Twitter need absolute URLs.
 const SITE_URL = "https://metropartialdemolition.com.au";
 
-// PLACEHOLDER — Metro's own Google Tag Manager container (GTM-XXXXXXX).
-// Empty on purpose: the Demo Bros container must never fire on another
-// client's site. While empty, no GTM script is rendered at all.
-const GTM_ID = "";
+// Metro's own Google Tag Manager container (GTM-XXXXXXX), set as
+// NEXT_PUBLIC_GTM_ID in Vercel. Never the Demo Bros container. While it's
+// unset, no GTM script is rendered at all. GA4, Google Ads, Clarity and call
+// tracking all load through GTM — see docs/google-ads/03-tracking-setup.md.
+const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID?.trim() ?? "";
+
+// Optional meta-tag verification. The preferred route is a DNS TXT record in
+// GoDaddy; these are only a fallback if DNS verification isn't possible.
+const GSC_VERIFICATION = process.env.NEXT_PUBLIC_GSC_VERIFICATION?.trim();
+const BING_VERIFICATION = process.env.NEXT_PUBLIC_BING_VERIFICATION?.trim();
 
 const TITLE = `${SITE.name} | Melbourne Demolition, Strip-Outs & Rubbish Removal`;
 const DESCRIPTION = `Melbourne house and partial demolition, strip-outs from ${PRICING.kitchen} and rubbish removal from ${PRICING.minLoad}. One crew, a fixed itemised price in writing within 24 hours — and the part you're keeping stays protected.`;
@@ -54,6 +60,10 @@ export const metadata: Metadata = {
     apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
   },
   manifest: "/site.webmanifest",
+  verification: {
+    ...(GSC_VERIFICATION ? { google: GSC_VERIFICATION } : {}),
+    ...(BING_VERIFICATION ? { other: { "msvalidate.01": BING_VERIFICATION } } : {}),
+  },
 };
 
 export const viewport: Viewport = {

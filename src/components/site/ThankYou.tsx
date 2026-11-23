@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { Check } from "lucide-react";
 import { SITE } from "@/lib/site-data";
+import { takePendingLead } from "@/lib/conversion";
 import { CtaButton } from "./CtaButton";
 import { BrandIcon } from "./Brand";
 
@@ -10,13 +11,30 @@ import { BrandIcon } from "./Brand";
  * Shown after a successful quote submission. Each landing page redirects to
  * its OWN thank-you URL (/thank-you, /thank-you-house-demolition, …) so ad
  * platforms can fire a distinct conversion per service; on mount it also
- * pushes `generate_lead` to the GTM dataLayer, tagged with the form source.
+ * pushes `generate_lead` to the GTM dataLayer, tagged with the form source,
+ * lead id and hashed email/phone — once per submission, never on refresh.
  */
 export function ThankYou({ source, homePath = "/" }: { source: string; homePath?: string }) {
   useEffect(() => {
+    const lead = takePendingLead();
+    // Refresh or direct visit: no new lead, so no conversion.
+    if (lead === null) return;
     const w = window as unknown as { dataLayer?: Record<string, unknown>[] };
     w.dataLayer = w.dataLayer || [];
-    w.dataLayer.push({ event: "generate_lead", form_location: source });
+    w.dataLayer.push(
+      lead === "unknown"
+        ? { event: "generate_lead", form_location: source }
+        : {
+            event: "generate_lead",
+            form_location: source,
+            lead_id: lead.lead_id,
+            service: lead.service,
+            user_data: {
+              sha256_email_address: lead.sha256_email_address,
+              sha256_phone_number: lead.sha256_phone_number,
+            },
+          },
+    );
   }, [source]);
 
   return (

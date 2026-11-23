@@ -1,2 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /thank-you
+
+Sitemap: https://metropartialdemolition.com.au/sitemap.xml

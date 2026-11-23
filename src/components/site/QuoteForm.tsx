@@ -19,6 +19,7 @@ import {
 import { quoteSchema, type QuoteValues } from "@/lib/quote-schema";
 import { submitLead } from "@/lib/lead.actions";
 import { captureTracking, getTracking } from "@/lib/tracking";
+import { newLeadId, stashLeadForThankYou } from "@/lib/conversion";
 import { uploadPhotos, validateFiles } from "@/lib/photo-upload";
 import { cn } from "@/lib/utils";
 
@@ -138,6 +139,7 @@ export function QuoteForm({
     }
 
     const failMessage = `Something went wrong sending your request. Please try again, or call us on ${SITE.phone} and we'll sort it straight away.`;
+    const leadId = newLeadId();
     try {
       // Server Action — runs on the server, so GHL_WEBHOOK_URL never reaches
       // the browser and the POST to GoHighLevel isn't blocked by CORS.
@@ -151,11 +153,18 @@ export function QuoteForm({
         pageUrl: window.location.href,
         referrer: document.referrer,
         tracking: getTracking(),
+        leadId,
       });
       if (!result.ok) {
         setErrorMsg(failMessage);
         return;
       }
+      await stashLeadForThankYou({
+        leadId,
+        email: values.email,
+        phone: values.phone,
+        services: values.services,
+      });
       // Each landing page has its own thank-you URL (a conversion per service).
       router.push(thankYouPathFor(window.location.pathname));
     } catch {

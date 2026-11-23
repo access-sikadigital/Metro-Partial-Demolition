@@ -82,6 +82,6 @@ Everything below is a **placeholder** — search the code for `PLACEHOLDER`:
 - [ ] **Reviews** — the testimonials are sample copy written for the design.
       Replace them with real, verified Google reviews before going live.
 - [ ] Production domain — `SITE_URL` in `src/app/layout.tsx`
-- [ ] Metro's own Google Tag Manager ID — `GTM_ID` in `src/app/layout.tsx`
+- [ ] Metro's own Google Tag Manager ID — set `NEXT_PUBLIC_GTM_ID` in Vercel (see `docs/google-ads/03-tracking-setup.md`)
       (empty = GTM is not loaded at all)
 - [x] `GHL_WEBHOOK_URL` and `BLOB_READ_WRITE_TOKEN` — set in Vercel (see `.env.example`)
