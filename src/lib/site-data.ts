@@ -67,7 +67,7 @@ export const PRICING = {
 } as const;
 
 /** One button label, used everywhere. */
-export const CTA_LABEL = "Get my fixed price";
+export const CTA_LABEL = "Get a free quote";
 
 /* ============================== QUOTE FORM ============================== */
 
