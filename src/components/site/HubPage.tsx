@@ -34,7 +34,7 @@ export function HubPage() {
         title={`${TRUST.rating} stars from jobs across Melbourne.`}
         items={testimonials.slice(0, 6)}
       >
-        <ServiceButtons className="mt-10 lg:mt-12" tone="dark" />
+        <ServiceButtons className="mt-10 justify-center lg:mt-12" tone="dark" />
       </Reviews>
       <ServiceArea index="05" />
       <FinalCtaBand
@@ -145,23 +145,28 @@ function HubHero() {
                 <li key={s.path}>
                   <Link
                     href={s.path}
-                    className="group flex items-center gap-4 px-5 py-4 transition-colors hover:bg-hivis sm:px-7 sm:py-5"
+                    className="group flex items-center gap-4 px-4 py-3.5 transition-colors hover:bg-plaster sm:px-6 sm:py-4"
                   >
-                    <IconTile
-                      name={s.icon}
-                      tone="ink"
-                      className="h-12 w-12 transition-colors group-hover:bg-paper group-hover:text-ink"
-                      iconClassName="h-7 w-7"
-                    />
+                    {/* Photo of the job instead of an icon, so people see what each service is.
+                        Swap the file at s.image to change it. */}
+                    <span className="relative h-20 w-28 shrink-0 overflow-hidden bg-ink sm:h-24 sm:w-36">
+                      <img
+                        src={s.image}
+                        alt=""
+                        aria-hidden="true"
+                        loading="eager"
+                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    </span>
                     <span className="min-w-0 flex-1">
                       <span className="font-display block text-[0.95rem] leading-tight sm:text-base">
                         {s.title}
                       </span>
-                      <span className="mt-1 block text-sm text-muted-foreground group-hover:text-ink/75">
+                      <span className="mt-1.5 inline-block rounded-sm bg-go/10 px-2 py-0.5 text-sm font-semibold text-go">
                         {s.from}
                       </span>
                     </span>
-                    <span className="flex h-9 w-9 shrink-0 items-center justify-center bg-ink text-hivis transition-transform duration-300 group-hover:translate-x-1">
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center bg-go text-white transition-transform duration-300 group-hover:translate-x-1">
                       <ArrowRight className="h-4 w-4" strokeWidth={2.5} />
                     </span>
                   </Link>
@@ -234,10 +239,10 @@ function ServiceShowcase() {
                     ))}
                   </ul>
                   <div className="mt-6 flex flex-1 flex-wrap items-end justify-between gap-4 border-t border-ink/10 pt-5">
-                    <span className="font-display text-sm text-ink">
-                      <span className="ribbon">{p.from}</span>
+                    <span className="font-display inline-block rounded-sm bg-go/10 px-2.5 py-1.5 text-sm text-go ring-1 ring-go/25">
+                      {p.from}
                     </span>
-                    <span className="chamfer inline-flex items-center gap-2 bg-ink px-4 py-2.5 text-[0.72rem] font-bold tracking-[0.08em] text-paper uppercase transition-colors duration-300 [--cut:8px] group-hover:bg-hivis group-hover:text-ink">
+                    <span className="chamfer inline-flex items-center gap-2 bg-go px-4 py-2.5 text-[0.72rem] font-bold tracking-[0.08em] text-white uppercase transition-colors duration-300 [--cut:8px] group-hover:bg-ink">
                       View page
                       <ArrowRight
                         className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1"

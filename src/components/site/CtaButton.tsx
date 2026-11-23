@@ -18,7 +18,7 @@ const ctaVariants = cva(
   {
     variants: {
       variant: {
-        primary: "bg-hivis text-ink",
+        primary: "bg-go text-white",
         dark: "bg-ink text-paper",
         outlineLight: "bg-white/5 text-paper ring-1 ring-inset ring-paper/35",
         outlineDark: "bg-transparent text-ink ring-1 ring-inset ring-ink/30",
@@ -42,8 +42,8 @@ const STYLE: Record<CtaVariant, { fill: string; hoverText: string; cell: string 
   // button on off-black bands, where an unframed cell vanished into the page.
   primary: {
     fill: "bg-ink",
-    hoverText: "group-hover/cta:text-hivis",
-    cell: "bg-ink text-hivis ring-[3px] ring-inset ring-hivis",
+    hoverText: "group-hover/cta:text-go",
+    cell: "bg-ink text-go ring-[3px] ring-inset ring-go",
   },
   // Same reasoning in reverse: this variant sits on the yellow band.
   dark: {
@@ -93,11 +93,19 @@ export function CtaButton({
   href,
   ...rest
 }: CtaButtonProps) {
-  const v: CtaVariant = variant ?? "primary";
+  // Call buttons are conversion actions too, so the outline styles become the
+  // solid green primary whenever the button dials the phone.
+  // The black "dark" style was getting lost on the yellow bands, so it renders as
+  // the green primary too: every quote, service and call button is the same green.
+  const v: CtaVariant =
+    variant === "dark" ||
+    (icon === "phone" && (variant === "outlineLight" || variant === "outlineDark"))
+      ? "primary"
+      : (variant ?? "primary");
   const s: CtaSize = size ?? "lg";
   const style = STYLE[v];
   const Glyph = icon === "phone" ? Phone : ArrowRight;
-  const classes = cn(ctaVariants({ variant, size, fullWidth }), className);
+  const classes = cn(ctaVariants({ variant: v, size, fullWidth }), className);
 
   const inner = (
     <>

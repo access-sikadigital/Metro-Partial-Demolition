@@ -70,6 +70,7 @@
   --color-plaster: var(--plaster);
   --color-paper: var(--paper);
   --color-hivis: var(--hivis);
+  --color-go: var(--go);
 }
 
 :root {
@@ -79,6 +80,8 @@
   --plaster: #f2f1ef;
   --paper: #fefff7;
   --hivis: #fbb428;
+  /* Conversion green: every call-to-action and call button, so they stand out from the brand yellow. */
+  --go: #109d3a; /* same green as Demo Bros */
 
   --background: var(--paper);
   --foreground: var(--ink);

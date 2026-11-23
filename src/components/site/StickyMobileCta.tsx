@@ -35,14 +35,14 @@ export function StickyMobileCta() {
       <a
         href={SITE.phoneHref}
         aria-label={`Call ${SITE.phone}`}
-        className="flex w-[4.25rem] shrink-0 items-center justify-center bg-ink text-hivis"
+        className="flex w-[4.25rem] shrink-0 items-center justify-center bg-ink text-go"
       >
         <Phone className="h-5 w-5" />
       </a>
       <button
         type="button"
         onClick={openQuote}
-        className="flex flex-1 items-center justify-center gap-2 bg-hivis px-5 py-4 text-[0.85rem] font-bold tracking-[0.08em] text-ink uppercase"
+        className="flex flex-1 items-center justify-center gap-2 bg-go px-5 py-4 text-[0.85rem] font-bold tracking-[0.08em] text-white uppercase"
       >
         {CTA_LABEL}
         <ArrowRight className="h-4 w-4" strokeWidth={2.5} />

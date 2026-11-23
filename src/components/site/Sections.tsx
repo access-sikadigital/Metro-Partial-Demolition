@@ -125,47 +125,46 @@ export function Reviews({
   children?: ReactNode;
 }) {
   return (
-    <section
-      id="reviews"
-      className="relative scroll-mt-20 overflow-hidden bg-ink py-16 text-paper sm:py-20 lg:py-24"
-    >
-      <div aria-hidden className="pattern-grid absolute inset-0" />
+    <section id="reviews" className="relative scroll-mt-20 overflow-hidden bg-white py-16 text-ink sm:py-20 lg:py-24">
       <div className="container-wide relative">
-        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-          <SectionHeading index={index} tone="dark" eyebrow="What our clients say" title={title} />
+        <div className="flex flex-col items-center gap-5 text-center">
           <Reveal>
-            <GoogleRatingBadge tone="dark" />
+            <GoogleRatingBadge tone="light" />
           </Reveal>
+          <SectionHeading index={index} eyebrow="What our clients say" title={title} align="center" />
         </div>
+      </div>
 
-        <div className="mt-10 grid gap-4 md:grid-cols-2 lg:mt-12 lg:grid-cols-3">
-          {items.map((t, i) => (
-            <Reveal key={t.name} delay={(i % 3) * 0.06}>
-              <figure className="chamfer flex h-full flex-col bg-white/[0.05] p-6 ring-1 ring-white/10 [--cut:20px] sm:p-7">
-                <div className="flex items-center justify-between">
-                  <Stars count={t.rating} />
-                  <span className="font-display text-4xl leading-none text-hivis/30" aria-hidden>
-                    “
-                  </span>
-                </div>
-                <blockquote className="mt-4 flex-1 text-[0.97rem] leading-relaxed text-paper/80">
-                  {t.quote}
-                </blockquote>
-                <figcaption className="mt-6 flex items-center gap-3 border-t border-white/10 pt-5">
-                  <span className="font-display flex h-10 w-10 shrink-0 items-center justify-center bg-hivis text-sm text-ink">
-                    {t.name.charAt(0)}
-                  </span>
-                  <span>
-                    <span className="block font-bold text-paper">{t.name}</span>
-                    <span className="block text-sm text-paper/55">{t.role}</span>
-                  </span>
-                </figcaption>
-              </figure>
-            </Reveal>
+      {/* Auto-scrolling strip, duplicated once so the -50% marquee loops seamlessly.
+          Pauses on hover; reduced-motion users get a static, swipeable row (globals.css). */}
+      <div className="marquee-viewport mt-10 lg:mt-12">
+        <div className="animate-marquee flex w-max gap-4 px-4 [--marquee-duration:60s] hover:[animation-play-state:paused] sm:gap-5">
+          {[...items, ...items].map((t, i) => (
+            <figure
+              key={`${t.name}-${i}`}
+              aria-hidden={i >= items.length || undefined}
+              className="flex w-[18.5rem] shrink-0 flex-col rounded-lg border border-ink/10 bg-white p-6 shadow-sm sm:w-[22rem]"
+            >
+              <Stars count={t.rating} />
+              <blockquote className="mt-4 flex-1 text-[0.95rem] leading-relaxed text-ink/80">
+                &ldquo;{t.quote}&rdquo;
+              </blockquote>
+              <figcaption className="mt-6 flex items-center gap-3">
+                <span className="font-display flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-plaster text-sm text-ink">
+                  {t.name.charAt(0)}
+                </span>
+                <span>
+                  <span className="block font-bold text-ink">{t.name}</span>
+                  <span className="block text-sm text-ink/55">{t.role}</span>
+                </span>
+              </figcaption>
+            </figure>
           ))}
         </div>
+      </div>
 
-        {children ?? <CtaRow tone="dark" className="mt-10 lg:mt-12" />}
+      <div className="container-wide relative">
+        {children ?? <CtaRow tone="light" className="mt-10 justify-center lg:mt-12" />}
       </div>
     </section>
   );
@@ -208,7 +207,7 @@ export function ServiceArea({ index }: { index?: string }) {
   );
 }
 
-/** Yellow closing band with the hard-hat photograph. */
+/** Yellow closing band with a demolition photograph. */
 export function FinalCtaBand({
   eyebrow = "Ready when you are",
   title,
@@ -246,8 +245,8 @@ export function FinalCtaBand({
         </div>
         <div className="relative hidden min-h-[22rem] lg:block">
           <img
-            src="/images/hard-hat.jpg"
-            alt="A yellow Metro Partial Demolition hard hat hanging on a concrete wall"
+            src="/images/excavator-wall.jpg"
+            alt="An excavator taking down a brick wall"
             loading="lazy"
             className="absolute inset-0 h-full w-full object-cover"
           />
