@@ -28,15 +28,15 @@ export function HubPage() {
       <Stats />
       <ServiceShowcase />
       <WhyMetro />
-      <Audiences index="03" />
+      <Audiences />
       <Reviews
-        index="04"
+        index="03"
         title={`${TRUST.rating} stars from jobs across Melbourne.`}
         items={testimonials.slice(0, 6)}
       >
         <ServiceButtons className="mt-10 justify-center lg:mt-12" tone="dark" />
       </Reviews>
-      <ServiceArea index="05" />
+      <ServiceArea index="04" />
       <FinalCtaBand
         eyebrow={hub.finalCta.eyebrow}
         title={hub.finalCta.title}

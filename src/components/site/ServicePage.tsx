@@ -51,7 +51,7 @@ export function ServicePage({ page }: { page: ServicePageContent }) {
       <Price page={page} index={next()} />
       <Feature page={page} index={next()} />
       {page.included && <Included page={page} index={next()} />}
-      <Audiences index={next()} />
+      <Audiences />
       <Process page={page} index={next()} />
       <Callout page={page} index={next()} />
       {page.timeline && <Timeline page={page} index={next()} />}
