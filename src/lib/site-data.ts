@@ -229,8 +229,8 @@ export const servicePages = [
       "Rear-of-house and extension demolition, wall removals, garages, sheds and driveways — the part you're keeping stays propped and protected.",
     covers: ["Rear-of-house & extensions", "Wall removal", "Garages, sheds & driveways"],
     from: `Walls from ${PRICING.wall}`,
-    image: "/images/excavator-wall.jpg",
-    imageAlt: "An excavator taking down a brick wall",
+    image: "/images/services/wall-removal.jpg",
+    imageAlt: "A Metro crew member removing an internal wall",
   },
   {
     path: "/strip-out",

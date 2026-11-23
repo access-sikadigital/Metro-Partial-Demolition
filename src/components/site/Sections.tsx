@@ -248,9 +248,6 @@ export function FinalCtaBand({
               {children ?? (
                 <div className="flex flex-col gap-3 sm:flex-row">
                   <QuoteCta variant="dark" />
-                  <CtaButton href={SITE.phoneHref} variant="outlineDark" icon="phone">
-                    Call {SITE.phone}
-                  </CtaButton>
                 </div>
               )}
             </div>
@@ -258,8 +255,8 @@ export function FinalCtaBand({
         </div>
         <div className="relative hidden min-h-[22rem] lg:block">
           <img
-            src="/images/excavator-wall.jpg"
-            alt="An excavator taking down a brick wall"
+            src="/images/services/internal-strip-out.jpg"
+            alt="A Metro crew member sweeping out a stripped-back room"
             loading="lazy"
             className="absolute inset-0 h-full w-full object-cover"
           />
@@ -289,10 +286,9 @@ export function QuoteCta({
   );
 }
 
-/** Quote + call, after the sections that should end on an action. */
+/** Quote button after the sections that should end on an action (calls go via the floating call button). */
 export function CtaRow({
   className = "",
-  tone = "light",
 }: {
   className?: string;
   tone?: "light" | "dark";
@@ -300,13 +296,6 @@ export function CtaRow({
   return (
     <Reveal className={`flex flex-col gap-3 sm:flex-row sm:items-center ${className}`}>
       <QuoteCta />
-      <CtaButton
-        href={SITE.phoneHref}
-        variant={tone === "dark" ? "outlineLight" : "outlineDark"}
-        icon="phone"
-      >
-        Call {SITE.phone}
-      </CtaButton>
     </Reveal>
   );
 }

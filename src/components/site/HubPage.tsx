@@ -10,7 +10,6 @@ import { CtaButton } from "./CtaButton";
 import { FloatingContact } from "./FloatingContact";
 import { GoogleRatingSticky } from "./GoogleRatingSticky";
 import { StickyMobileCta } from "./StickyMobileCta";
-import { GoogleRatingBadge } from "./GoogleRating";
 import { HazardBand, IconTile } from "./Brand";
 import { Audiences, FinalCtaBand, Reviews, ServiceArea, Stats, Ticker } from "./Sections";
 import { SITE, TRUST, hub, servicePages, sharedGuarantees, testimonials } from "@/lib/site-data";
@@ -67,9 +66,9 @@ function HubHero() {
     <section id="top" className="relative overflow-hidden bg-ink text-paper">
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <picture>
-          <source media="(min-width: 1024px)" srcSet="/images/excavator-wall.jpg" />
+          <source media="(min-width: 1024px)" srcSet="/images/services/internal-strip-out.jpg" />
           <img
-            src="/images/loader-overhead.jpg"
+            src="/images/services/internal-strip-out.jpg"
             alt=""
             className="animate-slow-zoom h-full w-full object-cover opacity-75 grayscale-[15%]"
           />
@@ -120,9 +119,6 @@ function HubHero() {
             </CtaButton>
           </motion.div>
 
-          <motion.div variants={rise} className="mt-8">
-            <GoogleRatingBadge tone="dark" />
-          </motion.div>
         </motion.div>
 
         {/* Three doors, right in the hero — the whole point of this page. */}
@@ -301,7 +297,7 @@ function WhyMetro() {
 /* ============================== HELPERS ============================== */
 
 /** One button per service page — used where the hub ends on an action. */
-function ServiceButtons({ className = "", tone }: { className?: string; tone: "dark" | "yellow" }) {
+function ServiceButtons({ className = "" }: { className?: string; tone: "dark" | "yellow" }) {
   return (
     <Reveal className={`flex flex-col flex-wrap gap-3 sm:flex-row ${className}`}>
       {servicePages.map((s) => (
@@ -314,14 +310,6 @@ function ServiceButtons({ className = "", tone }: { className?: string; tone: "d
           {s.short}
         </CtaButton>
       ))}
-      <CtaButton
-        href={SITE.phoneHref}
-        variant={tone === "yellow" ? "outlineDark" : "outlineLight"}
-        size="md"
-        icon="phone"
-      >
-        Call {SITE.phone}
-      </CtaButton>
     </Reveal>
   );
 }

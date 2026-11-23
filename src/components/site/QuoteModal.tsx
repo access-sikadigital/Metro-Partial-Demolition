@@ -104,7 +104,7 @@ function QuoteModal({ open, onClose }: { open: boolean; onClose: () => void }) {
               {/* ---------------- Left: the pitch ---------------- */}
               <div className="relative hidden overflow-hidden bg-ink p-9 text-paper lg:block">
                 <img
-                  src="/images/excavator-wall.jpg"
+                  src="/images/services/internal-strip-out.jpg"
                   alt=""
                   aria-hidden="true"
                   className="absolute inset-0 h-full w-full object-cover opacity-30 grayscale-[35%]"

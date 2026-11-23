@@ -10,7 +10,6 @@ import { QuoteForm } from "./QuoteForm";
 import { FloatingContact } from "./FloatingContact";
 import { GoogleRatingSticky } from "./GoogleRatingSticky";
 import { StickyMobileCta } from "./StickyMobileCta";
-import { GoogleRatingBadge } from "./GoogleRating";
 import { Bricks, HazardBand, IconTile } from "./Brand";
 import {
   Audiences,
@@ -154,7 +153,6 @@ function Hero({ page }: { page: ServicePageContent }) {
           </motion.ul>
 
           <motion.div variants={rise} className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
-            <GoogleRatingBadge tone="dark" />
             <a
               href={SITE.phoneHref}
               className="group flex items-center gap-3 text-paper transition-colors hover:text-hivis"
@@ -476,7 +474,7 @@ const PROCESS_PLACEHOLDERS = [
   "/images/breaker-wall.jpg",
   "/images/crew-shovel.jpg",
   "/images/services/wall-tile-removal.jpg",
-  "/images/loader-overhead.jpg",
+  "/images/services/kitchen-bathroom-laundry.jpg",
 ];
 
 /**
