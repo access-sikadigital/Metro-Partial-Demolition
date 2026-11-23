@@ -93,6 +93,9 @@ export const leadSchema = quoteSchema.extend({
   /* Cloudinary URLs for any photos the customer attached. */
   photoUrls: z.array(z.string().max(500)).max(5).optional().default([]),
   photoNote: z.string().max(300).optional().default(""),
+  /* Random id per submission. Sent to GHL and to the Google Ads conversion as
+     transaction_id, so the two can be matched and a lead is never counted twice. */
+  leadId: z.string().max(64).optional().default(""),
 });
 
 export type LeadInput = z.infer<typeof leadSchema>;

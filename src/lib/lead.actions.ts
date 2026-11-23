@@ -71,6 +71,7 @@ export async function submitLead(input: LeadInput): Promise<SubmitLeadResult> {
     page_url: data.pageUrl || "",
     referrer: data.referrer || "",
     submitted_at: new Date().toISOString(),
+    lead_id: data.leadId ?? "",
     // Flat keys only: the GHL trigger mapper cannot read nested values.
     photo_count: String(data.photoUrls?.length ?? 0),
     photo_urls: (data.photoUrls ?? []).join(" "),

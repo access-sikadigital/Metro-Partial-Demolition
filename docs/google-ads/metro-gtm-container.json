@@ -1,0 +1,643 @@
+{
+  "exportFormatVersion": 2,
+  "exportTime": "2026-11-23 09:00:00",
+  "containerVersion": {
+    "path": "accounts/0/containers/0/versions/0",
+    "accountId": "0",
+    "containerId": "0",
+    "containerVersionId": "0",
+    "container": {
+      "path": "accounts/0/containers/0",
+      "accountId": "0",
+      "containerId": "0",
+      "name": "Metro Partial Demolition",
+      "publicId": "GTM-XXXXXXX",
+      "usageContext": [
+        "WEB"
+      ]
+    },
+    "tag": [
+      {
+        "accountId": "0",
+        "containerId": "0",
+        "tagId": "1",
+        "name": "Google Tag - GA4",
+        "type": "googtag",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "tagId",
+            "value": "{{Const - GA4 Measurement ID}}"
+          }
+        ],
+        "firingTriggerId": [
+          "2147479573"
+        ],
+        "tagFiringOption": "ONCE_PER_EVENT"
+      },
+      {
+        "accountId": "0",
+        "containerId": "0",
+        "tagId": "2",
+        "name": "Conversion Linker",
+        "type": "gclidw",
+        "parameter": [
+          {
+            "type": "BOOLEAN",
+            "key": "enableCrossDomain",
+            "value": "false"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "enableUrlPassthrough",
+            "value": "false"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "enableCookieOverrides",
+            "value": "false"
+          }
+        ],
+        "firingTriggerId": [
+          "2147479573"
+        ],
+        "tagFiringOption": "ONCE_PER_EVENT"
+      },
+      {
+        "accountId": "0",
+        "containerId": "0",
+        "tagId": "3",
+        "name": "GA4 Event - generate_lead",
+        "type": "gaawe",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "eventName",
+            "value": "generate_lead"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "measurementIdOverride",
+            "value": "{{Const - GA4 Measurement ID}}"
+          },
+          {
+            "type": "LIST",
+            "key": "eventSettingsTable",
+            "list": [
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameter",
+                    "value": "form_location"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameterValue",
+                    "value": "{{DLV - form_location}}"
+                  }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameter",
+                    "value": "lead_id"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameterValue",
+                    "value": "{{DLV - lead_id}}"
+                  }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameter",
+                    "value": "service"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameterValue",
+                    "value": "{{DLV - service}}"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "firingTriggerId": [
+          "101"
+        ],
+        "tagFiringOption": "ONCE_PER_EVENT"
+      },
+      {
+        "accountId": "0",
+        "containerId": "0",
+        "tagId": "4",
+        "name": "GA4 Event - phone_click",
+        "type": "gaawe",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "eventName",
+            "value": "phone_click"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "measurementIdOverride",
+            "value": "{{Const - GA4 Measurement ID}}"
+          },
+          {
+            "type": "LIST",
+            "key": "eventSettingsTable",
+            "list": [
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameter",
+                    "value": "click_location"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "parameterValue",
+                    "value": "{{DLV - click_location}}"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "firingTriggerId": [
+          "102"
+        ],
+        "tagFiringOption": "ONCE_PER_EVENT"
+      },
+      {
+        "accountId": "0",
+        "containerId": "0",
+        "tagId": "5",
+        "name": "Google Ads - Lead Form Conversion",
+        "type": "awct",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "conversionId",
+            "value": "{{Const - Google Ads Conversion ID}}"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "conversionLabel",
+            "value": "{{Const - Ads Label - Lead Form}}"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "orderId",
+            "value": "{{DLV - lead_id}}"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "currencyCode",
+            "value": "AUD"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "enableConversionLinker",
+            "value": "true"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "enableEnhancedConversion",
+            "value": "true"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "cssProvidedEnhancedConversionValue",
+            "value": "{{UPD - Enhanced conversions}}"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "rdp",
+            "value": "false"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "enableProductReporting",
+            "value": "false"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "enableShippingData",
+            "value": "false"
+          }
+        ],
+        "firingTriggerId": [
+          "101"
+        ],
+        "tagFiringOption": "ONCE_PER_EVENT"
+      },
+      {
+        "accountId": "0",
+        "containerId": "0",
+        "tagId": "6",
+        "name": "Google Ads - Phone Click (secondary)",
+        "type": "awct",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "conversionId",
+            "value": "{{Const - Google Ads Conversion ID}}"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "conversionLabel",
+            "value": "{{Const - Ads Label - Phone Click}}"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "currencyCode",
+            "value": "AUD"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "enableConversionLinker",
+            "value": "true"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "rdp",
+            "value": "false"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "enableProductReporting",
+            "value": "false"
+          }
+        ],
+        "firingTriggerId": [
+          "102"
+        ],
+        "tagFiringOption": "ONCE_PER_EVENT"
+      },
+      {
+        "accountId": "0",
+        "containerId": "0",
+        "tagId": "7",
+        "name": "Microsoft Clarity",
+        "type": "html",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "html",
+            "value": "<script type=\"text/javascript\">\n(function(c,l,a,r,i,t,y){\n  c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};\n  t=l.createElement(r);t.async=1;t.src=\"https://www.clarity.ms/tag/\"+i;\n  y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);\n})(window, document, \"clarity\", \"script\", \"{{Const - Clarity Project ID}}\");\n</script>"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "supportDocumentWrite",
+            "value": "false"
+          }
+        ],
+        "firingTriggerId": [
+          "2147479553"
+        ],
+        "tagFiringOption": "ONCE_PER_EVENT"
+      }
+    ],
+    "trigger": [
+      {
+        "accountId": "0",
+        "containerId": "0",
+        "triggerId": "101",
+        "name": "CE - generate_lead",
+        "type": "CUSTOM_EVENT",
+        "customEventFilter": [
+          {
+            "type": "EQUALS",
+            "parameter": [
+              {
+                "type": "TEMPLATE",
+                "key": "arg0",
+                "value": "{{_event}}"
+              },
+              {
+                "type": "TEMPLATE",
+                "key": "arg1",
+                "value": "generate_lead"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "accountId": "0",
+        "containerId": "0",
+        "triggerId": "102",
+        "name": "CE - phone_click",
+        "type": "CUSTOM_EVENT",
+        "customEventFilter": [
+          {
+            "type": "EQUALS",
+            "parameter": [
+              {
+                "type": "TEMPLATE",
+                "key": "arg0",
+                "value": "{{_event}}"
+              },
+              {
+                "type": "TEMPLATE",
+                "key": "arg1",
+                "value": "phone_click"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "variable": [
+      {
+        "accountId": "0",
+        "containerId": "0",
+        "variableId": "1",
+        "name": "Const - GA4 Measurement ID",
+        "type": "c",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "value",
+            "value": "G-XXXXXXXXXX"
+          }
+        ]
+      },
+      {
+        "accountId": "0",
+        "containerId": "0",
+        "variableId": "2",
+        "name": "Const - Google Ads Conversion ID",
+        "type": "c",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "value",
+            "value": "AW-XXXXXXXXXX"
+          }
+        ]
+      },
+      {
+        "accountId": "0",
+        "containerId": "0",
+        "variableId": "3",
+        "name": "Const - Ads Label - Lead Form",
+        "type": "c",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "value",
+            "value": "XXXXXXXXXXXXXXXXXXX"
+          }
+        ]
+      },
+      {
+        "accountId": "0",
+        "containerId": "0",
+        "variableId": "4",
+        "name": "Const - Ads Label - Phone Click",
+        "type": "c",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "value",
+            "value": "XXXXXXXXXXXXXXXXXXX"
+          }
+        ]
+      },
+      {
+        "accountId": "0",
+        "containerId": "0",
+        "variableId": "5",
+        "name": "Const - Clarity Project ID",
+        "type": "c",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "value",
+            "value": "xxxxxxxxxx"
+          }
+        ]
+      },
+      {
+        "accountId": "0",
+        "containerId": "0",
+        "variableId": "6",
+        "name": "DLV - form_location",
+        "type": "v",
+        "parameter": [
+          {
+            "type": "INTEGER",
+            "key": "dataLayerVersion",
+            "value": "2"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "setDefaultValue",
+            "value": "false"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "name",
+            "value": "form_location"
+          }
+        ]
+      },
+      {
+        "accountId": "0",
+        "containerId": "0",
+        "variableId": "7",
+        "name": "DLV - lead_id",
+        "type": "v",
+        "parameter": [
+          {
+            "type": "INTEGER",
+            "key": "dataLayerVersion",
+            "value": "2"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "setDefaultValue",
+            "value": "false"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "name",
+            "value": "lead_id"
+          }
+        ]
+      },
+      {
+        "accountId": "0",
+        "containerId": "0",
+        "variableId": "8",
+        "name": "DLV - service",
+        "type": "v",
+        "parameter": [
+          {
+            "type": "INTEGER",
+            "key": "dataLayerVersion",
+            "value": "2"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "setDefaultValue",
+            "value": "false"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "name",
+            "value": "service"
+          }
+        ]
+      },
+      {
+        "accountId": "0",
+        "containerId": "0",
+        "variableId": "9",
+        "name": "DLV - sha256 email",
+        "type": "v",
+        "parameter": [
+          {
+            "type": "INTEGER",
+            "key": "dataLayerVersion",
+            "value": "2"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "setDefaultValue",
+            "value": "false"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "name",
+            "value": "user_data.sha256_email_address"
+          }
+        ]
+      },
+      {
+        "accountId": "0",
+        "containerId": "0",
+        "variableId": "10",
+        "name": "DLV - sha256 phone",
+        "type": "v",
+        "parameter": [
+          {
+            "type": "INTEGER",
+            "key": "dataLayerVersion",
+            "value": "2"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "setDefaultValue",
+            "value": "false"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "name",
+            "value": "user_data.sha256_phone_number"
+          }
+        ]
+      },
+      {
+        "accountId": "0",
+        "containerId": "0",
+        "variableId": "11",
+        "name": "DLV - click_location",
+        "type": "v",
+        "parameter": [
+          {
+            "type": "INTEGER",
+            "key": "dataLayerVersion",
+            "value": "2"
+          },
+          {
+            "type": "BOOLEAN",
+            "key": "setDefaultValue",
+            "value": "false"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "name",
+            "value": "click_location"
+          }
+        ]
+      },
+      {
+        "accountId": "0",
+        "containerId": "0",
+        "variableId": "12",
+        "name": "UPD - Enhanced conversions",
+        "type": "awec",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "mode",
+            "value": "MANUAL"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "email",
+            "value": "{{DLV - sha256 email}}"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "phone_number",
+            "value": "{{DLV - sha256 phone}}"
+          }
+        ]
+      }
+    ],
+    "builtInVariable": [
+      {
+        "accountId": "0",
+        "containerId": "0",
+        "type": "PAGE_URL",
+        "name": "Page URL"
+      },
+      {
+        "accountId": "0",
+        "containerId": "0",
+        "type": "PAGE_HOSTNAME",
+        "name": "Page Hostname"
+      },
+      {
+        "accountId": "0",
+        "containerId": "0",
+        "type": "PAGE_PATH",
+        "name": "Page Path"
+      },
+      {
+        "accountId": "0",
+        "containerId": "0",
+        "type": "REFERRER",
+        "name": "Referrer"
+      },
+      {
+        "accountId": "0",
+        "containerId": "0",
+        "type": "EVENT",
+        "name": "Event"
+      },
+      {
+        "accountId": "0",
+        "containerId": "0",
+        "type": "CLICK_URL",
+        "name": "Click URL"
+      }
+    ]
+  }
+}

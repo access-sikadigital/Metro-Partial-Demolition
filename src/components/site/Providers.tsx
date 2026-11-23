@@ -15,6 +15,20 @@ import { captureTracking } from "@/lib/tracking";
 export function Providers({ children }: { children: ReactNode }) {
   useEffect(() => {
     captureTracking();
+    // Phone taps as a dataLayer event (GTM: "phone_click"), wherever the link is.
+    const onClick = (e: MouseEvent) => {
+      const link = (e.target as Element | null)?.closest?.('a[href^="tel:"]');
+      if (!link) return;
+      const w = window as unknown as { dataLayer?: Record<string, unknown>[] };
+      w.dataLayer = w.dataLayer || [];
+      w.dataLayer.push({
+        event: "phone_click",
+        click_location: window.location.pathname,
+        phone_number: link.getAttribute("href")?.replace("tel:", "") ?? "",
+      });
+    };
+    document.addEventListener("click", onClick, true);
+    return () => document.removeEventListener("click", onClick, true);
   }, []);
 
   return (
