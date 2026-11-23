@@ -12,6 +12,7 @@ const ROUTES = [
   "/garage-shed-driveway-removal",
   "/rubbish-removal",
   "/house-demolition",
+  "/contact",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

@@ -5,7 +5,7 @@ import type { ReactNode } from "react";
 import "./globals.css";
 import { Providers } from "@/components/site/Providers";
 import { JsonLd } from "@/components/site/JsonLd";
-import { PRICING, SITE, TRUST } from "@/lib/site-data";
+import { SITE, hasPhone, hub } from "@/lib/site-data";
 
 // PLACEHOLDER — production domain. Open Graph / Twitter need absolute URLs.
 const SITE_URL = "https://metropartialdemolition.com.au";
@@ -21,8 +21,10 @@ const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID?.trim() ?? "";
 const GSC_VERIFICATION = process.env.NEXT_PUBLIC_GSC_VERIFICATION?.trim();
 const BING_VERIFICATION = process.env.NEXT_PUBLIC_BING_VERIFICATION?.trim();
 
-const TITLE = `${SITE.name} | Melbourne Demolition, Strip-Outs & Rubbish Removal`;
-const DESCRIPTION = `Melbourne house and partial demolition, strip-outs from ${PRICING.kitchen} and rubbish removal from ${PRICING.minLoad}. One crew, a fixed itemised price in writing within 24 hours — and the part you're keeping stays protected.`;
+// Default title/description for any page that doesn't set its own: the home
+// page's, from the 01-Home copy.
+const TITLE = hub.meta.title;
+const DESCRIPTION = hub.meta.description;
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -77,18 +79,13 @@ const localBusiness = {
   "@type": "LocalBusiness",
   "@id": `${SITE_URL}/#business`,
   name: SITE.name,
-  description:
-    "Melbourne demolition specialists: house and partial demolition, wall removals, kitchen, bathroom, internal and commercial strip outs, rubbish removal and clear-outs, and in-house asbestos removal.",
-  telephone: SITE.phone,
-  email: SITE.email,
-  areaServed: "Greater Melbourne and Victoria, Australia",
-  aggregateRating: {
-    "@type": "AggregateRating",
-    ratingValue: TRUST.rating,
-    reviewCount: TRUST.reviewCount,
-    bestRating: "5",
-  },
-  priceRange: "$$",
+  url: SITE_URL,
+  description: "Partial demolition, strip-outs and rubbish removal across Melbourne.",
+  areaServed: "Melbourne, Victoria, Australia",
+  // Contact details only once Metro has confirmed them. No rating or price
+  // range: nothing goes in structured data that isn't on the page and verified.
+  ...(hasPhone ? { telephone: SITE.phone } : {}),
+  ...(SITE.email ? { email: SITE.email } : {}),
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

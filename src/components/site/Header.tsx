@@ -9,11 +9,12 @@ import { Phone } from "lucide-react";
 import { CtaButton } from "./CtaButton";
 import { Logo } from "./Brand";
 import { useQuoteModal } from "./QuoteModal";
-import { CTA_LABEL, SITE, servicePages } from "@/lib/site-data";
+import { CTA_LABEL, SITE, hasPhone, servicePages } from "@/lib/site-data";
 
 /**
- * Landing-page header: logo, phone, one CTA. No nav links — on a paid-traffic
- * page every link is an exit from the one action the page exists for.
+ * Landing-page header: logo, a Contact link, the phone (once Metro's number is
+ * verified) and one CTA. Kept this short on purpose — on a paid-traffic page
+ * every link is an exit from the one action the page exists for.
  *
  * The hero is off-black, so the header is dark on every page and the
  * white-METRO logo artwork is the only one it ever needs. Over the hero the bar
@@ -31,7 +32,8 @@ export function Header() {
   // The hub and the three service pages all open on a dark hero, so they share
   // the transparent-over-hero header. Thank-you and 404 pages get a solid bar.
   const isHub = pathname === "/";
-  const isLanding = isHub || servicePages.some((s) => s.path === pathname);
+  const isLanding =
+    isHub || pathname === "/contact" || servicePages.some((s) => s.path === pathname);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -69,22 +71,32 @@ export function Header() {
           </Link>
         )}
 
-        <div className="flex items-center gap-3 sm:gap-6">
-          <a
-            href={SITE.phoneHref}
-            className="flex min-h-11 items-center gap-2 text-sm font-bold text-paper transition-colors hover:text-go"
+        <nav aria-label="Main" className="flex items-center gap-3 sm:gap-6">
+          <Link
+            href="/contact"
+            aria-current={pathname === "/contact" ? "page" : undefined}
+            className="flex min-h-11 items-center px-1 text-sm font-bold text-paper transition-colors hover:text-hivis aria-[current=page]:text-hivis"
           >
-            <span className="flex h-9 w-9 items-center justify-center bg-white/10 sm:h-auto sm:w-auto sm:bg-transparent">
-              <Phone className="h-4 w-4 shrink-0 text-go" />
-            </span>
-            <span className="hidden sm:inline">{SITE.phone}</span>
-          </a>
+            Contact
+          </Link>
+          {hasPhone && (
+            <a
+              href={SITE.phoneHref}
+              aria-label="Call Metro"
+              className="flex min-h-11 items-center gap-2 text-sm font-bold text-paper transition-colors hover:text-go"
+            >
+              <span className="flex h-9 w-9 items-center justify-center bg-white/10 sm:h-auto sm:w-auto sm:bg-transparent">
+                <Phone className="h-4 w-4 shrink-0 text-go" />
+              </span>
+              <span className="hidden sm:inline">{SITE.phone}</span>
+            </a>
+          )}
           {isLanding && (
             <CtaButton size="sm" onClick={openQuote} className="hidden sm:inline-flex">
               {CTA_LABEL}
             </CtaButton>
           )}
-        </div>
+        </nav>
       </div>
       {/* Hazard rule — only once the bar is solid, so the hero photo isn't striped. */}
       <div

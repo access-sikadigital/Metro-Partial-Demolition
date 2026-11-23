@@ -2,9 +2,9 @@
 
 import { useEffect } from "react";
 import { CtaButton } from "@/components/site/CtaButton";
-import { SITE } from "@/lib/site-data";
+import { SITE, hasPhone } from "@/lib/site-data";
 
-/** Route-level error boundary: a branded fallback with a retry and the phone. */
+/** Route-level error boundary: a branded fallback with a retry and, once verified, the phone. */
 export default function Error({
   error,
   reset,
@@ -27,9 +27,11 @@ export default function Error({
           <CtaButton size="sm" icon={false} onClick={() => reset()}>
             Try again
           </CtaButton>
-          <CtaButton href={SITE.phoneHref} variant="outlineDark" size="sm" icon="phone">
-            Call {SITE.phone}
-          </CtaButton>
+          {hasPhone && (
+            <CtaButton href={SITE.phoneHref} variant="outlineDark" size="sm" icon="phone">
+              Call Metro
+            </CtaButton>
+          )}
         </div>
       </div>
     </section>

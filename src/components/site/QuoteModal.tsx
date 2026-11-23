@@ -9,9 +9,8 @@ import { Check, Phone, X } from "lucide-react";
 import { useLenis } from "lenis/react";
 import { useIsClient } from "@/lib/use-is-client";
 import { QuoteForm } from "./QuoteForm";
-import { GoogleRatingBadge } from "./GoogleRating";
 import { HazardBand } from "./Brand";
-import { SITE, modalBenefits } from "@/lib/site-data";
+import { CTA_LABEL, SITE, formCopyFor, hasPhone, hub, modalBenefits } from "@/lib/site-data";
 
 /**
  * Two-panel quote modal opened by every below-the-fold CTA, so nobody gets
@@ -19,7 +18,9 @@ import { SITE, modalBenefits } from "@/lib/site-data";
  *
  * Left panel sells (dark, over site photography), right panel converts (light,
  * the form). On a phone the pitch is dropped entirely: someone who tapped
- * "Get my fixed price" should land on fields, not more marketing.
+ * "Request a quote" should land on fields, not more marketing. The form's
+ * heading and prompt are the current page's (FORM_COPY), so the modal and
+ * the hero card always match.
  *
  * Portalled to <body> to escape the fixed header's stacking context.
  */
@@ -37,7 +38,7 @@ export function QuoteModalProvider({ children }: { children: ReactNode }) {
   return (
     <QuoteModalContext.Provider value={value}>
       {children}
-      <QuoteModal open={open} onClose={() => setOpenOn(null)} />
+      <QuoteModal open={open} onClose={() => setOpenOn(null)} pathname={pathname ?? "/"} />
     </QuoteModalContext.Provider>
   );
 }
@@ -46,7 +47,16 @@ export function useQuoteModal() {
   return useContext(QuoteModalContext);
 }
 
-function QuoteModal({ open, onClose }: { open: boolean; onClose: () => void }) {
+function QuoteModal({
+  open,
+  onClose,
+  pathname,
+}: {
+  open: boolean;
+  onClose: () => void;
+  pathname: string;
+}) {
+  const form = formCopyFor(pathname);
   const mounted = useIsClient();
   const lenis = useLenis();
   const close = useCallback(() => onClose(), [onClose]);
@@ -79,7 +89,7 @@ function QuoteModal({ open, onClose }: { open: boolean; onClose: () => void }) {
           onClick={close}
           role="dialog"
           aria-modal="true"
-          aria-label="Get a fixed price quote"
+          aria-label={form.heading}
           data-lenis-prevent
           className="fixed inset-0 z-[300] overflow-y-auto overscroll-contain bg-ink/80 backdrop-blur-sm"
         >
@@ -116,11 +126,9 @@ function QuoteModal({ open, onClose }: { open: boolean; onClose: () => void }) {
                 />
 
                 <div className="relative">
-                  <p className="eyebrow [--eyebrow-color:var(--hivis)]">
-                    Melbourne · Victoria wide
-                  </p>
+                  <p className="eyebrow [--eyebrow-color:var(--hivis)]">Metro · Melbourne</p>
                   <h2 className="font-display mt-4 text-[1.7rem] leading-[1.05]">
-                    One crew. Fixed price. <span className="ribbon">No surprises.</span>
+                    {hub.scope.title}
                   </h2>
 
                   <ul className="mt-8 grid gap-4">
@@ -136,20 +144,18 @@ function QuoteModal({ open, onClose }: { open: boolean; onClose: () => void }) {
                     ))}
                   </ul>
 
-                  <div className="mt-8">
-                    <GoogleRatingBadge tone="dark" />
-                  </div>
-
-                  <div className="mt-8 border-t border-white/10 pt-6">
-                    <p className="text-sm text-paper/60">Rather talk it through?</p>
-                    <a
-                      href={SITE.phoneHref}
-                      className="font-display mt-1.5 inline-flex items-center gap-2 text-xl text-paper transition-colors hover:text-hivis"
-                    >
-                      <Phone className="h-4 w-4 shrink-0 text-hivis" />
-                      {SITE.phone}
-                    </a>
-                  </div>
+                  {hasPhone && (
+                    <div className="mt-8 border-t border-white/10 pt-6">
+                      <p className="text-sm text-paper/60">Rather talk it through?</p>
+                      <a
+                        href={SITE.phoneHref}
+                        className="font-display mt-1.5 inline-flex items-center gap-2 text-xl text-paper transition-colors hover:text-hivis"
+                      >
+                        <Phone className="h-4 w-4 shrink-0 text-hivis" />
+                        Call Metro
+                      </a>
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -157,10 +163,11 @@ function QuoteModal({ open, onClose }: { open: boolean; onClose: () => void }) {
               <div className="relative bg-paper">
                 <HazardBand className="h-2" />
                 <div className="p-5 pt-6 sm:p-9">
-                  <p className="eyebrow [--eyebrow-color:var(--graphite)]">Free quote</p>
+                  <p className="eyebrow [--eyebrow-color:var(--graphite)]">{CTA_LABEL}</p>
                   <h3 className="font-display mt-2 pr-12 text-xl text-ink sm:text-2xl">
-                    Your fixed price, in 24 hours
+                    {form.heading}
                   </h3>
+                  <p className="mt-1.5 text-sm text-muted-foreground">{form.prompt}</p>
                   <div className="mt-6">
                     <QuoteForm compact tone="light" photos={false} />
                   </div>
