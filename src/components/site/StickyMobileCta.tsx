@@ -1,13 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ArrowRight, Phone } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { useQuoteModal } from "./QuoteModal";
-import { CTA_LABEL, SITE } from "@/lib/site-data";
+import { CTA_LABEL } from "@/lib/site-data";
 
 /**
- * Mobile-only action bar pinned to the bottom of the screen: call on the left,
- * the quote on the right. Hidden while the hero (which has its own form) is on
+ * Mobile-only action bar pinned to the bottom of the screen: one full-width
+ * quote button (the floating call button sits just above it, see FloatingContact). Hidden while the hero (which has its own form) is on
  * screen, then slides up. Hidden from `lg`.
  */
 export function StickyMobileCta() {
@@ -32,20 +32,18 @@ export function StickyMobileCta() {
         show ? "translate-y-0" : "translate-y-full"
       }`}
     >
-      <a
-        href={SITE.phoneHref}
-        aria-label={`Call ${SITE.phone}`}
-        className="flex w-[4.25rem] shrink-0 items-center justify-center bg-ink text-go"
-      >
-        <Phone className="h-5 w-5" />
-      </a>
       <button
         type="button"
         onClick={openQuote}
-        className="flex flex-1 items-center justify-center gap-2 bg-go px-5 py-4 text-[0.85rem] font-bold tracking-[0.08em] text-white uppercase"
+        className="flex flex-1 flex-col items-center justify-center bg-go px-5 py-3 text-white"
       >
-        {CTA_LABEL}
-        <ArrowRight className="h-4 w-4" strokeWidth={2.5} />
+        <span className="flex items-center gap-2 text-[0.9rem] font-bold tracking-[0.06em] uppercase">
+          {CTA_LABEL}
+          <ArrowRight className="h-4 w-4" strokeWidth={2.5} />
+        </span>
+        <span className="mt-0.5 text-[0.72rem] text-white/85">
+          Free, itemised, in writing within 24 hours
+        </span>
       </button>
     </div>
   );
