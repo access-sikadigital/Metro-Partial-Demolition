@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState, type BaseSyntheticEvent } from "react";
 import { useController, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -8,7 +8,14 @@ import type { z } from "zod";
 import { ImagePlus } from "lucide-react";
 import { CtaButton } from "./CtaButton";
 import { MultiSelect } from "./MultiSelect";
-import { SITE, CTA_LABEL, quoteForm, quoteServiceOptions, thankYouPathFor } from "@/lib/site-data";
+import {
+  SITE,
+  CTA_LABEL,
+  defaultServicesFor,
+  quoteForm,
+  quoteServiceOptions,
+  thankYouPathFor,
+} from "@/lib/site-data";
 import { quoteSchema, type QuoteValues } from "@/lib/quote-schema";
 import { submitLead } from "@/lib/lead.actions";
 import { captureTracking, getTracking } from "@/lib/tracking";
@@ -84,6 +91,7 @@ export function QuoteForm({
   const [files, setFiles] = useState<File[]>([]);
   const [fileError, setFileError] = useState<string | null>(null);
   const router = useRouter();
+  const pathname = usePathname();
 
   const {
     register,
@@ -93,7 +101,7 @@ export function QuoteForm({
   } = useForm<z.input<typeof quoteSchema>, unknown, QuoteValues>({
     resolver: zodResolver(quoteSchema),
     mode: "onTouched",
-    defaultValues: { services: [], timing: "" },
+    defaultValues: { services: defaultServicesFor(pathname ?? "/"), timing: "" },
   });
 
   const servicesField = useController({ control, name: "services" });

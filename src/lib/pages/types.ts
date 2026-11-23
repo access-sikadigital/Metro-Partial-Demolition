@@ -4,9 +4,19 @@
  */
 export type Img = { src: string; alt: string };
 
+/** Every service landing page route (without the leading slash). */
+export type ServiceSlug =
+  | "partial-demolition"
+  | "house-demolition"
+  | "strip-out"
+  | "kitchen-demolition"
+  | "bathroom-demolition"
+  | "garage-shed-driveway-removal"
+  | "rubbish-removal";
+
 export interface ServicePageContent {
   /** Route slug, also the key used to pick reviews. */
-  slug: "house-demolition" | "strip-out" | "rubbish-removal";
+  slug: ServiceSlug;
   meta: { title: string; description: string };
 
   hero: {
