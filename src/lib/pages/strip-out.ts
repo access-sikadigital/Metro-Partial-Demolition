@@ -180,7 +180,7 @@ export const stripOut: ServicePageContent = {
 
   process: {
     eyebrow: "How it works",
-    title: "Six steps. You know the price before anything moves.",
+    title: "Seven steps. You know the price before anything moves.",
     steps: [
       {
         n: "01",
@@ -210,10 +210,16 @@ export const stripOut: ServicePageContent = {
         n: "05",
         icon: "sledgehammer",
         title: "We strip it out",
-        detail: "Load-bearing checked before anything structural moves. Waste loaded as we go.",
+        detail: "Load-bearing checked before anything structural moves.",
       },
       {
         n: "06",
+        icon: "tipper",
+        title: "Waste gone",
+        detail: "Skip and tip runs are on us. Recycled where we can.",
+      },
+      {
+        n: "07",
         icon: "shovel",
         title: "Swept and photographed",
         detail: "Bare walls, clean floor, photographed at handover. Your trades walk straight in.",

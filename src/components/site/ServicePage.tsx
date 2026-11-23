@@ -461,45 +461,64 @@ function Included({ page, index }: SectionProps) {
 
 /* ============================= PROCESS ============================= */
 
+/** Placeholder photos until real job photos are supplied per step (process.steps[].image). */
+const PROCESS_PLACEHOLDERS = [
+  "/images/services/internal-strip-out.jpg",
+  "/images/site-hoarding.jpg",
+  "/images/business-cards.jpg",
+  "/images/services/floors.jpg",
+  "/images/breaker-wall.jpg",
+  "/images/crew-shovel.jpg",
+  "/images/services/wall-tile-removal.jpg",
+  "/images/loader-overhead.jpg",
+];
+
+/**
+ * Photo cards, laid out like the Demo Bros "seven steps" section: up to four on
+ * the first row, the rest filling the second.
+ */
 function Process({ page, index }: SectionProps) {
   const p = page.process;
-  // Four steps sit in a 2×2 / 4-across grid; six in 3-across.
-  const cols =
-    p.steps.length === 4 ? "sm:grid-cols-2 lg:grid-cols-4" : "sm:grid-cols-2 lg:grid-cols-3";
+  const n = p.steps.length;
+  const firstRow = n <= 4 ? n : Math.ceil(n / 2);
+  const span = (i: number) => {
+    const perRow = i < firstRow ? firstRow : n - firstRow;
+    return ({ 1: "lg:col-span-12", 2: "lg:col-span-6", 3: "lg:col-span-4", 4: "lg:col-span-3" } as Record<number, string>)[perRow] ?? "lg:col-span-3";
+  };
   return (
-    <section
-      id="process"
-      className="relative scroll-mt-20 overflow-hidden bg-ink py-16 text-paper sm:py-20 lg:py-24"
-    >
-      <div aria-hidden className="pattern-grid absolute inset-0" />
-      <BrandIcon
-        name="excavator"
-        className="pointer-events-none absolute -top-10 -right-16 h-80 w-80 text-white/[0.03] sm:h-[28rem] sm:w-[28rem]"
-      />
+    <section id="process" className="relative scroll-mt-20 bg-paper py-16 text-ink sm:py-20 lg:py-24">
       <div className="container-wide relative">
-        <SectionHeading index={index} tone="dark" eyebrow={p.eyebrow} title={p.title} />
+        <SectionHeading index={index} eyebrow={p.eyebrow} title={p.title} align="center" />
 
-        <div role="list" className={`mt-10 grid gap-px bg-white/10 lg:mt-14 ${cols}`}>
+        <div role="list" className="mt-10 grid gap-4 sm:grid-cols-2 lg:mt-14 lg:grid-cols-12">
           {p.steps.map((s, i) => (
-            <Reveal key={s.n} delay={(i % 3) * 0.06} className="bg-ink">
+            <Reveal key={s.n} delay={(i % 4) * 0.06} className={span(i)}>
               <div
                 role="listitem"
-                className="group relative h-full p-6 transition-colors duration-300 hover:bg-white/[0.03] sm:p-8"
+                className="group relative flex h-full min-h-[17rem] flex-col justify-end overflow-hidden rounded-lg bg-ink p-6 text-paper sm:min-h-[19rem]"
               >
-                <div className="flex items-start justify-between gap-4">
-                  <span className="font-display text-5xl leading-none text-transparent [-webkit-text-stroke:1.5px_var(--hivis)] transition-colors duration-300 group-hover:text-hivis sm:text-6xl">
-                    {s.n}
-                  </span>
-                  <IconTile name={s.icon} className="h-12 w-12" iconClassName="h-7 w-7" />
+                <img
+                  src={s.image ?? PROCESS_PLACEHOLDERS[i % PROCESS_PLACEHOLDERS.length]}
+                  alt=""
+                  aria-hidden="true"
+                  loading="lazy"
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/20" />
+                <span className="font-display absolute top-4 left-5 text-5xl leading-none text-hivis sm:text-6xl">
+                  {s.n}
+                </span>
+                <div className="relative">
+                  <span aria-hidden className="block h-0.5 w-8 bg-hivis" />
+                  <h3 className="font-display mt-3 text-[1.05rem] leading-tight">{s.title}</h3>
+                  <p className="mt-2 text-[0.9rem] leading-relaxed text-paper/80">{s.detail}</p>
                 </div>
-                <h3 className="font-display mt-7 text-[1.05rem] leading-tight">{s.title}</h3>
-                <p className="mt-3 text-[0.95rem] leading-relaxed text-paper/65">{s.detail}</p>
               </div>
             </Reveal>
           ))}
         </div>
 
-        <CtaRow tone="dark" className="mt-10 lg:mt-12" />
+        <CtaRow tone="light" className="mt-10 justify-center lg:mt-12" />
       </div>
     </section>
   );

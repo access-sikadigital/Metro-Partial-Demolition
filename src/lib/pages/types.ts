@@ -89,7 +89,8 @@ export interface ServicePageContent {
   process: {
     eyebrow: string;
     title: string;
-    steps: { n: string; icon: string; title: string; detail: string }[];
+    /** `image` is the card's background photo; steps without one use a placeholder. */
+    steps: { n: string; icon: string; title: string; detail: string; image?: string }[];
   };
 
   /** The yellow band — asbestos on demolition pages, hoarding on rubbish. */

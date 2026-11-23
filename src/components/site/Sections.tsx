@@ -90,7 +90,7 @@ const AUDIENCE_ICONS = {
 } as const;
 
 /** "Who we work with": simple icon + label strip, laid out like the Demo Bros section. */
-export function Audiences({ index: _index }: { index?: string }) {
+export function Audiences() {
   return (
     <section className="border-y border-ink/10 bg-plaster py-16 sm:py-20">
       <div className="container-wide">
