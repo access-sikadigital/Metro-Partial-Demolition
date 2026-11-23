@@ -166,12 +166,12 @@ export const rubbishRemoval: ServicePageContent = {
     ],
     tag: "Nothing's too heavy.",
     imageMain: {
-      src: "/images/crew-shovel.jpg",
-      alt: "A crew member shovelling heavy waste into a skip bin",
+      src: "/images/sections/rubbish-heavy-lift.jpg",
+      alt: "Two crew lifting an old cast-iron bath onto a trolley",
     },
     imageDetail: {
-      src: "/images/loader-overhead.jpg",
-      alt: "A loader clearing broken concrete, seen from above",
+      src: "/images/sections/rubbish-concrete-load.jpg",
+      alt: "Broken concrete and bricks being loaded into the tipper by hand",
     },
   },
 
@@ -183,6 +183,7 @@ export const rubbishRemoval: ServicePageContent = {
         n: "01",
         icon: "floor-plan",
         title: "Tell us what needs to go",
+        image: "/images/process/01-tell-us.jpg",
         detail:
           "Send the form with a few photos, or call. Rough is fine — we'll ask if we need more.",
       },
@@ -190,18 +191,21 @@ export const rubbishRemoval: ServicePageContent = {
         n: "02",
         icon: "yardstick",
         title: "Your fixed price",
+        image: "/images/process/03-price-in-writing.jpg",
         detail: "In writing within 24 hours. Nothing to sign, nothing to pay up front.",
       },
       {
         n: "03",
         icon: "barrow",
         title: "We load it",
+        image: "/images/process/09-we-load-it.jpg",
         detail: "From wherever it is — the yard, the garage, upstairs. You don't lift a thing.",
       },
       {
         n: "04",
         icon: "shovel",
         title: "Swept and gone",
+        image: "/images/process/12-swept-and-gone.jpg",
         detail: "Space left clear and swept, waste sorted and recycled where we can.",
       },
     ],
@@ -234,8 +238,8 @@ export const rubbishRemoval: ServicePageContent = {
       "After-hours work where the site needs it",
     ],
     image: {
-      src: "/images/site-hoarding.jpg",
-      alt: "Metro Partial Demolition site hoarding reading Work in Progress",
+      src: "/images/audiences/builders.jpg",
+      alt: "A builder and the Metro crew lead going through the program on site",
     },
   },
 
@@ -269,8 +273,8 @@ export const rubbishRemoval: ServicePageContent = {
       },
     ],
     image: {
-      src: "/images/excavator-sky.jpg",
-      alt: "An excavator arm and bucket against a clear sky",
+      src: "/images/audiences/homeowners.jpg",
+      alt: "The Metro crew lead walking homeowners through the job outside their house",
     },
   },
 

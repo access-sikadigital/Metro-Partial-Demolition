@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ServicePage } from "@/components/site/ServicePage";
+import { resolveImages } from "@/lib/pages/images.server";
 import { JsonLd } from "@/components/site/JsonLd";
 import { faqJsonLd } from "@/components/site/FaqList";
 import { houseDemolition as page } from "@/lib/pages/house-demolition";
@@ -19,7 +20,7 @@ export default function Page() {
   return (
     <>
       <JsonLd data={faqJsonLd(page.faqs.items)} />
-      <ServicePage page={page} />
+      <ServicePage page={resolveImages(page)} />
     </>
   );
 }

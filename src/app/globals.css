@@ -71,6 +71,8 @@
   --color-paper: var(--paper);
   --color-hivis: var(--hivis);
   --color-go: var(--go);
+  --color-go-deep: var(--go-deep);
+  --color-hivis-deep: var(--hivis-deep);
 }
 
 :root {
@@ -82,6 +84,8 @@
   --hivis: #fbb428;
   /* Conversion green: every call-to-action and call button, so they stand out from the brand yellow. */
   --go: #109d3a; /* same green as Demo Bros */
+  --go-deep: #0a7a2b; /* button hover + arrow cell; white text passes AA */
+  --hivis-deep: #e39a0e; /* yellow button hover + arrow cell */
 
   --background: var(--paper);
   --foreground: var(--ink);
@@ -100,6 +104,12 @@
 }
 
 @layer base {
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
   * {
     border-color: var(--color-border);
   }
@@ -174,8 +184,8 @@
    Fluid so the longest label still fits a 320px phone. */
 @utility eyebrow {
   font-family: var(--font-body);
-  font-size: clamp(0.625rem, 2.3vw, 0.72rem);
-  letter-spacing: clamp(0.16em, 0.8vw, 0.28em);
+  font-size: clamp(0.75rem, 0.72rem + 0.12vw, 0.8rem);
+  letter-spacing: clamp(0.14em, 0.6vw, 0.26em);
   text-transform: uppercase;
   font-weight: 700;
   color: var(--eyebrow-color, var(--ink));
@@ -202,7 +212,7 @@
     transparent calc(100% - 0.28em)
   );
   padding-inline: 0.42em;
-  margin-inline: -0.14em;
+  margin-inline: 0;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
 }
@@ -337,11 +347,23 @@
   animation: call-pulse 2s cubic-bezier(0.22, 1, 0.36, 1) infinite;
 }
 @keyframes call-wiggle {
-  0%, 80%, 100% { transform: rotate(0); }
-  84% { transform: rotate(-14deg); }
-  88% { transform: rotate(12deg); }
-  92% { transform: rotate(-8deg); }
-  96% { transform: rotate(6deg); }
+  0%,
+  80%,
+  100% {
+    transform: rotate(0);
+  }
+  84% {
+    transform: rotate(-14deg);
+  }
+  88% {
+    transform: rotate(12deg);
+  }
+  92% {
+    transform: rotate(-8deg);
+  }
+  96% {
+    transform: rotate(6deg);
+  }
 }
 @utility animate-call-wiggle {
   animation: call-wiggle 3s ease-in-out infinite;

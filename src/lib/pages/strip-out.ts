@@ -1,9 +1,11 @@
 import { PRICING, SITE, TRUST } from "../site-data";
+import { beforeAfter } from "./before-after";
 import type { ServicePageContent } from "./types";
 
 /** /strip-out — kitchen, bathroom, laundry, internal and commercial strip outs. */
 export const stripOut: ServicePageContent = {
   slug: "strip-out",
+  beforeAfter: beforeAfter("kitchen", "bathroom", "wall"),
   meta: {
     title: `Melbourne Strip Outs from ${PRICING.kitchen} | ${SITE.name}`,
     description: `Melbourne strip out specialists. Kitchens from ${PRICING.kitchen}, bathrooms from ${PRICING.bathroom}, cleared in a day. Itemised price in writing within 24 hours, and it doesn't move.`,
@@ -169,12 +171,12 @@ export const stripOut: ServicePageContent = {
     ],
     tag: "Out in a day.",
     imageMain: {
-      src: "/images/breaker-wall.jpg",
-      alt: "A demolition worker breaking out an internal brick wall with a jackhammer",
+      src: "/images/sections/strip-out-ready-for-tiler.jpg",
+      alt: "A bathroom stripped back to render and slab, swept and ready for the tiler",
     },
     imageDetail: {
-      src: "/images/jackhammer-slab.jpg",
-      alt: "A jackhammer breaking up a tiled concrete floor",
+      src: "/images/sections/strip-out-made-safe.jpg",
+      alt: "Water pipes capped and a cable made safe inside an open stud wall",
     },
   },
 
@@ -186,42 +188,49 @@ export const stripOut: ServicePageContent = {
         n: "01",
         icon: "floor-plan",
         title: "Tell us what's coming out",
+        image: "/images/process/01-tell-us.jpg",
         detail: "Submit the form and attach a few photos for a faster, more accurate quote.",
       },
       {
         n: "02",
         icon: "tape-measure",
         title: "Free site inspection, if needed",
+        image: "/images/process/02-site-inspection.jpg",
         detail: "On bigger jobs we come out and scope it properly, at no cost.",
       },
       {
         n: "03",
         icon: "yardstick",
         title: "Your number, in writing",
+        image: "/images/process/03-price-in-writing.jpg",
         detail: "Itemised, within 24 hours. Free, and nothing to sign.",
       },
       {
         n: "04",
         icon: "helmet",
         title: "We protect what stays",
+        image: "/images/process/05-protect.jpg",
         detail: "Floor protection down, barriers up, services isolated.",
       },
       {
         n: "05",
         icon: "sledgehammer",
         title: "We strip it out",
+        image: "/images/process/06-strip-it-out.jpg",
         detail: "Load-bearing checked before anything structural moves.",
       },
       {
         n: "06",
         icon: "tipper",
         title: "Waste gone",
+        image: "/images/process/08-waste-gone.jpg",
         detail: "Skip and tip runs are on us. Recycled where we can.",
       },
       {
         n: "07",
         icon: "shovel",
         title: "Swept and photographed",
+        image: "/images/process/10-handover-inside.jpg",
         detail: "Bare walls, clean floor, photographed at handover. Your trades walk straight in.",
       },
     ],
@@ -254,8 +263,8 @@ export const stripOut: ServicePageContent = {
       "After-hours work for occupied commercial buildings",
     ],
     image: {
-      src: "/images/site-hoarding.jpg",
-      alt: "Metro Partial Demolition site hoarding reading Work in Progress",
+      src: "/images/audiences/architects.jpg",
+      alt: "A designer and the Metro crew lead checking the marked cut line on a wall",
     },
   },
 
@@ -291,8 +300,8 @@ export const stripOut: ServicePageContent = {
       },
     ],
     image: {
-      src: "/images/business-cards.jpg",
-      alt: "Metro Partial Demolition business cards on steel mesh",
+      src: "/images/audiences/homeowners.jpg",
+      alt: "The Metro crew lead walking homeowners through the job outside their house",
     },
   },
 

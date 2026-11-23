@@ -229,7 +229,7 @@ export function MultiSelect({
                     e.stopPropagation();
                     toggle(o.value);
                   }}
-                  className="flex h-4 w-4 shrink-0 items-center justify-center transition-colors hover:bg-black/20"
+                  className="-my-1 flex h-6 w-6 shrink-0 items-center justify-center transition-colors hover:bg-black/20"
                 >
                   <X className="h-3 w-3" strokeWidth={3} />
                 </button>
@@ -250,7 +250,7 @@ export function MultiSelect({
           aria-controls={open ? listId : undefined}
           aria-describedby={invalid ? errorId : undefined}
           aria-label="Choose what you need done"
-          className="mt-0.5 shrink-0"
+          className="-m-2 mt-[-0.375rem] shrink-0 p-2"
         >
           <ChevronDown
             className={`h-4 w-4 transition-transform duration-200 ${open ? "rotate-180" : ""}`}

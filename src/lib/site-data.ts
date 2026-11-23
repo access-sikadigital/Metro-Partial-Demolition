@@ -242,8 +242,8 @@ export const servicePages = [
       "Kitchens, bathrooms, laundries and whole interiors back to the frame — usually in a day, so your trades start the next morning.",
     covers: ["Kitchen, bathroom & laundry", "Internal strip outs", "Office & retail defits"],
     from: `Kitchens from ${PRICING.kitchen}`,
-    image: "/images/breaker-wall.jpg",
-    imageAlt: "A worker breaking out an internal brick wall with a jackhammer",
+    image: "/images/hero/kitchen-demolition-desktop.jpg",
+    imageAlt: "Two Metro crew lifting an old kitchen cabinet out during a strip-out",
   },
   {
     path: "/rubbish-removal",
@@ -255,8 +255,8 @@ export const servicePages = [
       "Household junk to concrete and whole-house clear-outs. We're a demolition crew, so nothing's too heavy — and you don't lift a thing.",
     covers: ["Household & hard rubbish", "Concrete, brick & sheds", "Deceased estates & hoarding"],
     from: `From ${PRICING.minLoad}`,
-    image: "/images/crew-shovel.jpg",
-    imageAlt: "A crew member in a hard hat shovelling waste into a skip",
+    image: "/images/process/09-we-load-it.jpg",
+    imageAlt: "Metro crew loading an old fridge and furniture onto the truck",
   },
 ];
 

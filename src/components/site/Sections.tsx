@@ -137,13 +137,21 @@ export function Reviews({
   children?: ReactNode;
 }) {
   return (
-    <section id="reviews" className="relative scroll-mt-20 overflow-hidden bg-white py-16 text-ink sm:py-20 lg:py-24">
+    <section
+      id="reviews"
+      className="relative scroll-mt-20 overflow-hidden bg-white py-16 text-ink sm:py-20 lg:py-24"
+    >
       <div className="container-wide relative">
         <div className="flex flex-col items-center gap-5 text-center">
           <Reveal>
             <GoogleRatingBadge tone="light" />
           </Reveal>
-          <SectionHeading index={index} eyebrow="What our clients say" title={title} align="center" />
+          <SectionHeading
+            index={index}
+            eyebrow="What our clients say"
+            title={title}
+            align="center"
+          />
         </div>
       </div>
 
@@ -184,8 +192,8 @@ export function Reviews({
 
 export function ServiceArea({ index }: { index?: string }) {
   return (
-    <section className="bg-plaster py-16 sm:py-20 lg:py-24">
-      <div className="container-wide grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+    <section className="bg-plaster py-14 sm:py-20 lg:py-24">
+      <div className="container-wide grid items-center gap-8 sm:gap-10 lg:grid-cols-2 lg:gap-16">
         <div>
           <SectionHeading index={index} eyebrow={serviceArea.eyebrow} title={serviceArea.title} />
           <Reveal>
@@ -197,18 +205,23 @@ export function ServiceArea({ index }: { index?: string }) {
         <Reveal delay={0.08}>
           <div className="chamfer relative overflow-hidden bg-ink [--cut:30px]">
             <img
-              src="/images/excavator-sky.jpg"
+              src="/images/sections/where-we-work.jpg"
               alt=""
               aria-hidden="true"
               loading="lazy"
               className="absolute inset-0 h-full w-full object-cover opacity-25 grayscale"
             />
             <div className="pattern-grid absolute inset-0" />
-            <ul className="relative grid gap-px bg-white/10 sm:grid-cols-2">
+            <ul className="relative grid grid-cols-2 gap-px bg-white/10">
               {serviceArea.regions.map((r) => (
-                <li key={r} className="flex items-center gap-3 bg-ink/80 px-5 py-4 text-paper">
-                  <MapPin className="h-4 w-4 shrink-0 text-hivis" />
-                  <span className="text-sm font-semibold">{r}</span>
+                <li
+                  key={r}
+                  className="flex items-center gap-2 bg-ink/80 px-3 py-3 text-paper sm:gap-3 sm:px-5 sm:py-4"
+                >
+                  <MapPin className="h-3.5 w-3.5 shrink-0 text-hivis sm:h-4 sm:w-4" />
+                  <span className="min-w-0 text-[0.8rem] leading-snug font-semibold sm:text-sm">
+                    {r}
+                  </span>
                 </li>
               ))}
             </ul>
@@ -287,12 +300,7 @@ export function QuoteCta({
 }
 
 /** Quote button after the sections that should end on an action (calls go via the floating call button). */
-export function CtaRow({
-  className = "",
-}: {
-  className?: string;
-  tone?: "light" | "dark";
-}) {
+export function CtaRow({ className = "" }: { className?: string; tone?: "light" | "dark" }) {
   return (
     <Reveal className={`flex flex-col gap-3 sm:flex-row sm:items-center ${className}`}>
       <QuoteCta />

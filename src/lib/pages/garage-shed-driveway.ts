@@ -1,5 +1,6 @@
 import { PRICING, SITE, TRUST } from "../site-data";
 import { houseDemolition } from "./house-demolition";
+import { beforeAfter } from "./before-after";
 import type { ServicePageContent } from "./types";
 
 /**
@@ -14,6 +15,7 @@ import type { ServicePageContent } from "./types";
  */
 export const garageShedDriveway: ServicePageContent = {
   slug: "garage-shed-driveway-removal",
+  beforeAfter: beforeAfter("shed"),
   meta: {
     title: `Garage, Shed & Driveway Removal Melbourne | ${SITE.name}`,
     description: `Garage and shed demolition from ${PRICING.outbuilding}, plus concrete driveway, path and slab removal across Melbourne. Slab out, asbestos handled, ground left level. Fixed price in writing within 24 hours.`,
@@ -30,8 +32,8 @@ export const garageShedDriveway: ServicePageContent = {
       { icon: "builder", label: "Old fibro sheds? Asbestos removed by our own crew" },
       { icon: "shovel", label: "Waste gone, ground left level and swept" },
     ],
-    imageDesktop: "/images/hero/house-demolition-desktop.jpg",
-    imageMobile: "/images/hero/house-demolition-mobile.jpg",
+    imageDesktop: "/images/hero/garage-shed-driveway-desktop.jpg",
+    imageMobile: "/images/hero/garage-shed-driveway-mobile.jpg",
   },
 
   services: {
@@ -170,12 +172,12 @@ export const garageShedDriveway: ServicePageContent = {
     ],
     tag: "Slab and all.",
     imageMain: {
-      src: "/images/jackhammer-slab.jpg",
-      alt: "A jackhammer breaking up a concrete slab",
+      src: "/images/sections/garage-slab-break.jpg",
+      alt: "Mini excavator breaking out an old concrete slab where a shed stood",
     },
     imageDetail: {
-      src: "/images/loader-overhead.jpg",
-      alt: "A loader moving demolition waste, seen from above",
+      src: "/images/sections/garage-slab-mesh.jpg",
+      alt: "Steel mesh in a broken slab being cut with an angle grinder",
     },
   },
 
@@ -187,30 +189,35 @@ export const garageShedDriveway: ServicePageContent = {
         n: "01",
         icon: "floor-plan",
         title: "Send a few photos",
+        image: "/images/process/01-tell-us.jpg",
         detail: "Use the form or call. A photo of the structure and the access is usually enough.",
       },
       {
         n: "02",
         icon: "yardstick",
         title: "Your number, in writing",
+        image: "/images/process/03-price-in-writing.jpg",
         detail: "Itemised, within 24 hours. Free, and nothing to sign.",
       },
       {
         n: "03",
         icon: "helmet",
         title: "We protect what stays",
+        image: "/images/process/05-protect.jpg",
         detail: "Power isolated, fences and gardens protected, neighbours told.",
       },
       {
         n: "04",
         icon: "excavator",
         title: "It comes down",
+        image: "/images/process/07-it-comes-down.jpg",
         detail: "Structure, slab and footings out. Waste loaded as we go.",
       },
       {
         n: "05",
         icon: "shovel",
         title: "Level, swept, photographed",
+        image: "/images/process/11-handover-outside.jpg",
         detail: "Ground left level and photographed at handover.",
       },
     ],

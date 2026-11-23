@@ -18,20 +18,22 @@ export function Footer() {
         className="pattern-grid pointer-events-none absolute inset-0 top-2.5 opacity-60"
       />
 
-      <div className="container-wide relative grid gap-10 py-12 sm:py-14 sm:grid-cols-2 lg:grid-cols-[1.1fr_0.8fr_1fr_0.9fr] lg:gap-12">
+      <div className="container-wide relative grid gap-8 py-10 sm:grid-cols-2 sm:gap-10 sm:py-14 lg:grid-cols-[1.1fr_0.8fr_1fr_0.9fr] lg:gap-12">
         <div>
-          <Logo on="dark" className="h-16 sm:h-20" />
-          <p className="mt-5 max-w-sm text-sm leading-relaxed text-paper/65">{footer.blurb}</p>
+          <Logo on="dark" className="h-14 sm:h-20" />
+          <p className="mt-4 max-w-sm text-sm leading-relaxed text-paper/65 sm:mt-5">
+            {footer.blurb}
+          </p>
         </div>
 
         <nav aria-label="Our services">
           <p className="eyebrow [--eyebrow-color:var(--hivis)]">Our services</p>
-          <ul className="mt-4 grid gap-2.5">
+          <ul className="mt-3 grid grid-cols-2 gap-x-4 gap-y-0.5 sm:grid-cols-1">
             {servicePages.map((s) => (
               <li key={s.path}>
                 <Link
                   href={s.path}
-                  className="group inline-flex items-center gap-2 text-sm font-semibold text-paper/80 transition-colors hover:text-hivis"
+                  className="group inline-flex items-center gap-2 py-1.5 text-sm font-semibold text-paper/80 transition-colors hover:text-hivis"
                 >
                   <ArrowRight className="h-3.5 w-3.5 text-hivis transition-transform group-hover:translate-x-0.5" />
                   {s.title}
@@ -41,7 +43,7 @@ export function Footer() {
           </ul>
         </nav>
 
-        <div>
+        <div className="hidden sm:block">
           <p className="eyebrow [--eyebrow-color:var(--hivis)]">Where we work</p>
           <p className="mt-4 text-sm leading-relaxed text-paper/65">{footer.coverage}</p>
         </div>
@@ -50,17 +52,24 @@ export function Footer() {
           <p className="eyebrow [--eyebrow-color:var(--hivis)]">Talk to us</p>
           <a
             href={SITE.phoneHref}
-            className="font-display mt-4 flex items-center gap-3 text-xl text-paper transition-colors hover:text-hivis sm:text-2xl"
+            className="font-display mt-3 flex min-h-11 items-center gap-3 text-xl text-paper transition-colors hover:text-hivis sm:text-2xl"
           >
             <Phone className="h-5 w-5 shrink-0 text-hivis" />
             {SITE.phone}
           </a>
           <a
             href={`mailto:${SITE.email}`}
-            className="mt-3 flex items-center gap-3 text-sm break-all text-paper/65 transition-colors hover:text-paper"
+            className="mt-2 flex min-h-11 min-w-0 items-center gap-3 text-sm text-paper/65 transition-colors hover:text-paper"
           >
             <Mail className="h-4 w-4 shrink-0 text-hivis" />
-            {SITE.email}
+            <span>
+              {SITE.email.split(/(?=@)|(?=\.com)/).map((part, i) => (
+                <span key={i}>
+                  {i > 0 && <wbr />}
+                  {part}
+                </span>
+              ))}
+            </span>
           </a>
         </div>
       </div>
@@ -72,13 +81,15 @@ export function Footer() {
           </p>
           <p className="text-center sm:text-right">
             {footer.legal}
-            <span className="mx-2 text-paper/25" aria-hidden="true">·</span>
+            <span className="mx-2 text-paper/25" aria-hidden="true">
+              ·
+            </span>
             Marketing by{" "}
             <a
               href="https://sikadigital.com/"
               target="_blank"
               rel="noopener"
-              className="font-semibold text-paper/80 underline-offset-4 transition-colors hover:text-hivis hover:underline"
+              className="font-semibold whitespace-nowrap text-paper/80 underline-offset-4 transition-colors hover:text-hivis hover:underline"
             >
               Sika Digital
             </a>

@@ -77,15 +77,13 @@ export function QuoteForm({
 }) {
   const t = TONE[tone];
   const labelClass = cn(
-    "mb-1.5 block text-[0.68rem] font-bold tracking-[0.14em] uppercase",
+    "mb-1.5 block text-[0.75rem] font-bold tracking-[0.14em] uppercase",
     t.label,
   );
   const inputClass = cn(
     baseInput,
     t.input,
-    compact
-      ? "px-3.5 py-2.5 text-[0.95rem]"
-      : "px-3.5 py-2.5 text-[0.95rem] sm:px-4 sm:py-3 sm:text-base",
+    compact ? "px-3.5 py-2.5 text-base" : "px-3.5 py-2.5 text-base sm:px-4 sm:py-3",
   );
 
   const [errorMsg, setErrorMsg] = useState<string | null>(null);

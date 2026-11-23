@@ -1,8 +1,10 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { Check, Phone } from "lucide-react";
+import { Camera, Check, Phone } from "lucide-react";
 
+import { CtaButton } from "./CtaButton";
+import { useQuoteModal } from "./QuoteModal";
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
 import { FaqList } from "./FaqList";
@@ -21,8 +23,9 @@ import {
   Stats,
   Ticker,
 } from "./Sections";
-import { SITE, quoteForm, reviewsFor } from "@/lib/site-data";
+import { CTA_LABEL, SITE, quoteForm, reviewsFor } from "@/lib/site-data";
 import type { ServicePageContent } from "@/lib/pages/types";
+import { cn } from "@/lib/utils";
 
 /**
  * One service landing page (partial demolition, strip-out, rubbish removal, …),
@@ -47,6 +50,7 @@ export function ServicePage({ page }: { page: ServicePageContent }) {
       <Hero page={page} />
       <Ticker />
       <Stats />
+      <BeforeAfter page={page} />
       <Services page={page} index={next()} />
       <Price page={page} index={next()} />
       <Feature page={page} index={next()} />
@@ -74,11 +78,33 @@ export function ServicePage({ page }: { page: ServicePageContent }) {
 
 type SectionProps = { page: ServicePageContent; index: string };
 
+/**
+ * Holds the space of a photo that hasn't been supplied yet (its path resolved
+ * to "" at build time — see lib/pages/images.server.ts). Designed to read as
+ * a deliberate brand panel, not a broken image, so a page can go out before
+ * every photo is in.
+ */
+function PhotoSlot({ className, compact = false }: { className?: string; compact?: boolean }) {
+  return (
+    <div aria-hidden className={cn("relative overflow-hidden bg-[#202020]", className)}>
+      <div className="pattern-grid absolute inset-0 opacity-70" />
+      <Camera
+        className={cn(
+          "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-paper/15",
+          compact ? "h-6 w-6" : "h-10 w-10",
+        )}
+        strokeWidth={1.5}
+      />
+    </div>
+  );
+}
+
 /* ============================== HERO ============================== */
 
 function Hero({ page }: { page: ServicePageContent }) {
   const { hero } = page;
   const reduce = useReducedMotion();
+  const { openQuote } = useQuoteModal();
   const group = { hidden: {}, show: { transition: { staggerChildren: 0.1, delayChildren: 0.05 } } };
   const rise = {
     hidden: { opacity: 0, y: reduce ? 0 : 24 },
@@ -147,12 +173,28 @@ function Hero({ page }: { page: ServicePageContent }) {
                 <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center bg-hivis text-ink">
                   <Check className="h-3.5 w-3.5" strokeWidth={3} />
                 </span>
-                <span className="text-[0.95rem] leading-snug font-semibold text-paper">{item.title}</span>
+                <span className="text-[0.95rem] leading-snug font-semibold text-paper">
+                  {item.title}
+                </span>
               </li>
             ))}
           </motion.ul>
 
-          <motion.div variants={rise} className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
+          {/* Phones: two big buttons instead of the long form (the Demo Bros
+              pattern). "Get a free quote" opens the same form in a sheet. */}
+          <motion.div variants={rise} className="mt-8 grid gap-3 sm:grid-cols-2 lg:hidden">
+            <CtaButton onClick={openQuote} fullWidth>
+              {CTA_LABEL}
+            </CtaButton>
+            <CtaButton href={SITE.phoneHref} variant="white" icon="phone" fullWidth>
+              Call {SITE.phone}
+            </CtaButton>
+          </motion.div>
+
+          <motion.div
+            variants={rise}
+            className="mt-8 hidden flex-wrap items-center gap-x-6 gap-y-4 lg:flex"
+          >
             <a
               href={SITE.phoneHref}
               className="group flex items-center gap-3 text-paper transition-colors hover:text-hivis"
@@ -168,13 +210,14 @@ function Hero({ page }: { page: ServicePageContent }) {
           </motion.div>
         </motion.div>
 
-        {/* The quote form, in the hero — the one action this page exists for. */}
+        {/* The quote form, in the hero — the one action this page exists for.
+            Desktop only; on phones the hero buttons open it as a sheet. */}
         <motion.div
           id="quote-form"
           initial={{ opacity: 0, y: reduce ? 0 : 28 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-          className="relative scroll-mt-24"
+          className="relative hidden scroll-mt-24 lg:block"
         >
           <div
             aria-hidden
@@ -201,6 +244,88 @@ function Hero({ page }: { page: ServicePageContent }) {
   );
 }
 
+/* =========================== BEFORE / AFTER =========================== */
+
+/**
+ * Proof straight after the stats, where Demo Bros puts it. Each photo holds
+ * both halves (before left, after right); the chips are drawn here. Two up on
+ * every width — with three pairs, the third spans the row on phones and
+ * tablets so it's big enough to read the difference in.
+ */
+function BeforeAfter({ page }: { page: ServicePageContent }) {
+  const pairs = page.beforeAfter;
+  if (!pairs?.length) return null;
+  const single = pairs.length === 1;
+
+  return (
+    <section className="border-b border-ink/10 bg-white py-14 sm:py-20 lg:py-24">
+      <div className="container-wide">
+        <SectionHeading
+          align="center"
+          eyebrow="Before and after"
+          title="Before we start. After we leave."
+        />
+
+        <div
+          className={cn(
+            "mx-auto mt-9 grid gap-3 sm:gap-5 lg:mt-12",
+            single ? "max-w-3xl" : "max-w-6xl grid-cols-2 lg:grid-cols-3",
+          )}
+        >
+          {pairs.map((pair, i) => {
+            const spansRow = !single && i === pairs.length - 1 && pairs.length % 2 === 1;
+            return (
+              <Reveal
+                key={pair.id}
+                delay={(i % 3) * 0.06}
+                className={cn(spansRow && "col-span-2 lg:col-span-1")}
+              >
+                <figure className="group chamfer h-full overflow-hidden bg-paper ring-1 ring-ink/10 [--cut:18px]">
+                  <div
+                    className={cn(
+                      "relative overflow-hidden bg-ink",
+                      spansRow ? "aspect-[2/1] sm:aspect-[3/2]" : "aspect-[3/2]",
+                    )}
+                  >
+                    {pair.image ? (
+                      <img
+                        src={pair.image}
+                        alt={`${pair.label}: before on the left, after on the right`}
+                        loading="lazy"
+                        decoding="async"
+                        className="h-full w-full object-cover"
+                      />
+                    ) : (
+                      <div className="grid h-full grid-cols-2 gap-px bg-paper/20">
+                        <PhotoSlot compact />
+                        <PhotoSlot compact className="bg-[#262626]" />
+                      </div>
+                    )}
+                    <span className="absolute top-2 left-2 bg-ink px-1.5 py-0.5 text-[0.75rem] font-bold tracking-[0.1em] text-paper uppercase sm:top-3 sm:left-3 sm:px-2 sm:py-1">
+                      Before
+                    </span>
+                    <span className="absolute top-2 left-[calc(50%+0.5rem)] bg-hivis px-1.5 py-0.5 text-[0.75rem] font-bold tracking-[0.1em] text-ink uppercase sm:top-3 sm:left-[calc(50%+0.75rem)] sm:px-2 sm:py-1">
+                      After
+                    </span>
+                  </div>
+                  <figcaption className="px-3 py-3 sm:px-5 sm:py-4">
+                    <span className="font-display block text-[0.8rem] leading-tight text-ink sm:text-[0.95rem]">
+                      {pair.label}
+                    </span>
+                    <span className="mt-1 hidden text-sm text-muted-foreground sm:block">
+                      {pair.note}
+                    </span>
+                  </figcaption>
+                </figure>
+              </Reveal>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ============================= SERVICES ============================= */
 
 function Services({ page, index }: SectionProps) {
@@ -215,13 +340,15 @@ function Services({ page, index }: SectionProps) {
           </Reveal>
         </div>
 
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 sm:gap-5 lg:mt-14 lg:grid-cols-3">
+        {/* Two up on phones (photo, title, price — the paragraph waits for
+            tablet), as on Demo Bros, so six services don't fill five screens. */}
+        <div className="mt-8 grid grid-cols-2 gap-3 sm:mt-10 sm:gap-5 lg:mt-14 lg:grid-cols-3">
           {s.items.map((item, i) => (
             <Reveal key={item.slug} delay={(i % 3) * 0.06}>
-              <article className="group chamfer relative flex h-full flex-col bg-white transition-transform duration-300 [--cut:22px] hover:-translate-y-1">
+              <article className="group chamfer relative flex h-full flex-col bg-white transition-transform duration-300 [--cut:14px] hover:-translate-y-1 sm:[--cut:22px]">
                 {/* Photo of the service, with the brand icon tile overlapping its
                     bottom edge so the card keeps its original identity. */}
-                <div className="relative aspect-[3/2] overflow-hidden bg-ink">
+                <div className="relative aspect-[4/3] overflow-hidden bg-ink sm:aspect-[3/2]">
                   <img
                     src={item.image.src}
                     alt={item.image.alt}
@@ -235,26 +362,30 @@ function Services({ page, index }: SectionProps) {
                     aria-hidden
                     className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-ink/45 to-transparent"
                   />
-                  <span className="font-display absolute top-3 right-3 bg-ink/75 px-2 py-1 text-xs text-hivis">
+                  <span className="font-display absolute top-2 right-2 bg-ink/75 px-1.5 py-0.5 text-[0.75rem] text-hivis sm:top-3 sm:right-3 sm:px-2 sm:py-1 sm:text-xs">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <HazardBand className="absolute inset-x-0 top-0 h-1.5 origin-left scale-x-0 transition-transform duration-500 group-hover:scale-x-100" />
                 </div>
-                <div className="relative flex flex-1 flex-col px-6 pb-6 sm:px-7 sm:pb-7">
-                  <IconTile name={item.icon} className="relative z-10 -mt-7" />
-                  <h3 className="font-display mt-5 text-[1.05rem] leading-tight text-ink sm:text-[1.15rem]">
+                <div className="relative flex flex-1 flex-col px-3.5 pb-4 sm:px-7 sm:pb-7">
+                  <IconTile
+                    name={item.icon}
+                    className="relative z-10 -mt-5 h-10 w-10 [--cut:9px] sm:-mt-7 sm:h-14 sm:w-14 sm:[--cut:12px]"
+                    iconClassName="h-6 w-6 sm:h-8 sm:w-8"
+                  />
+                  <h3 className="font-display mt-3 text-[0.82rem] leading-tight text-ink sm:mt-5 sm:text-[1.15rem]">
                     {item.title}
                   </h3>
-                  <p className="mt-3 flex-1 text-[0.95rem] leading-relaxed text-muted-foreground">
+                  <p className="mt-3 hidden flex-1 text-[0.95rem] leading-relaxed text-muted-foreground sm:block">
                     {item.detail}
                   </p>
-                  <div className="mt-6 border-t border-ink/10 pt-4">
+                  <div className="mt-auto border-t border-ink/10 pt-3 sm:mt-6 sm:pt-4">
                     {item.price ? (
-                      <span className="font-display text-sm text-ink">
+                      <span className="font-display text-[0.75rem] text-ink sm:text-sm">
                         <span className="ribbon">{item.price}</span>
                       </span>
                     ) : (
-                      <span className="text-xs font-bold tracking-[0.14em] text-graphite uppercase">
+                      <span className="text-[0.75rem] font-bold tracking-[0.12em] text-graphite uppercase sm:text-xs sm:tracking-[0.14em]">
                         Quoted on the job
                       </span>
                     )}
@@ -284,7 +415,7 @@ function Price({ page, index }: SectionProps) {
           {/* The price list, set like a spec sheet. */}
           <Reveal>
             <div className="chamfer bg-white ring-1 ring-ink/10 [--cut:26px]">
-              <div className="flex items-center justify-between gap-4 bg-ink px-5 py-4 text-[0.7rem] font-bold tracking-[0.16em] uppercase sm:px-7">
+              <div className="flex items-center justify-between gap-4 bg-ink px-5 py-4 text-[0.75rem] font-bold tracking-[0.16em] uppercase sm:px-7">
                 <span className="text-paper/70">The job</span>
                 <span className="text-hivis">Starts from</span>
               </div>
@@ -352,13 +483,13 @@ function Price({ page, index }: SectionProps) {
 function Feature({ page, index }: SectionProps) {
   const f = page.feature;
   return (
-    <section className="relative overflow-hidden bg-ink py-16 text-paper sm:py-20 lg:py-28">
+    <section className="relative overflow-hidden bg-ink py-14 text-paper sm:py-20 lg:py-28">
       <div aria-hidden className="pattern-grid absolute inset-0" />
-      <div className="container-wide relative grid items-center gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
+      <div className="container-wide relative grid items-center gap-9 sm:gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
         {/* Wide shot and close detail, paired as the brand guidelines pair them. */}
         <Reveal className="relative order-2 mx-auto w-full max-w-md lg:order-1 lg:max-w-none">
           <div aria-hidden className="pattern-dots absolute -top-6 -left-6 h-32 w-32 opacity-60" />
-          <div className="chamfer relative aspect-[4/5] overflow-hidden [--cut:40px]">
+          <div className="chamfer relative aspect-[4/3] overflow-hidden [--cut:28px] sm:aspect-[4/5] sm:[--cut:40px]">
             <img
               src={f.imageMain.src}
               alt={f.imageMain.alt}
@@ -366,7 +497,7 @@ function Feature({ page, index }: SectionProps) {
               className="h-full w-full object-cover"
             />
           </div>
-          <div className="chamfer-br absolute -right-3 -bottom-8 w-[52%] overflow-hidden border-4 border-ink [--cut:24px] sm:-right-8">
+          <div className="chamfer-br absolute -right-3 -bottom-8 hidden w-[52%] overflow-hidden border-4 border-ink [--cut:24px] sm:-right-8 sm:block">
             <img
               src={f.imageDetail.src}
               alt={f.imageDetail.alt}
@@ -413,7 +544,7 @@ function Feature({ page, index }: SectionProps) {
 function Included({ page, index }: SectionProps) {
   const inc = page.included!;
   return (
-    <section className="bg-plaster py-16 sm:py-20 lg:py-24">
+    <section className="bg-plaster py-14 sm:py-20 lg:py-24">
       <div className="container-wide">
         <SectionHeading
           index={index}
@@ -422,20 +553,20 @@ function Included({ page, index }: SectionProps) {
           description={inc.lede}
         />
 
-        <div className="mt-10 grid gap-5 lg:mt-14 lg:grid-cols-3">
+        <div className="mt-8 grid gap-4 sm:mt-10 sm:gap-5 lg:mt-14 lg:grid-cols-3">
           {inc.groups.map((g, gi) => (
             <Reveal key={g.label} delay={gi * 0.07}>
               <div className="h-full bg-white">
-                <div className="flex items-center justify-between gap-3 bg-ink px-5 py-4 sm:px-6">
+                <div className="flex items-center justify-between gap-3 bg-ink px-4 py-3 sm:px-6 sm:py-4">
                   <h3 className="font-display text-[0.95rem] text-paper">{g.label}</h3>
                   <span className="font-display text-sm text-hivis">
                     {String(gi + 1).padStart(2, "0")}
                   </span>
                 </div>
                 <HazardBand className="h-1.5" />
-                <ul className="divide-y divide-ink/8 px-5 sm:px-6">
+                <ul className="divide-y divide-ink/8 px-4 sm:px-6">
                   {g.items.map((it) => (
-                    <li key={it.item} className="flex items-start gap-3 py-4">
+                    <li key={it.item} className="flex items-start gap-3 py-3 sm:py-4">
                       <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center bg-hivis text-ink">
                         <Check className="h-3.5 w-3.5" strokeWidth={3} />
                       </span>
@@ -454,7 +585,7 @@ function Included({ page, index }: SectionProps) {
         </div>
 
         <Reveal>
-          <p className="mt-8 max-w-4xl border-l-4 border-hivis bg-white/70 py-4 pr-4 pl-5 leading-relaxed text-ink/80">
+          <p className="mt-6 max-w-4xl border-l-4 text-[0.95rem] sm:mt-8 sm:text-base border-hivis bg-white/70 py-4 pr-4 pl-5 leading-relaxed text-ink/80">
             {inc.close}
           </p>
         </Reveal>
@@ -465,21 +596,14 @@ function Included({ page, index }: SectionProps) {
 
 /* ============================= PROCESS ============================= */
 
-/** Placeholder photos until real job photos are supplied per step (process.steps[].image). */
-const PROCESS_PLACEHOLDERS = [
-  "/images/services/internal-strip-out.jpg",
-  "/images/site-hoarding.jpg",
-  "/images/business-cards.jpg",
-  "/images/services/floors.jpg",
-  "/images/breaker-wall.jpg",
-  "/images/crew-shovel.jpg",
-  "/images/services/wall-tile-removal.jpg",
-  "/images/services/kitchen-bathroom-laundry.jpg",
-];
-
 /**
  * Photo cards, laid out like the Demo Bros "seven steps" section: up to four on
- * the first row, the rest filling the second.
+ * the first row, the rest filling the second. On phones each step is a compact
+ * row with a thumbnail instead (Demo Bros again) — seven full-height photo
+ * cards stacked one under another ran to more than two screens.
+ *
+ * Each step's photo is resolved at build time; a step whose photo hasn't been
+ * supplied yet shows the branded PhotoSlot in the same space.
  */
 function Process({ page, index }: SectionProps) {
   const p = page.process;
@@ -487,28 +611,86 @@ function Process({ page, index }: SectionProps) {
   const firstRow = n <= 4 ? n : Math.ceil(n / 2);
   const span = (i: number) => {
     const perRow = i < firstRow ? firstRow : n - firstRow;
-    return ({ 1: "lg:col-span-12", 2: "lg:col-span-6", 3: "lg:col-span-4", 4: "lg:col-span-3" } as Record<number, string>)[perRow] ?? "lg:col-span-3";
+    return (
+      (
+        {
+          1: "lg:col-span-12",
+          2: "lg:col-span-6",
+          3: "lg:col-span-4",
+          4: "lg:col-span-3",
+        } as Record<number, string>
+      )[perRow] ?? "lg:col-span-3"
+    );
   };
   return (
-    <section id="process" className="relative scroll-mt-20 bg-paper py-16 text-ink sm:py-20 lg:py-24">
+    <section
+      id="process"
+      className="relative scroll-mt-20 bg-paper py-16 text-ink sm:py-20 lg:py-24"
+    >
       <div className="container-wide relative">
         <SectionHeading index={index} eyebrow={p.eyebrow} title={p.title} align="center" />
 
-        <div role="list" className="mt-10 grid gap-4 sm:grid-cols-2 lg:mt-14 lg:grid-cols-12">
+        {/* Phones: compact rows. */}
+        <div role="list" className="mt-8 grid gap-2.5 sm:hidden">
+          {p.steps.map((s, i) => (
+            <Reveal key={s.n} delay={Math.min(i, 3) * 0.04}>
+              <div
+                role="listitem"
+                className="chamfer flex items-center gap-3.5 bg-white p-2.5 ring-1 ring-ink/10 [--cut:12px]"
+              >
+                <div className="relative h-[4.5rem] w-[4.5rem] shrink-0 overflow-hidden bg-ink">
+                  {s.image ? (
+                    <img
+                      src={s.image}
+                      alt=""
+                      aria-hidden="true"
+                      loading="lazy"
+                      className="h-full w-full object-cover"
+                    />
+                  ) : (
+                    <PhotoSlot compact className="h-full w-full" />
+                  )}
+                  <span className="font-display absolute top-0 left-0 bg-hivis px-1.5 py-0.5 text-[0.75rem] text-ink">
+                    {s.n}
+                  </span>
+                </div>
+                <div className="min-w-0 py-1 pr-1">
+                  <h3 className="font-display text-[0.88rem] leading-tight text-ink">{s.title}</h3>
+                  <p className="mt-1 line-clamp-2 text-[0.82rem] leading-snug text-muted-foreground">
+                    {s.detail}
+                  </p>
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+
+        {/* Tablet and up: the photo cards. */}
+        <div
+          role="list"
+          className="mt-10 hidden gap-4 sm:grid sm:grid-cols-2 lg:mt-14 lg:grid-cols-12"
+        >
           {p.steps.map((s, i) => (
             <Reveal key={s.n} delay={(i % 4) * 0.06} className={span(i)}>
               <div
                 role="listitem"
                 className="group relative flex h-full min-h-[17rem] flex-col justify-end overflow-hidden rounded-lg bg-ink p-6 text-paper sm:min-h-[19rem]"
               >
-                <img
-                  src={s.image ?? PROCESS_PLACEHOLDERS[i % PROCESS_PLACEHOLDERS.length]}
-                  alt=""
-                  aria-hidden="true"
-                  loading="lazy"
-                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                {s.image ? (
+                  <img
+                    src={s.image}
+                    alt=""
+                    aria-hidden="true"
+                    loading="lazy"
+                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                ) : (
+                  <PhotoSlot className="absolute inset-0" />
+                )}
+                <div
+                  aria-hidden
+                  className="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/20"
                 />
-                <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/20" />
                 <span className="font-display absolute top-4 left-5 text-5xl leading-none text-hivis sm:text-6xl">
                   {s.n}
                 </span>
@@ -582,22 +764,22 @@ function Callout({ page, index }: SectionProps) {
 function Timeline({ page, index }: SectionProps) {
   const t = page.timeline!;
   return (
-    <section className="bg-paper py-16 sm:py-20 lg:py-24">
+    <section className="bg-paper py-14 sm:py-20 lg:py-24">
       <div className="container-wide">
         <SectionHeading index={index} eyebrow={t.eyebrow} title={t.title} description={t.lede} />
 
         {/* A programme bar: hazard rule along the top, one column per stage. */}
-        <div role="list" className="relative mt-10 grid gap-0 lg:mt-14 lg:grid-cols-5">
+        <div role="list" className="relative mt-8 grid gap-0 sm:mt-10 lg:mt-14 lg:grid-cols-5">
           <HazardBand className="absolute inset-x-0 top-0 hidden h-2 lg:block" />
           {t.steps.map((s, i) => (
             <Reveal key={s.n} delay={i * 0.06}>
               <div
                 role="listitem"
-                className="relative border-l-2 border-ink/15 pb-8 pl-6 lg:border-l-0 lg:pt-10 lg:pr-6 lg:pb-0 lg:pl-0"
+                className="relative border-l-2 border-ink/15 pb-6 pl-5 sm:pb-8 sm:pl-6 lg:border-l-0 lg:pt-10 lg:pr-6 lg:pb-0 lg:pl-0"
               >
                 <span className="absolute top-0 -left-[7px] h-3 w-3 bg-hivis ring-4 ring-paper lg:top-[-2px] lg:left-0 lg:h-6 lg:w-6 lg:ring-0 lg:bg-ink" />
                 <p className="font-display text-sm text-ink/35">{s.n}</p>
-                <h3 className="font-display mt-2 text-[1.05rem] leading-tight text-ink">
+                <h3 className="font-display mt-1 text-[1rem] leading-tight text-ink sm:mt-2 sm:text-[1.05rem] lg:text-[0.9rem] xl:text-[1.05rem]">
                   {s.title}
                 </h3>
                 <p className="mt-2">
@@ -605,7 +787,7 @@ function Timeline({ page, index }: SectionProps) {
                     <span className="ribbon">{s.when}</span>
                   </span>
                 </p>
-                <p className="mt-3 text-[0.95rem] leading-relaxed text-muted-foreground">
+                <p className="mt-2 text-[0.95rem] leading-relaxed text-muted-foreground sm:mt-3">
                   {s.detail}
                 </p>
               </div>
@@ -614,7 +796,7 @@ function Timeline({ page, index }: SectionProps) {
         </div>
 
         <Reveal>
-          <p className="mt-8 max-w-4xl border-l-4 border-hivis bg-plaster py-4 pr-4 pl-5 leading-relaxed text-ink/80">
+          <p className="mt-4 max-w-4xl border-l-4 text-[0.95rem] sm:mt-8 sm:text-base border-hivis bg-plaster py-4 pr-4 pl-5 leading-relaxed text-ink/80">
             {t.close}
           </p>
         </Reveal>
@@ -630,7 +812,7 @@ function Builders({ page, index }: SectionProps) {
   return (
     <section className="bg-ink text-paper">
       <div className="grid lg:grid-cols-2">
-        <div className="relative min-h-[17rem] overflow-hidden sm:min-h-[24rem]">
+        <div className="relative hidden overflow-hidden sm:block sm:min-h-[24rem]">
           <img
             src={b.image.src}
             alt={b.image.alt}
@@ -639,7 +821,7 @@ function Builders({ page, index }: SectionProps) {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-ink/50 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:to-ink/30" />
         </div>
-        <div className="relative px-4 py-14 sm:px-10 sm:py-16 lg:px-16 lg:py-24">
+        <div className="relative px-4 py-12 sm:px-10 sm:py-16 lg:px-16 lg:py-24">
           <div aria-hidden className="pattern-dots absolute top-0 right-0 h-28 w-36 opacity-30" />
           <SectionHeading index={index} tone="dark" eyebrow={b.eyebrow} title={b.title} />
           <Reveal>
@@ -667,8 +849,8 @@ function Builders({ page, index }: SectionProps) {
 function Guarantee({ page, index }: SectionProps) {
   const g = page.guarantees;
   return (
-    <section className="bg-plaster py-16 sm:py-20 lg:py-24">
-      <div className="container-wide grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-14">
+    <section className="bg-plaster py-14 sm:py-20 lg:py-24">
+      <div className="container-wide grid gap-8 sm:gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-14">
         <div>
           <SectionHeading
             index={index}
@@ -688,14 +870,20 @@ function Guarantee({ page, index }: SectionProps) {
           </Reveal>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="grid gap-3 sm:grid-cols-2 sm:gap-4">
           {g.items.map((item, i) => (
             <Reveal key={item.title} delay={(i % 2) * 0.07}>
-              <div className="chamfer flex h-full flex-col bg-white p-6 [--cut:22px] sm:p-7">
-                <IconTile name={item.icon} />
-                <h3 className="font-display mt-6 text-[1.02rem] leading-tight text-ink">
-                  {item.title}
-                </h3>
+              <div className="chamfer flex h-full flex-col bg-white p-5 [--cut:18px] sm:p-7 sm:[--cut:22px]">
+                <div className="flex items-center gap-4 sm:block">
+                  <IconTile
+                    name={item.icon}
+                    className="h-11 w-11 [--cut:9px] sm:h-14 sm:w-14 sm:[--cut:12px]"
+                    iconClassName="h-6 w-6 sm:h-8 sm:w-8"
+                  />
+                  <h3 className="font-display text-[0.95rem] leading-tight text-ink sm:mt-6 sm:text-[1.02rem]">
+                    {item.title}
+                  </h3>
+                </div>
                 <p className="mt-3 text-[0.95rem] leading-relaxed text-muted-foreground">
                   {item.detail}
                 </p>
@@ -725,7 +913,7 @@ function Faqs({ page, index }: SectionProps) {
               </p>
               <a
                 href={SITE.phoneHref}
-                className="font-display mt-4 inline-flex items-center gap-2 text-xl text-hivis hover:underline"
+                className="font-display mt-3 inline-flex min-h-11 items-center gap-2 text-xl text-hivis hover:underline"
               >
                 <Phone className="h-5 w-5" />
                 {SITE.phone}

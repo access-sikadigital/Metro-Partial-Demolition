@@ -2,6 +2,8 @@
  * Everything one service landing page needs. Each page is a data file of this
  * shape rendered by <ServicePage>; optional blocks are simply left out.
  */
+import type { BeforeAfterPair } from "./before-after";
+
 export type Img = { src: string; alt: string };
 
 /** Every service landing page route (without the leading slash). */
@@ -18,6 +20,13 @@ export interface ServicePageContent {
   /** Route slug, also the key used to pick reviews. */
   slug: ServiceSlug;
   meta: { title: string; description: string };
+
+  /**
+   * Before/after pairs shown straight after the stats (Demo Bros order).
+   * Leave out for pages with no relevant pair. A pair whose photo isn't in
+   * /public yet renders as a branded placeholder of the same size.
+   */
+  beforeAfter?: BeforeAfterPair[];
 
   hero: {
     eyebrow: string;

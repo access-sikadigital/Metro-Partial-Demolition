@@ -113,12 +113,13 @@ function HubHero() {
           </motion.p>
 
           <motion.div variants={rise} className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <CtaButton href="#services" variant="white">See our services</CtaButton>
+            <CtaButton href="#services" variant="white">
+              See our services
+            </CtaButton>
             <CtaButton href={SITE.phoneHref} variant="outlineLight" icon="phone">
               Call {SITE.phone}
             </CtaButton>
           </motion.div>
-
         </motion.div>
 
         {/* Three doors, right in the hero — the whole point of this page. */}
@@ -240,7 +241,7 @@ function ServiceShowcase() {
                     <span className="font-display inline-block rounded-sm bg-go/10 px-2.5 py-1.5 text-sm text-go ring-1 ring-go/25">
                       {p.from}
                     </span>
-                    <span className="chamfer inline-flex items-center gap-2 bg-ink px-4 py-2.5 text-[0.72rem] font-bold tracking-[0.08em] text-paper uppercase transition-colors duration-300 [--cut:8px] group-hover:bg-hivis group-hover:text-ink">
+                    <span className="chamfer inline-flex items-center gap-2 bg-ink px-4 py-2.5 text-[0.75rem] font-bold tracking-[0.08em] text-paper uppercase transition-colors duration-300 [--cut:8px] group-hover:bg-hivis group-hover:text-ink">
                       View page
                       <ArrowRight
                         className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1"
@@ -270,8 +271,8 @@ function WhyMetro() {
           <Reveal className="mt-8 hidden lg:block">
             <div className="chamfer relative aspect-[4/3] overflow-hidden [--cut:30px]">
               <img
-                src="/images/site-hoarding.jpg"
-                alt="Metro Partial Demolition site hoarding reading Work in Progress"
+                src="/images/process/03-price-in-writing.jpg"
+                alt="A Metro crew lead going through an itemised quote with homeowners"
                 loading="lazy"
                 className="h-full w-full object-cover"
               />
@@ -301,12 +302,7 @@ function ServiceButtons({ className = "" }: { className?: string; tone: "dark" |
   return (
     <Reveal className={`flex flex-col flex-wrap gap-3 sm:flex-row ${className}`}>
       {servicePages.map((s) => (
-        <CtaButton
-          key={s.path}
-          to={s.path}
-          variant="yellow"
-          size="md"
-        >
+        <CtaButton key={s.path} to={s.path} variant="yellow" size="md">
           {s.short}
         </CtaButton>
       ))}

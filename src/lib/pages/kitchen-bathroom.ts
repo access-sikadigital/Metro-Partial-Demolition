@@ -1,5 +1,6 @@
 import { PRICING, SITE, TRUST } from "../site-data";
 import { stripOut } from "./strip-out";
+import { beforeAfter } from "./before-after";
 import type { ServicePageContent } from "./types";
 
 /**
@@ -30,8 +31,8 @@ export const kitchenDemolition: ServicePageContent = {
       { icon: "water-pipes", label: "Plumbing and power capped and made safe" },
       { icon: "tipper", label: "Skip, rubbish and clean-up included" },
     ],
-    imageDesktop: "/images/hero/strip-out-desktop.jpg",
-    imageMobile: "/images/hero/strip-out-mobile.jpg",
+    imageDesktop: "/images/hero/kitchen-demolition-desktop.jpg",
+    imageMobile: "/images/hero/kitchen-demolition-mobile.jpg",
   },
   services: {
     ...stripOut.services,
@@ -114,6 +115,7 @@ export const kitchenDemolition: ServicePageContent = {
 /** /bathroom-demolition — ad group: Bathroom (demolition / strip out). */
 export const bathroomDemolition: ServicePageContent = {
   ...stripOut,
+  beforeAfter: beforeAfter("bathroom", "kitchen", "wall"),
   slug: "bathroom-demolition",
   meta: {
     title: `Bathroom Demolition Melbourne from ${PRICING.bathroom} | ${SITE.name}`,
@@ -130,8 +132,8 @@ export const bathroomDemolition: ServicePageContent = {
       { icon: "builder", label: "Asbestos sheeting handled by our own crew" },
       { icon: "tipper", label: "Skip, rubbish and clean-up included" },
     ],
-    imageDesktop: "/images/hero/strip-out-desktop.jpg",
-    imageMobile: "/images/hero/strip-out-mobile.jpg",
+    imageDesktop: "/images/hero/bathroom-demolition-desktop.jpg",
+    imageMobile: "/images/hero/bathroom-demolition-mobile.jpg",
   },
   services: {
     ...stripOut.services,

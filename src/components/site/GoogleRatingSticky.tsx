@@ -17,7 +17,7 @@ export function GoogleRatingSticky() {
           <span className="text-sm font-bold text-ink">{TRUST.rating}</span>
           <Stars />
         </span>
-        <span className="mt-0.5 text-[0.7rem] text-ink/55">
+        <span className="mt-0.5 text-[0.75rem] text-ink/55">
           Based on {TRUST.reviewCount} reviews
         </span>
       </span>

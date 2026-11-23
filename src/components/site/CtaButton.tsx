@@ -26,7 +26,7 @@ const ctaVariants = cva(
         outlineDark: "bg-transparent text-ink ring-1 ring-inset ring-ink/30",
       },
       size: {
-        sm: "text-[0.7rem]",
+        sm: "text-[0.75rem]",
         md: "text-[0.75rem]",
         lg: "text-[0.8rem] sm:text-[0.85rem]",
       },
@@ -39,24 +39,28 @@ const ctaVariants = cva(
 type CtaVariant = NonNullable<VariantProps<typeof ctaVariants>["variant"]>;
 type CtaSize = NonNullable<VariantProps<typeof ctaVariants>["size"]>;
 
+/*
+ * Hover rule: a button keeps its own colour family when hovered — it gets
+ * deeper, never black. Black hover fills and black arrow cells disappeared
+ * into the site's many off-black bands, leaving a floating label and an
+ * outline. These stay solid and readable on dark, light and yellow sections.
+ */
 const STYLE: Record<CtaVariant, { fill: string; hoverText: string; cell: string }> = {
-  // The yellow inset frame keeps the off-black arrow cell attached to the
-  // button on off-black bands, where an unframed cell vanished into the page.
   primary: {
-    fill: "bg-ink",
-    hoverText: "group-hover/cta:text-go",
-    cell: "bg-ink text-go ring-[3px] ring-inset ring-go",
+    fill: "bg-go-deep",
+    hoverText: "group-hover/cta:text-white",
+    cell: "bg-go-deep text-white",
   },
   // Brand yellow, for service links that shouldn't compete with the green quote/call buttons.
   yellow: {
-    fill: "bg-ink",
-    hoverText: "group-hover/cta:text-hivis",
-    cell: "bg-ink text-hivis ring-[3px] ring-inset ring-hivis",
+    fill: "bg-hivis-deep",
+    hoverText: "group-hover/cta:text-ink",
+    cell: "bg-hivis-deep text-ink",
   },
   white: {
-    fill: "bg-ink",
-    hoverText: "group-hover/cta:text-paper",
-    cell: "bg-ink text-white",
+    fill: "bg-hivis",
+    hoverText: "group-hover/cta:text-ink",
+    cell: "bg-hivis text-ink",
   },
   // Same reasoning in reverse: this variant sits on the yellow band.
   dark: {

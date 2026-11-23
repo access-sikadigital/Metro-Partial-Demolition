@@ -32,8 +32,8 @@ export const partialDemolition: ServicePageContent = {
       { icon: "floor-plan", label: "Permits and service isolations handled" },
       { icon: "builder", label: "Asbestos removed by our own licensed crew" },
     ],
-    imageDesktop: "/images/hero/house-demolition-desktop.jpg",
-    imageMobile: "/images/hero/house-demolition-mobile.jpg",
+    imageDesktop: "/images/hero/partial-demolition-desktop.jpg",
+    imageMobile: "/images/hero/partial-demolition-mobile.jpg",
   },
 
   services: {

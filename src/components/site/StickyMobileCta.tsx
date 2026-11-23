@@ -41,7 +41,7 @@ export function StickyMobileCta() {
           {CTA_LABEL}
           <ArrowRight className="h-4 w-4" strokeWidth={2.5} />
         </span>
-        <span className="mt-0.5 text-[0.72rem] text-white/85">
+        <span className="mt-0.5 text-[0.75rem] text-white/85">
           Free, itemised, in writing within 24 hours
         </span>
       </button>

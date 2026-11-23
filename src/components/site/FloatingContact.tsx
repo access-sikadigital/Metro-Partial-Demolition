@@ -16,7 +16,10 @@ export function FloatingContact() {
       aria-label={`Call ${SITE.phone}`}
       className="group fixed right-4 bottom-[5.25rem] z-50 block h-14 w-14 lg:right-6 lg:bottom-6"
     >
-      <span aria-hidden className="chamfer animate-call-pulse absolute inset-0 bg-go [--cut:12px]" />
+      <span
+        aria-hidden
+        className="chamfer animate-call-pulse absolute inset-0 bg-go [--cut:12px]"
+      />
       <span
         aria-hidden
         className="chamfer animate-call-pulse absolute inset-0 bg-go [--cut:12px] [animation-delay:1s]"

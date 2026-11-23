@@ -1,9 +1,11 @@
 import { PRICING, SITE, TRUST } from "../site-data";
+import { beforeAfter } from "./before-after";
 import type { ServicePageContent } from "./types";
 
 /** /house-demolition — partial, rear-of-house and full house demolition. */
 export const houseDemolition: ServicePageContent = {
   slug: "house-demolition",
+  beforeAfter: beforeAfter("wall", "shed", "kitchen"),
   meta: {
     title: `House & Partial Demolition Melbourne | ${SITE.name}`,
     description: `Melbourne house and partial demolition. Rear-of-house and extension demolition, wall removals from ${PRICING.wall}, full knock-down rebuilds. Permits, disconnections and asbestos handled. Fixed price in writing within 24 hours.`,
@@ -20,8 +22,8 @@ export const houseDemolition: ServicePageContent = {
       { icon: "floor-plan", label: "Permits and all four disconnections handled" },
       { icon: "builder", label: "Asbestos removed by our own licensed crew" },
     ],
-    imageDesktop: "/images/hero/house-demolition-desktop.jpg",
-    imageMobile: "/images/hero/house-demolition-mobile.jpg",
+    imageDesktop: "/images/hero/partial-demolition-desktop.jpg",
+    imageMobile: "/images/hero/partial-demolition-mobile.jpg",
   },
 
   services: {
@@ -170,12 +172,12 @@ export const houseDemolition: ServicePageContent = {
     ],
     tag: "What stays, stays.",
     imageMain: {
-      src: "/images/excavator-sky.jpg",
-      alt: "An excavator arm and bucket against a clear sky",
+      src: "/images/sections/house-what-stays-up.jpg",
+      alt: "Inside the house, the opening where the extension came off held on steel props, the living room covered and kept",
     },
     imageDetail: {
-      src: "/images/excavator-wall.jpg",
-      alt: "An excavator bucket pulling down a brick wall",
+      src: "/images/sections/house-clean-cut.jpg",
+      alt: "A clean saw cut along a chalk line through the brickwork where the extension met the house",
     },
   },
 
@@ -264,6 +266,7 @@ export const houseDemolition: ServicePageContent = {
         n: "01",
         icon: "floor-plan",
         title: "Tell us about the job",
+        image: "/images/process/01-tell-us.jpg",
         detail:
           "Send the form with a few photos, or call. Bigger or trickier jobs get a free site visit.",
       },
@@ -271,6 +274,7 @@ export const houseDemolition: ServicePageContent = {
         n: "02",
         icon: "yardstick",
         title: "Your number, in writing",
+        image: "/images/process/03-price-in-writing.jpg",
         detail:
           "Itemised, within 24 hours, with every inclusion listed line by line. Nothing to sign.",
       },
@@ -278,24 +282,28 @@ export const houseDemolition: ServicePageContent = {
         n: "03",
         icon: "water-pipes",
         title: "Approvals & disconnections",
+        image: "/images/process/04-disconnections.jpg",
         detail: "Permits, power, gas, water and telecoms. You don't chase anyone.",
       },
       {
         n: "04",
         icon: "helmet",
         title: "We protect what stays",
+        image: "/images/process/05-protect.jpg",
         detail: "Propping in, services isolated, dust screens up, neighbours notified.",
       },
       {
         n: "05",
         icon: "excavator",
         title: "It comes down",
+        image: "/images/process/07-it-comes-down.jpg",
         detail: "Exactly to the cut line. Dust controlled, materials separated for recycling.",
       },
       {
         n: "06",
         icon: "shovel",
         title: "Cleared, sealed, photographed",
+        image: "/images/process/11-handover-outside.jpg",
         detail: "Waste gone, ground level, handover documented so there's nothing to argue about.",
       },
     ],
@@ -328,8 +336,8 @@ export const houseDemolition: ServicePageContent = {
       "Multiple sites staged so your trades roll from one to the next",
     ],
     image: {
-      src: "/images/site-hoarding.jpg",
-      alt: "Metro Partial Demolition site hoarding reading Work in Progress",
+      src: "/images/audiences/builders.jpg",
+      alt: "A builder and the Metro crew lead going through the program on site",
     },
   },
 
@@ -365,8 +373,8 @@ export const houseDemolition: ServicePageContent = {
       },
     ],
     image: {
-      src: "/images/crew-shovel.jpg",
-      alt: "A crew member in a hard hat and safety glasses shovelling demolition waste",
+      src: "/images/audiences/homeowners.jpg",
+      alt: "The Metro crew lead walking homeowners through the job outside their house",
     },
   },
 
