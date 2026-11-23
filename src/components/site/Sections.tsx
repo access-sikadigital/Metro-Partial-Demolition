@@ -207,7 +207,7 @@ export function ServiceArea({ index }: { index?: string }) {
   );
 }
 
-/** Yellow closing band with a demolition photograph. */
+/** Dark closing band with a demolition photograph (dark so the green buttons stand out). */
 export function FinalCtaBand({
   eyebrow = "Ready when you are",
   title,
@@ -223,13 +223,14 @@ export function FinalCtaBand({
   children?: ReactNode;
 }) {
   return (
-    <section className="relative overflow-hidden bg-hivis text-ink">
+    <section className="relative overflow-hidden bg-ink text-paper">
+      <div aria-hidden className="pattern-grid absolute inset-0" />
       <div className="grid lg:grid-cols-[1.15fr_0.85fr]">
         <div className="relative px-4 py-16 sm:px-10 sm:py-20 lg:py-24 lg:pr-12 lg:pl-[max(4rem,calc((100vw-88rem)/2+4rem))]">
-          <Bricks className="absolute right-6 bottom-6 h-24 w-48 text-ink/[0.08] lg:right-10" />
-          <SectionHeading tone="yellow" eyebrow={eyebrow} title={title} />
+          <Bricks className="absolute right-6 bottom-6 h-24 w-48 text-white/[0.05] lg:right-10" />
+          <SectionHeading tone="dark" eyebrow={eyebrow} title={title} />
           <Reveal>
-            <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink/85">{lede}</p>
+            <p className="mt-5 max-w-xl text-lg leading-relaxed text-paper/75">{lede}</p>
             {body && <p className="font-display mt-5 text-base">{body}</p>}
             <div className="relative mt-8">
               {children ?? (
@@ -252,7 +253,7 @@ export function FinalCtaBand({
           />
           <div
             aria-hidden
-            className="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-hivis to-transparent"
+            className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-ink to-transparent"
           />
         </div>
       </div>
