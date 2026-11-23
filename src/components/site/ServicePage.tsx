@@ -8,6 +8,7 @@ import { SectionHeading } from "./SectionHeading";
 import { FaqList } from "./FaqList";
 import { QuoteForm } from "./QuoteForm";
 import { FloatingContact } from "./FloatingContact";
+import { GoogleRatingSticky } from "./GoogleRatingSticky";
 import { StickyMobileCta } from "./StickyMobileCta";
 import { GoogleRatingBadge } from "./GoogleRating";
 import { Bricks, HazardBand, IconTile } from "./Brand";
@@ -66,6 +67,7 @@ export function ServicePage({ page }: { page: ServicePageContent }) {
         body={page.finalCta.body}
       />
       <FloatingContact />
+      <GoogleRatingSticky />
       <StickyMobileCta />
     </>
   );

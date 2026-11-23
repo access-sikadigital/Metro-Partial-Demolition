@@ -42,6 +42,13 @@ export const SITE = {
 export const TRUST = {
   rating: "4.9",
   reviewCount: 48,
+  /**
+   * Set to true ONLY once `rating` and `reviewCount` are Metro's real Google
+   * figures and `googleReviewsUrl` points at its Google Business Profile.
+   * Turns on the sticky "Google Rating" badge (bottom-left on desktop).
+   */
+  reviewsVerified: false as boolean,
+  googleReviewsUrl: "",
   liability: "$20M",
   licence: "Licensed & insured",
 } as const;

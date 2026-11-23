@@ -8,6 +8,7 @@ import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
 import { CtaButton } from "./CtaButton";
 import { FloatingContact } from "./FloatingContact";
+import { GoogleRatingSticky } from "./GoogleRatingSticky";
 import { StickyMobileCta } from "./StickyMobileCta";
 import { GoogleRatingBadge } from "./GoogleRating";
 import { HazardBand, IconTile } from "./Brand";
@@ -45,6 +46,7 @@ export function HubPage() {
         <ServiceButtons tone="yellow" />
       </FinalCtaBand>
       <FloatingContact />
+      <GoogleRatingSticky />
       <StickyMobileCta />
     </>
   );
