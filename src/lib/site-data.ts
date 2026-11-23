@@ -1,11 +1,8 @@
-import type { ServiceSlug } from "./pages/types";
-
 // Shared content for Metro Partial Demolition.
 //
-// Same shape as the Demo Bros project: one main landing page ("/") that routes
-// visitors to dedicated landing pages, each with its own hero form, pricing,
-// process, FAQs and thank-you URL. Google Ads ad group → page map is in
-// docs/google-ads/01-campaign-build.md.
+// One main page ("/") that routes visitors to dedicated landing pages, each
+// with its own hero form, FAQs and thank-you URL, plus /contact. Google Ads ad
+// group → page map is in docs/google-ads/01-campaign-build.md.
 //
 //   /partial-demolition            → src/lib/pages/partial-demolition.ts
 //   /strip-out                     → src/lib/pages/strip-out.ts
@@ -15,75 +12,121 @@ import type { ServiceSlug } from "./pages/types";
 //   /rubbish-removal               → src/lib/pages/rubbish-removal.ts
 //   /house-demolition              → src/lib/pages/house-demolition.ts (not in ads at launch)
 //
-// This file holds what every page shares: business facts, prices, the quote
-// form options, the main-page (hub) content, reviews and the footer.
-//
-// ┌──────────────────────── CONFIRM BEFORE LAUNCH ────────────────────────┐
-// │ Nothing below was supplied in the brand pack, so every business fact is │
-// │ a PLACEHOLDER that must be confirmed with the client before go-live:     │
-// │   · SITE.phone / phoneHref / email                                       │
-// │   · TRUST — Google rating, review count, liability cover, licence        │
-// │   · PRICING — every "from" price                                         │
-// │   · testimonials — sample copy only; replace with real Google reviews    │
-// │ Search this repo for "PLACEHOLDER" to find each one.                     │
-// └──────────────────────────────────────────────────────────────────────────┘
+// ┌──────────────────────── WAITING ON METRO ────────────────────────┐
+// │ Nothing here claims a fact Metro hasn't confirmed. Until it does: │
+// │   · SITE.phone is empty, so every call button and tel: link hides │
+// │   · SITE.email is empty, so the footer shows no email             │
+// │   · TRUST.reviewsVerified is false, so no rating or reviews show  │
+// │   · no prices, guarantees, licences or turnaround promises        │
+// └───────────────────────────────────────────────────────────────────┘
 
 export const SITE = {
   name: "Metro Partial Demolition",
   shortName: "Metro",
-  // PLACEHOLDER — client phone number.
-  phone: "1300 000 000",
-  phoneHref: "tel:1300000000",
-  // PLACEHOLDER — client email address.
-  email: "info@metropartialdemolition.com.au",
+  /** Metro's current number, once supplied and verified, e.g. "03 9xxx xxxx". */
+  phone: "" as string,
+  /** Matching tel: link, e.g. "tel:+6139xxxxxxx". */
+  phoneHref: "" as string,
+  /** Metro's enquiries address, once confirmed. */
+  email: "" as string,
 };
 
-/** PLACEHOLDER — trust claims, used in heroes, ticker, stats, modal, footer and JSON-LD. */
-export const TRUST = {
-  rating: "4.9",
-  reviewCount: 48,
-  /**
-   * Set to true ONLY once `rating` and `reviewCount` are Metro's real Google
-   * figures and `googleReviewsUrl` points at its Google Business Profile.
-   * Turns on the sticky "Google Rating" badge (bottom-left on desktop).
-   */
-  reviewsVerified: false as boolean,
-  googleReviewsUrl: "",
-  liability: "$20M",
-  licence: "Licensed & insured",
-} as const;
+/** True only once SITE.phone holds Metro's verified number. Gates every call button. */
+export const hasPhone = SITE.phone !== "" && SITE.phoneHref !== "";
 
 /**
- * PLACEHOLDER — every price the site quotes, in one place. Change a number here
- * and every hero, price table, service card, FAQ and final CTA follows.
+ * Google rating. Nothing shows until `reviewsVerified` is true, `rating` and
+ * `reviewCount` are Metro's real Google figures and `googleReviewsUrl` points
+ * at its Google Business Profile.
  */
-export const PRICING = {
-  // Demolition
-  wall: "$1,500",
-  outbuilding: "$1,200",
-  smallHouse: "$15,000",
-  // Strip outs
-  kitchen: "$800",
-  bathroom: "$1,200",
-  laundry: "$800",
-  // Rubbish removal
-  minLoad: "$99",
-  trailer: "$150",
-  halfTruck: "$290",
-  fullTruck: "$550",
-} as const;
+export const TRUST = {
+  rating: "" as string,
+  reviewCount: 0 as number,
+  reviewsVerified: false as boolean,
+  googleReviewsUrl: "" as string,
+};
 
 /** One button label, used everywhere. */
-export const CTA_LABEL = "Get a free quote";
+export const CTA_LABEL = "Request a quote";
 
 /* ============================== QUOTE FORM ============================== */
 
 export const quoteForm = {
-  title: "Get your fixed price",
-  lede: "Tell us about the job. Itemised, in writing, within 24 hours.",
-  fine: "Free, itemised, no obligation. One quote, one follow-up.",
-  fineEmphasis: "We don't chase you.",
+  submitting: "Sending your request…",
+  error: "We couldn't send your request. Please try again.",
+  fine: "We’ll use your details to get in touch about this job.",
+  detailsPrompt:
+    "Which rooms, structures or materials need to go? Include a target date or any access restrictions you already know about.",
+  photoPrompt:
+    "A wide photo of the job helps us see what’s involved. If there are stairs, a narrow gate or a shared driveway, a photo of the access also helps.",
 };
+
+/**
+ * The heading and prompt shown above the quote form (hero card and modal) on
+ * each page. Pages not listed use the home page's.
+ */
+export const FORM_COPY: Record<string, { heading: string; prompt: string }> = {
+  "/": {
+    heading: "Request a demolition or strip-out quote",
+    prompt: "What needs to come out, and what are you keeping?",
+  },
+  "/partial-demolition": {
+    heading: "Get a quote for your partial demolition",
+    prompt:
+      "Which part is coming down? Tell us what needs to stay and whether you have any marked-up plans.",
+  },
+  "/strip-out": {
+    heading: "Get a quote for your strip-out",
+    prompt:
+      "Tell us which rooms, tiles, fittings or floors need to go. Add access details or a handover date if you have one.",
+  },
+  "/kitchen-demolition": {
+    heading: "Get a quote for your kitchen strip-out",
+    prompt:
+      "Tell us which cabinets, benchtops, tiles or appliances need to go, and when your installer needs the room.",
+  },
+  "/bathroom-demolition": {
+    heading: "Get a quote for your bathroom strip-out",
+    prompt:
+      "Tell us which fixtures, tiles or floors need to go, and when your plumber or tiler needs the room.",
+  },
+  "/garage-shed-driveway-removal": {
+    heading: "Get a quote for your garage, shed or driveway removal",
+    prompt:
+      "Tell us what’s coming out, roughly how big it is, and any paving, fences or access routes you’re keeping.",
+  },
+  "/house-demolition": {
+    heading: "Get a quote for your demolition",
+    prompt:
+      "Which part is coming down? Tell us what needs to stay and whether you have any marked-up plans.",
+  },
+  "/rubbish-removal": {
+    heading: "Get a rubbish removal quote",
+    prompt:
+      "Tell us what’s in the load and where it is. Add a photo showing the full pile, plus any stairs, gates or loading restrictions.",
+  },
+  "/contact": {
+    heading: "Request a quote",
+    prompt:
+      "Tell us what needs to come out, what you want to keep and when you need the work. If you’re working to a builder’s start date or a lease handover, include the date in your notes.",
+  },
+};
+
+export function formCopyFor(pathname: string) {
+  return FORM_COPY[pathname.replace(/\/$/, "") || "/"] ?? FORM_COPY["/"];
+}
+
+/** Shown on the thank-you pages, keyed by the thank-you page's `source`. */
+export const THANK_YOU_COPY = {
+  heading: "Thanks, we’ve received your quote request.",
+  general: "We’ll review your job details and get in touch about the next step.",
+  "partial-demolition":
+    "We’ll review what needs to come down and what you’re keeping. Keep any plans and your builder’s preferred handover date handy.",
+  "strip-out":
+    "We’ll review the rooms or surfaces you want stripped out. Keep any room lists, access notes or defit plans handy.",
+  "rubbish-removal":
+    "We’ll review the type of rubbish and where it needs to be loaded from. Keep a photo of the full load handy.",
+} as const;
 
 /** "What do you need done?" — multi-select. `value` is what travels to GHL. */
 export const quoteServiceOptions = [
@@ -99,6 +142,7 @@ export const quoteServiceOptions = [
   { value: "tile-removal", label: "Tile removal" },
   // Catch-all, so a job that doesn't fit the list still comes through as a lead.
   { value: "other", label: "Something else" },
+  { value: "not-sure", label: "Not sure yet" },
 ];
 
 /** Kept for the server function, which labels a timing value if one is sent. */
@@ -142,6 +186,7 @@ export const LEAD_SOURCES: Record<string, string> = {
   "/bathroom-demolition": "Bathroom Demolition Landing Page",
   "/garage-shed-driveway-removal": "Garage Shed Driveway Landing Page",
   "/rubbish-removal": "Rubbish Removal Landing Page",
+  "/contact": "Contact Page",
 };
 
 export function leadSourceFor(pathname: string): string {
@@ -165,58 +210,64 @@ export function defaultServicesFor(pathname: string): string[] {
   return DEFAULT_SERVICES[pathname.replace(/\/$/, "")] ?? [];
 }
 
-/* ============================ SHARED CLAIMS ============================ */
-
-export const tickerClaims = [
-  `${TRUST.rating} ★ Google rating`,
-  "Fixed price in 24 hours",
-  `${TRUST.liability} public liability`,
-  "In-house asbestos removal",
-  "One crew, start to finish",
-  "Skip & clean-up included",
-];
-
-export const stats = [
-  { value: TRUST.rating, unit: "★", label: "Google rating" },
-  { value: "24", unit: "h", label: "Itemised price in writing" },
-  { value: TRUST.liability, unit: "", label: "Public liability" },
-  { value: "1", unit: "crew", label: "Quote to handover" },
-];
-
 /* ============================ MAIN PAGE (HUB) ============================ */
 
-/**
- * The main landing page is a hub: its job is to send each visitor to the right
- * service page, fast. General headline, three big doors, and enough proof
- * (stats, reviews, guarantees) that they trust the door they pick.
- */
+/** The main page ("/"), from the 01-Home copy. */
 export const hub = {
+  meta: {
+    title: "Partial Demolition & Strip-Outs Melbourne | Metro",
+    description:
+      "Planning a renovation or extension? Metro Partial Demolition handles selective demolition, internal strip-outs and rubbish removal across Melbourne. Request a quote.",
+  },
   hero: {
-    eyebrow: "Metro · Melbourne demolition",
-    lines: ["Partial demolition.", "Strip-outs."],
-    ribbon: "Rubbish removal.",
-    sub: "One Melbourne crew for the part of the job nobody else wants to do. Fixed, itemised price in writing within 24 hours — and the part you're keeping stays protected.",
-    pick: "Pick your job",
+    eyebrow: "Metro · Melbourne",
+    titleTop: "Melbourne partial demolition and strip-outs",
+    titleRibbon: "for your next build",
+    sub: "Take down an old extension, clear a room for renovation or get a site ready for the next trade. Tell us what needs to come out, what needs to stay and when your builder needs the space. We’ll help you work out the scope from there.",
+    secondary: "Explore services",
   },
   showcase: {
     eyebrow: "Our services",
-    title: "What do you need done?",
-    lede: "Three ways we help. Tap through for pricing, the full process and a fast, fixed quote.",
+    title: "What are you getting ready for?",
   },
-  why: {
-    eyebrow: "Why Metro",
-    title: "Whatever the job, the same four promises.",
+  scope: {
+    eyebrow: "How we scope it",
+    title: "A clear scope from the first conversation",
+    items: [
+      {
+        icon: "helmet",
+        title: "Show us what stays.",
+        detail: "Point out floors, rooms, finishes or structures that need to be kept.",
+      },
+      {
+        icon: "yardstick",
+        title: "Get the scope in writing.",
+        detail:
+          "See what removal, waste and handover are included, so you can compare quotes on the same basis.",
+      },
+      {
+        icon: "builder",
+        title: "Plan around the next trade.",
+        detail: "Share your builder’s target date and any access constraints early.",
+      },
+      {
+        icon: "floor-plan",
+        title: "Start with what you have.",
+        detail:
+          "A suburb and a short description are enough to start. Photos or plans help if you have them.",
+      },
+    ],
   },
   finalCta: {
-    eyebrow: "Ready when you are",
-    title: "Get your fixed price.",
-    lede: "Pick your service, or just tell us about the job. Itemised number in writing within 24 hours — free, no obligation, and it doesn't move after that.",
+    eyebrow: "Request a quote",
+    title: "Let’s scope the first stage of your project",
+    lede: "Tell us where the job is and what you want removed. We’ll review the details and get in touch about your quote.",
   },
 };
 
 /**
- * The three dedicated landing pages, as the hub presents them. `path` is a real
- * route in this app, so the links navigate instantly with no full reload.
+ * The three main service pages, as the home page presents them. `path` is a
+ * real route in this app, so the links navigate with no full reload.
  */
 export const servicePages = [
   {
@@ -225,12 +276,11 @@ export const servicePages = [
     icon: "excavator",
     title: "Partial Demolition",
     short: "Partial demolition",
+    question: "An extension or structural renovation",
     blurb:
-      "Rear-of-house and extension demolition, wall removals, garages, sheds and driveways — the part you're keeping stays propped and protected.",
-    covers: ["Rear-of-house & extensions", "Wall removal", "Garages, sheds & driveways"],
-    from: `Walls from ${PRICING.wall}`,
+      "Removing the back of a house, an old addition or selected walls? Start with a scope that shows exactly where the demolition stops.",
+    linkLabel: "Explore partial demolition",
     image: "/images/services/wall-removal.jpg",
-    imageAlt: "A Metro crew member removing an internal wall",
   },
   {
     path: "/strip-out",
@@ -238,12 +288,11 @@ export const servicePages = [
     icon: "sledgehammer",
     title: "Strip-Outs",
     short: "Strip-outs",
+    question: "A new kitchen, bathroom or fit-out",
     blurb:
-      "Kitchens, bathrooms, laundries and whole interiors back to the frame — usually in a day, so your trades start the next morning.",
-    covers: ["Kitchen, bathroom & laundry", "Internal strip outs", "Office & retail defits"],
-    from: `Kitchens from ${PRICING.kitchen}`,
-    image: "/images/hero/kitchen-demolition-desktop.jpg",
-    imageAlt: "Two Metro crew lifting an old kitchen cabinet out during a strip-out",
+      "Clear the existing cabinetry, fixtures, tiles or interiors so the next trade can work to the agreed scope.",
+    linkLabel: "Explore strip-outs",
+    image: "/images/breaker-wall.jpg",
   },
   {
     path: "/rubbish-removal",
@@ -251,200 +300,34 @@ export const servicePages = [
     icon: "tipper",
     title: "Rubbish Removal",
     short: "Rubbish removal",
+    question: "A clear site without the tip runs",
     blurb:
-      "Household junk to concrete and whole-house clear-outs. We're a demolition crew, so nothing's too heavy — and you don't lift a thing.",
-    covers: ["Household & hard rubbish", "Concrete, brick & sheds", "Deceased estates & hoarding"],
-    from: `From ${PRICING.minLoad}`,
-    image: "/images/process/09-we-load-it.jpg",
-    imageAlt: "Metro crew loading an old fridge and furniture onto the truck",
-  },
-];
-
-/** Promises that hold across every service — used on the hub. */
-export const sharedGuarantees = [
-  {
-    icon: "yardstick",
-    title: "The number doesn't move",
-    detail:
-      "Itemised and in writing within 24 hours. The price we wrote down is the price you pay.",
-  },
-  {
-    icon: "helmet",
-    title: "What stays, stays protected",
-    detail:
-      "Floors covered, services isolated, anything we're not touching propped and sealed off.",
-  },
-  {
-    icon: "builder",
-    title: "Asbestos handled in-house",
-    detail:
-      "Our own licensed crew removes it, inside the price — no second contractor, no extra week.",
-  },
-  {
-    icon: "tipper",
-    title: "Gone, swept, photographed",
-    detail: "Skip and tip runs are on us. We leave it swept and photograph the handover.",
+      "Have old furniture, renovation debris or building waste to move? Tell us what’s there and where we’ll need to load it from.",
+    linkLabel: "Explore rubbish removal",
+    image: "/images/crew-shovel.jpg",
   },
 ];
 
 /* ============================ AUDIENCES ============================ */
 
 export const audiences = {
-  eyebrow: "Our clients",
-  title: "Who we work with",
-  // Same four as Demo Bros. No architects/designers: they don't hire demolition crews.
+  title: "For homeowners, builders and fit-out teams",
+  body: "Homeowners can share a few photos and what they’re planning. Builders and fit-out teams can send marked-up plans, access notes and their handover date.",
   items: [
     { icon: "home", label: "Homeowners" },
     { icon: "builder", label: "Builders" },
-    { icon: "developer", label: "Developers" },
-    { icon: "government", label: "Government" },
+    { icon: "developer", label: "Fit-out teams" },
   ],
 } as const;
-
-/* ============================== REVIEWS ============================== */
-
-export type Testimonial = {
-  name: string;
-  role: string;
-  quote: string;
-  rating: number;
-  /** Which landing pages show this review. The hub shows them all. */
-  pages: ServiceSlug[];
-};
-
-/**
- * PLACEHOLDER — SAMPLE REVIEWS ONLY.
- *
- * Illustrative copy written for the design build. These are NOT real reviews
- * and must be replaced with verified Google reviews (with the reviewer's real
- * name) before the site goes live.
- */
-export const testimonials: Testimonial[] = [
-  {
-    name: "Sarah K.",
-    role: "Rear extension, Brunswick",
-    quote:
-      "They took the back half of our house off while we were still living in the front. Everything was propped and sealed off properly, and the price on the quote was exactly what we paid.",
-    rating: 5,
-    pages: ["partial-demolition", "house-demolition"],
-  },
-  {
-    name: "Daniel M.",
-    role: "Builder, Moonee Ponds",
-    quote:
-      "We give Metro the cut line and the date, and that's the last we think about it. Quote's itemised, crew's on time, and the site's swept when our framers arrive.",
-    rating: 5,
-    pages: ["house-demolition", "strip-out"],
-  },
-  {
-    name: "Priya R.",
-    role: "Kitchen & wall removal, Hawthorn",
-    quote:
-      "Kitchen out and the wall to the dining room gone in two days. They found asbestos in the old splashback and just dealt with it — no surprise invoice.",
-    rating: 5,
-    pages: ["kitchen-demolition", "partial-demolition", "strip-out", "house-demolition"],
-  },
-  {
-    name: "Tom W.",
-    role: "Garage demolition, Coburg",
-    quote:
-      "Old brick garage and the slab under it, gone in a day. Neighbours were told in advance and the driveway was left cleaner than it's been in years.",
-    rating: 5,
-    pages: ["garage-shed-driveway-removal", "house-demolition", "rubbish-removal"],
-  },
-  {
-    name: "Elena V.",
-    role: "Bathroom strip out, St Kilda",
-    quote:
-      "Third-floor unit with one tiny lift and they still had it stripped by knock-off. Floors and hallway covered the whole way. Couldn't fault them.",
-    rating: 5,
-    pages: ["bathroom-demolition", "strip-out"],
-  },
-  {
-    name: "Marcus L.",
-    role: "Builder, Fitzroy",
-    quote:
-      "Took out exactly what was on the plans and photographed every stage. That documentation alone saves us hours with our clients.",
-    rating: 5,
-    pages: ["house-demolition", "strip-out"],
-  },
-  {
-    name: "Jenny H.",
-    role: "Deceased estate, Essendon",
-    quote:
-      "Clearing Mum's house was the part I'd been dreading. They went room by room, set aside every photo and document, and never once rushed us.",
-    rating: 5,
-    pages: ["rubbish-removal"],
-  },
-  {
-    name: "Chris P.",
-    role: "Backyard clear-out, Reservoir",
-    quote:
-      "Two other companies knocked back the old concrete path and the half-collapsed shed. Metro quoted it, took the lot in one visit and swept up after.",
-    rating: 5,
-    pages: ["rubbish-removal"],
-  },
-  {
-    name: "Aisha N.",
-    role: "Office defit, Melbourne CBD",
-    quote:
-      "End-of-lease make good on a tight deadline. Partitions, carpet and ceiling tiles out over a weekend, and the landlord signed it off first inspection.",
-    rating: 5,
-    pages: ["strip-out", "rubbish-removal"],
-  },
-];
-
-/** Pages that borrow another page's reviews rather than having their own tags. */
-const REVIEW_FALLBACK: Partial<Record<ServiceSlug, ServiceSlug>> = {
-  "partial-demolition": "house-demolition",
-  "kitchen-demolition": "strip-out",
-  "bathroom-demolition": "strip-out",
-  "garage-shed-driveway-removal": "house-demolition",
-};
-
-export function reviewsFor(page: ServiceSlug) {
-  const own = testimonials.filter((t) => t.pages.includes(page));
-  const fallback = REVIEW_FALLBACK[page];
-  const borrowed = fallback
-    ? testimonials.filter((t) => t.pages.includes(fallback) && !own.includes(t))
-    : [];
-  return [...own, ...borrowed].slice(0, 6);
-}
-
-/* =========================== SERVICE AREA =========================== */
-
-export const serviceArea = {
-  eyebrow: "Where we work",
-  title: "Melbourne wide — and the rest of Victoria too.",
-  lede: "Most of our work is Melbourne metro — every suburb, inner and outer, north and south of the river. But we cover the whole state: the Peninsula, Geelong and the Surf Coast, Ballarat, Bendigo, Gippsland and the north-east.",
-  body: "Tell us where the job is and we'll tell you when we can be there — usually in the same reply as the price.",
-  regions: [
-    "Inner Melbourne",
-    "Northern suburbs",
-    "Western suburbs",
-    "Eastern suburbs",
-    "Bayside & south-east",
-    "Mornington Peninsula",
-    "Geelong & Surf Coast",
-    "Regional Victoria",
-  ],
-};
 
 /* ============================== FOOTER ============================== */
 
 export const footer = {
   blurb:
-    "Melbourne demolition specialists. We take out the part you don't want — and look after the part you're keeping.",
-  coverage:
-    "House and partial demolition, strip-outs and rubbish removal across Melbourne — every suburb, inner and outer — plus the Peninsula, Geelong, Ballarat, Bendigo and regional Victoria.",
-  legal: `${TRUST.licence} · ${TRUST.liability} public liability`,
+    "Metro Partial Demolition · Partial demolition, strip-outs and rubbish removal across Melbourne.",
 };
 
 /* ============================ QUOTE MODAL ============================ */
 
-export const modalBenefits = [
-  { lead: "Fixed price in writing", rest: "within 24 hours, and it doesn't move after that" },
-  { lead: "What stays, stays protected", rest: "floors covered, services isolated" },
-  { lead: "Asbestos removed by our own crew", rest: "inside the price, not on top of it" },
-  { lead: "Skip, rubbish and clean-up included", rest: "no variation at the end" },
-];
+/** The modal's left panel: the same four scope points as the home page. */
+export const modalBenefits = hub.scope.items.map((i) => ({ lead: i.title, rest: i.detail }));

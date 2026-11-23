@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { CtaButton } from "@/components/site/CtaButton";
-import { SITE } from "@/lib/site-data";
+import { SITE, hasPhone } from "@/lib/site-data";
 
 export const metadata: Metadata = {
   title: "Page not found — Metro Partial Demolition",
@@ -27,9 +27,11 @@ export default function NotFound() {
           <CtaButton to="/" size="md">
             Back to the top
           </CtaButton>
-          <CtaButton href={SITE.phoneHref} variant="outlineDark" size="md" icon="phone">
-            Call {SITE.phone}
-          </CtaButton>
+          {hasPhone && (
+            <CtaButton href={SITE.phoneHref} variant="outlineDark" size="md" icon="phone">
+              Call Metro
+            </CtaButton>
+          )}
         </div>
       </div>
     </section>

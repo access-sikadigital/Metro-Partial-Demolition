@@ -1,7 +1,9 @@
 import { Phone } from "lucide-react";
-import { SITE } from "@/lib/site-data";
+import { SITE, hasPhone } from "@/lib/site-data";
 
 /**
+ * Hidden until Metro's number is verified (hasPhone).
+ *
  * Desktop floating call button — one tap, one action. A plain tel: link, so it
  * works with JavaScript off and long-press copies the number. On phones it
  * floats just above the sticky quote bar; on desktop, bottom-right.
@@ -10,10 +12,11 @@ import { SITE } from "@/lib/site-data";
  * the eye; they stop for people who prefer reduced motion (globals.css).
  */
 export function FloatingContact() {
+  if (!hasPhone) return null;
   return (
     <a
       href={SITE.phoneHref}
-      aria-label={`Call ${SITE.phone}`}
+      aria-label="Call Metro"
       className="group fixed right-4 bottom-[5.25rem] z-50 block h-14 w-14 lg:right-6 lg:bottom-6"
     >
       <span

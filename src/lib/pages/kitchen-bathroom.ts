@@ -1,211 +1,125 @@
-import { PRICING, SITE, TRUST } from "../site-data";
 import { stripOut } from "./strip-out";
-import { beforeAfter } from "./before-after";
 import type { ServicePageContent } from "./types";
 
 /**
- * Kitchen and bathroom demolition pages. Same body as /strip-out, with the
- * hero, meta, service order, price table and FAQs matched to the search.
- * These clicks are the most expensive in the account (A$18–26), so message
- * match on the landing page matters more here than anywhere else.
+ * Kitchen and bathroom pages: the /strip-out page with the hero, meta, service
+ * order and FAQs matched to the ad group's search. No copy file covers these
+ * routes, so the wording follows 03-Strip-Outs and makes no price, timing or
+ * credential claims.
  */
 
-const [kbl, internal, wallTile, commercial, floors, asbestos] = stripOut.services.items;
+const [rooms, tiles, multiRoom, commercial] = stripOut.services.items;
 
-/** /kitchen-demolition — ad group: Kitchen (removal / demolition). */
+/** /kitchen-demolition — ad group: Kitchen. Preselected service: kitchen-demolition. */
 export const kitchenDemolition: ServicePageContent = {
   ...stripOut,
   slug: "kitchen-demolition",
   meta: {
-    title: `Kitchen Demolition & Removal Melbourne from ${PRICING.kitchen} | ${SITE.name}`,
-    description: `Kitchen demolition and removal across Melbourne from ${PRICING.kitchen}. Cabinets, benchtops, splashback and tiles out in a day, services capped, rubbish gone. Fixed price in writing within 24 hours.`,
+    title: "Kitchen Demolition & Removal Melbourne | Metro",
+    description:
+      "Request a quote for kitchen demolition and removal in Melbourne. Clear cabinetry, benchtops, splashbacks, tiles or floors so your installer can start.",
   },
   hero: {
     eyebrow: "Kitchen demolition · Melbourne",
-    titleTop: `Kitchen removal from ${PRICING.kitchen}.`,
-    titleRibbon: "Out in a day.",
-    sub: "Cabinets, benchtop, splashback, tiles and appliances out by knock-off, plumbing and power capped, rubbish gone. Your new kitchen goes in on schedule. Fixed price in writing within 24 hours.",
-    bullets: [
-      { icon: "sledgehammer", label: `Kitchen demolition from ${PRICING.kitchen}` },
-      { icon: "tape-measure", label: "Out in a day, so your installer starts on time" },
-      { icon: "water-pipes", label: "Plumbing and power capped and made safe" },
-      { icon: "tipper", label: "Skip, rubbish and clean-up included" },
+    titleTop: "Kitchen demolition in Melbourne.",
+    titleRibbon: "Clear the room for your installer.",
+    sub: "Replacing a kitchen? Metro removes the cabinetry, benchtops, splashback, tiles and flooring in your agreed scope. Tell us what’s coming out, what you’re keeping and when your installer needs the room.",
+    points: [
+      "Cabinetry, benchtops and splashbacks",
+      "Wall tiles, floor tiles and floor coverings",
+      "Appliances or cabinets you’re keeping set aside",
     ],
     imageDesktop: "/images/hero/kitchen-demolition-desktop.jpg",
     imageMobile: "/images/hero/kitchen-demolition-mobile.jpg",
   },
   services: {
     ...stripOut.services,
-    title: "Just the kitchen, or the wall next to it too.",
+    title: "Just the kitchen, or the rooms around it too",
     items: [
       {
-        ...kbl,
-        title: "Full kitchen demolition",
+        ...rooms,
+        title: "Full kitchen removal",
         detail:
-          "Cabinets, benchtop, splashback, tiles, rangehood and appliances. In at seven, out by knock-off, services capped for your plumber and sparky.",
+          "Cabinetry, benchtops, splashback, rangehood and appliances in your agreed scope. Tell us when your installer needs the room.",
       },
-      wallTile,
-      floors,
-      internal,
-      asbestos,
+      tiles,
+      multiRoom,
       commercial,
     ],
   },
-  pricing: {
-    ...stripOut.pricing,
-    title: "What kitchen demolition costs in Melbourne.",
-    table: [
-      {
-        job: "Kitchen demolition",
-        how: "Cabinets, benchtop, splashback, tiles",
-        from: PRICING.kitchen,
-      },
-      {
-        job: "Kitchen + bathroom together",
-        how: "One crew, one day where it fits",
-        from: "Quoted on the job",
-      },
-      {
-        job: "Kitchen + wall removal",
-        how: "Opening up to the living area",
-        from: "Quoted on the job",
-      },
-      { job: "Floor tiles & screed", how: "Lifted back to the slab", from: "Quoted on the job" },
-      {
-        job: "Anything with asbestos",
-        how: "Assessed first, then priced",
-        from: "Quoted after assessment",
-      },
-    ],
-    note: "The bottom four vary too much for a starting number to mean anything. Send photos and they're priced properly, in writing, within 24 hours.",
-  },
-  reviewsTitle: `${TRUST.rating} stars from kitchen renovations across Melbourne.`,
   faqs: {
     ...stripOut.faqs,
     items: [
       {
         q: "How much does kitchen demolition cost?",
-        a: `A standard kitchen starts at ${PRICING.kitchen}: cabinets, benchtop, splashback and wall tiles out, services capped, rubbish gone. What moves it is size, whether the floor comes up, stone benchtops, access, and whether anything pre-1990 needs testing. You get an itemised price in writing within 24 hours.`,
-      },
-      {
-        q: "How long does a kitchen removal take?",
-        a: "Most kitchens are out in a day. If a wall is coming out with it, or the floor tiles and screed, allow a second day. You get the finish date with the quote.",
+        a: "It depends on the size of the kitchen, what’s coming out, whether the floor is included and how the waste can be carried out. Photos of the whole room help us see what needs to be priced.",
       },
       {
         q: "Can I keep my appliances or cabinets?",
-        a: "Yes. Tell us what's staying or being reused and we'll take it out carefully and set it aside instead of breaking it up.",
+        a: "Yes. Mark what’s staying or being reused in your photos and we’ll include it in the scope.",
       },
-      {
-        q: "Who disconnects the plumbing and power?",
-        a: "We cap and make safe what's needed to get the kitchen out, so the room is safe for your plumber and electrician to connect the new one.",
-      },
-      ...stripOut.faqs.items.filter((f) =>
-        ["Do you handle asbestos?", "Do you take the rubbish away?", "Are you insured?"].includes(
-          f.q,
-        ),
-      ),
+      ...stripOut.faqs.items,
     ],
   },
   finalCta: {
-    ...stripOut.finalCta,
-    body: `Kitchens from ${PRICING.kitchen}. Out in a day. Rubbish gone.`,
+    title: "Get the kitchen ready for the new one",
+    lede: "Tell us what’s coming out and when your installer needs the room.",
   },
 };
 
-/** /bathroom-demolition — ad group: Bathroom (demolition / strip out). */
+/** /bathroom-demolition — ad group: Bathroom. Preselected service: bathroom-demolition. */
 export const bathroomDemolition: ServicePageContent = {
   ...stripOut,
-  beforeAfter: beforeAfter("bathroom", "kitchen", "wall"),
   slug: "bathroom-demolition",
   meta: {
-    title: `Bathroom Demolition Melbourne from ${PRICING.bathroom} | ${SITE.name}`,
-    description: `Bathroom demolition and strip outs across Melbourne from ${PRICING.bathroom}. Tiles, screed, vanity, shower and bath out in a day, services capped, rubbish gone. Fixed price in writing within 24 hours.`,
+    title: "Bathroom Demolition Melbourne | Strip-Outs | Metro",
+    description:
+      "Request a quote for bathroom demolition in Melbourne. Clear vanities, showers, baths, wall tiles and floors so your plumber or tiler can start.",
   },
   hero: {
     eyebrow: "Bathroom demolition · Melbourne",
-    titleTop: `Bathroom demolition from ${PRICING.bathroom}.`,
-    titleRibbon: "Your tiler starts tomorrow.",
-    sub: "Tiles, screed, vanity, shower, bath and toilet out in a day, services capped, the rest of the house covered. Fixed price in writing within 24 hours — free, itemised, and we don't chase you.",
-    bullets: [
-      { icon: "sledgehammer", label: `Bathroom strip outs from ${PRICING.bathroom}` },
-      { icon: "trowel", label: "Wall and floor tiles back to the frame and slab" },
-      { icon: "builder", label: "Asbestos sheeting handled by our own crew" },
-      { icon: "tipper", label: "Skip, rubbish and clean-up included" },
+    titleTop: "Bathroom demolition in Melbourne.",
+    titleRibbon: "Ready for your plumber and tiler.",
+    sub: "Renovating a bathroom, ensuite or laundry? Metro removes the fixtures, tiles and floors in your agreed scope. Tell us what’s coming out and when your plumber or tiler needs the room.",
+    points: [
+      "Vanities, showers, baths and toilets",
+      "Wall and floor tiles",
+      "Ensuites and laundries scoped together",
     ],
     imageDesktop: "/images/hero/bathroom-demolition-desktop.jpg",
     imageMobile: "/images/hero/bathroom-demolition-mobile.jpg",
   },
   services: {
     ...stripOut.services,
-    title: "One bathroom, or every wet area in the house.",
+    title: "One bathroom, or every wet area in the house",
     items: [
       {
-        ...kbl,
-        title: "Bathroom & ensuite strip out",
+        ...rooms,
+        title: "Bathroom and ensuite strip-outs",
         detail:
-          "Vanity, shower, bath, toilet, wall and floor tiles and screed. Out in a day, services capped, ready for your plumber and waterproofer.",
-        price: `From ${PRICING.bathroom}`,
+          "Vanity, shower, bath, toilet, tiles and floor in your agreed scope. Tell us when your plumber or waterproofer needs the room.",
       },
-      wallTile,
-      floors,
-      asbestos,
-      internal,
+      tiles,
+      multiRoom,
       commercial,
     ],
   },
-  pricing: {
-    ...stripOut.pricing,
-    title: "What bathroom demolition costs in Melbourne.",
-    table: [
-      {
-        job: "Bathroom strip out",
-        how: "Fixtures, tiles, screed, services capped",
-        from: PRICING.bathroom,
-      },
-      { job: "Laundry strip out", how: "Tub, cabinetry, wall tiles", from: PRICING.laundry },
-      { job: "Ensuite + main bathroom", how: "One crew, one visit", from: "Quoted on the job" },
-      {
-        job: "Tile removal only",
-        how: "Walls or floors, back to the frame",
-        from: "Quoted on the job",
-      },
-      {
-        job: "Fibro or pre-1990 sheeting",
-        how: "Assessed first, then priced",
-        from: "Quoted after assessment",
-      },
-    ],
-    note: "The bottom three vary too much for a starting number to mean anything. Send photos and they're priced properly, in writing, within 24 hours.",
-  },
-  reviewsTitle: `${TRUST.rating} stars from bathroom renovations across Melbourne.`,
   faqs: {
     ...stripOut.faqs,
     items: [
       {
         q: "How much does bathroom demolition cost?",
-        a: `A standard bathroom starts at ${PRICING.bathroom}: fixtures, wall and floor tiles and screed out, services capped, rubbish gone. What moves it is size, how many layers of tile, whether there's a bath to come out, access (stairs, apartments) and whether anything pre-1990 needs testing. You get an itemised price in writing within 24 hours.`,
-      },
-      {
-        q: "How long does a bathroom demolition take?",
-        a: "Most bathrooms are out in a day, so your plumber or waterproofer can start the next morning. You get the finish date with the quote.",
-      },
-      {
-        q: "Do you take the tiles back to the frame?",
-        a: "Yes, unless you tell us otherwise. Wall tiles back to the frame, floor tiles and screed back to the slab or subfloor, ready for new waterproofing.",
+        a: "It depends on the size of the room, how many layers of tile there are, whether a bath is coming out and the access to the room. Photos of the whole bathroom help us see what needs to be priced.",
       },
       {
         q: "Can you do an apartment bathroom?",
-        a: "Yes. We book the lift, protect the common areas, and work within building hours. Tell us the floor and the access when you send photos.",
+        a: "Tell us the floor, lift access, building rules and allowed work hours. We’ll include them in the scope.",
       },
-      ...stripOut.faqs.items.filter((f) =>
-        ["Do you handle asbestos?", "Do you take the rubbish away?", "Are you insured?"].includes(
-          f.q,
-        ),
-      ),
+      ...stripOut.faqs.items,
     ],
   },
   finalCta: {
-    ...stripOut.finalCta,
-    body: `Bathrooms from ${PRICING.bathroom}. Out in a day. Your tiler starts tomorrow.`,
+    title: "Get the bathroom ready for the next trade",
+    lede: "Tell us what’s coming out and when your plumber or tiler needs the room.",
   },
 };

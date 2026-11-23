@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { ArrowRight, Mail, Phone } from "lucide-react";
 import { Logo, HazardBand } from "./Brand";
-import { SITE, footer, servicePages } from "@/lib/site-data";
+import { SITE, footer, hasPhone, servicePages } from "@/lib/site-data";
 
 /**
- * Footer: brand, the three service landing pages, coverage, contact and the
- * legal line. No long sitemap — the service links are the only navigation.
+ * Footer: brand line, the three service landing pages, Contact, and the
+ * credit line. No long sitemap — these are the only navigation.
  *
  * Bottom padding reserves the height of the sticky mobile CTA bar.
  */
@@ -18,7 +18,7 @@ export function Footer() {
         className="pattern-grid pointer-events-none absolute inset-0 top-2.5 opacity-60"
       />
 
-      <div className="container-wide relative grid gap-8 py-10 sm:grid-cols-2 sm:gap-10 sm:py-14 lg:grid-cols-[1.1fr_0.8fr_1fr_0.9fr] lg:gap-12">
+      <div className="container-wide relative grid gap-8 py-10 sm:grid-cols-2 sm:gap-10 sm:py-14 lg:grid-cols-[1.3fr_1fr_0.9fr] lg:gap-12">
         <div>
           <Logo on="dark" className="h-14 sm:h-20" />
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-paper/65 sm:mt-5">
@@ -43,34 +43,41 @@ export function Footer() {
           </ul>
         </nav>
 
-        <div className="hidden sm:block">
-          <p className="eyebrow [--eyebrow-color:var(--hivis)]">Where we work</p>
-          <p className="mt-4 text-sm leading-relaxed text-paper/65">{footer.coverage}</p>
-        </div>
-
         <div>
           <p className="eyebrow [--eyebrow-color:var(--hivis)]">Talk to us</p>
-          <a
-            href={SITE.phoneHref}
-            className="font-display mt-3 flex min-h-11 items-center gap-3 text-xl text-paper transition-colors hover:text-hivis sm:text-2xl"
-          >
-            <Phone className="h-5 w-5 shrink-0 text-hivis" />
-            {SITE.phone}
-          </a>
-          <a
-            href={`mailto:${SITE.email}`}
-            className="mt-2 flex min-h-11 min-w-0 items-center gap-3 text-sm text-paper/65 transition-colors hover:text-paper"
-          >
-            <Mail className="h-4 w-4 shrink-0 text-hivis" />
-            <span>
-              {SITE.email.split(/(?=@)|(?=\.com)/).map((part, i) => (
-                <span key={i}>
-                  {i > 0 && <wbr />}
-                  {part}
-                </span>
-              ))}
-            </span>
-          </a>
+          <ul className="mt-3 grid gap-0.5">
+            <li>
+              <Link
+                href="/contact"
+                className="group inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-paper/80 transition-colors hover:text-hivis"
+              >
+                <ArrowRight className="h-3.5 w-3.5 text-hivis transition-transform group-hover:translate-x-0.5" />
+                Contact
+              </Link>
+            </li>
+            {hasPhone && (
+              <li>
+                <a
+                  href={SITE.phoneHref}
+                  className="font-display flex min-h-11 items-center gap-3 text-xl text-paper transition-colors hover:text-hivis"
+                >
+                  <Phone className="h-5 w-5 shrink-0 text-hivis" />
+                  {SITE.phone}
+                </a>
+              </li>
+            )}
+            {SITE.email && (
+              <li>
+                <a
+                  href={`mailto:${SITE.email}`}
+                  className="flex min-h-11 min-w-0 items-center gap-3 text-sm text-paper/65 transition-colors hover:text-paper"
+                >
+                  <Mail className="h-4 w-4 shrink-0 text-hivis" />
+                  <span className="break-all">{SITE.email}</span>
+                </a>
+              </li>
+            )}
+          </ul>
         </div>
       </div>
 
@@ -80,10 +87,6 @@ export function Footer() {
             © {new Date().getFullYear()} {SITE.name}
           </p>
           <p className="text-center sm:text-right">
-            {footer.legal}
-            <span className="mx-2 text-paper/25" aria-hidden="true">
-              ·
-            </span>
             Marketing by{" "}
             <a
               href="https://sikadigital.com/"

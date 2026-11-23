@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { Check } from "lucide-react";
-import { SITE } from "@/lib/site-data";
+import { SITE, THANK_YOU_COPY, hasPhone } from "@/lib/site-data";
 import { takePendingLead } from "@/lib/conversion";
 import { CtaButton } from "./CtaButton";
 import { BrandIcon } from "./Brand";
@@ -14,7 +14,17 @@ import { BrandIcon } from "./Brand";
  * pushes `generate_lead` to the GTM dataLayer, tagged with the form source,
  * lead id and hashed email/phone — once per submission, never on refresh.
  */
+/** Which confirmation message each thank-you page shows. */
+const MESSAGE_FOR: Record<string, string> = {
+  "partial-demolition": THANK_YOU_COPY["partial-demolition"],
+  "strip-out": THANK_YOU_COPY["strip-out"],
+  "kitchen-demolition": THANK_YOU_COPY["strip-out"],
+  "bathroom-demolition": THANK_YOU_COPY["strip-out"],
+  "rubbish-removal": THANK_YOU_COPY["rubbish-removal"],
+};
+
 export function ThankYou({ source, homePath = "/" }: { source: string; homePath?: string }) {
+  const message = MESSAGE_FOR[source] ?? THANK_YOU_COPY.general;
   useEffect(() => {
     const lead = takePendingLead();
     // Refresh or direct visit: no new lead, so no conversion.
@@ -54,18 +64,19 @@ export function ThankYou({ source, homePath = "/" }: { source: string; homePath?
           </span>
           <p className="eyebrow mt-8 [--eyebrow-color:var(--graphite)]">Request received</p>
           <h1 className="font-display mt-4 text-[1.8rem] text-ink sm:text-4xl">
-            Thanks — <span className="ribbon">we’ve got it.</span>
+            {THANK_YOU_COPY.heading}
           </h1>
           <p className="mx-auto mt-5 max-w-lg text-lg leading-relaxed text-muted-foreground">
-            One of our team will be in touch within 24 hours with your itemised, fixed price. If
-            it’s urgent, call us now.
+            {message}
           </p>
           <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <CtaButton href={SITE.phoneHref} icon="phone">
-              Call {SITE.phone}
-            </CtaButton>
+            {hasPhone && (
+              <CtaButton href={SITE.phoneHref} icon="phone">
+                Call Metro
+              </CtaButton>
+            )}
             <CtaButton to={homePath} variant="outlineDark">
-              {homePath === "/" ? "Back to home" : "Back to the page"}
+              {homePath === "/" ? "Back to Home" : "Back to the page"}
             </CtaButton>
           </div>
         </div>

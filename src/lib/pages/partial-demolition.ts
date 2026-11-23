@@ -1,36 +1,28 @@
-import { PRICING, SITE, TRUST } from "../site-data";
-import { houseDemolition } from "./house-demolition";
 import type { ServicePageContent } from "./types";
 
 /**
- * /partial-demolition — Metro's core Google Ads page.
+ * /partial-demolition, from the 02-Partial-Demolition copy.
  *
  * Ad groups that land here: Partial Demolition, Extension Demolition, Brand.
- * Keywords: partial demolition melbourne / company / services / contractor,
- * partial house demolition melbourne, extension demolition melbourne,
- * metro partial demolition.
- *
- * Built off the house-demolition page, with full knock-downs moved to the
- * bottom so the page matches "partial" intent first.
+ * Preselected service: partial-demolition (DEFAULT_SERVICES in site-data.ts).
  */
 export const partialDemolition: ServicePageContent = {
-  ...houseDemolition,
   slug: "partial-demolition",
   meta: {
-    title: `Partial Demolition Melbourne | ${SITE.name}`,
-    description: `Melbourne partial demolition: rear-of-house and extension demolition, wall removals from ${PRICING.wall}, garages and sheds from ${PRICING.outbuilding}. The part you're keeping stays propped and protected. Fixed price in writing within 24 hours.`,
+    title: "Partial Demolition Melbourne | Walls & Extensions | Metro",
+    description:
+      "Get a quote for partial demolition in Melbourne. Scope an old extension, rear section or selected walls around the parts of your property you plan to keep.",
   },
 
   hero: {
     eyebrow: "Partial demolition · Melbourne",
-    titleTop: "Partial demolition, Melbourne.",
-    titleRibbon: "Keep the rest standing.",
-    sub: "Rear-of-house and extension demolition, wall removals, garages and sheds. We prop and protect the part you're keeping, handle permits and asbestos, and send a fixed, itemised price in writing within 24 hours.",
-    bullets: [
-      { icon: "helmet", label: "Propping and protection before anything comes down" },
-      { icon: "bricks", label: `Wall removals from ${PRICING.wall}` },
-      { icon: "floor-plan", label: "Permits and service isolations handled" },
-      { icon: "builder", label: "Asbestos removed by our own licensed crew" },
+    titleTop: "Partial demolition in Melbourne",
+    titleRibbon: "that protects what you’re keeping",
+    sub: "Taking out the back of a house, removing an old extension or opening up a room? Metro scopes the demolition around the structure and finishes you’re keeping, so you and your builder know where the work stops and what the next trade will walk into.",
+    points: [
+      "Rear-of-house and extension demolition",
+      "Selected internal walls and building sections",
+      "Retained areas, access and handover discussed up front",
     ],
     imageDesktop: "/images/hero/partial-demolition-desktop.jpg",
     imageMobile: "/images/hero/partial-demolition-mobile.jpg",
@@ -38,242 +30,105 @@ export const partialDemolition: ServicePageContent = {
 
   services: {
     eyebrow: "What we take down",
-    title: "The part you don't want. Nothing else.",
-    lede: "Not on the list? If it's attached to the building and you want it gone, tell us what it is.",
+    title: "Take down the part that’s in the way",
     items: [
       {
-        slug: "rear-of-house",
-        image: {
-          src: "/images/services/rear-of-house.jpg",
-          alt: "Rear extension removed and the junction wall sealed with a heavy tarp, house still standing",
-        },
+        slug: "rear-extensions",
         icon: "excavator",
-        title: "Rear-of-house & extension demolition",
+        title: "Rear extensions and additions",
         detail:
-          "The back half comes off, the front half stays lived-in. Cut line set out, roof and walls propped, the junction weather-sealed before we leave.",
-        price: null,
+          "Remove an outdated addition or rear section to make room for a new extension. Share where the old and new work meet so we can define the cut line with your builder.",
+        image: { src: "/images/services/rear-of-house.jpg", alt: "" },
       },
       {
-        slug: "wall-removal",
-        image: {
-          src: "/images/services/wall-removal.jpg",
-          alt: "Wall opened between kitchen and living room, ceiling held on temporary steel props",
-        },
+        slug: "walls-openings",
         icon: "bricks",
-        title: "Wall removal",
+        title: "Selected walls and openings",
         detail:
-          "Opening up a kitchen or knocking two rooms into one. Load-bearing walls are propped and coordinated with your engineer before anything moves.",
-        price: `From ${PRICING.wall}`,
+          "Planning a larger opening or a new layout? Tell us what’s changing and send any drawings you have. We’ll flag where structural details need to be clarified before the scope is finalised.",
+        image: { src: "/images/services/wall-removal.jpg", alt: "" },
       },
       {
-        slug: "internal-strip-out",
-        image: {
-          src: "/images/services/internal-strip-out.jpg",
-          alt: "Room stripped back to the timber frame, debris bagged and the floor swept",
-        },
+        slug: "internal-demolition",
         icon: "sledgehammer",
-        title: "Internal demolition & strip out",
+        title: "Internal demolition",
         detail:
-          "Kitchens, bathrooms, ceilings, floors or whole rooms back to the frame, ready for your builder.",
-        price: `From ${PRICING.kitchen}`,
+          "Removing finishes, fittings or several rooms as part of the wider job? Include them in the enquiry so they can be scoped alongside the demolition.",
+        image: { src: "/images/services/internal-strip-out.jpg", alt: "" },
       },
       {
-        slug: "outbuildings",
-        image: {
-          src: "/images/services/outbuildings.jpg",
-          alt: "Crew lifting the boards off an old timber deck under a pergola",
-        },
-        icon: "dozer",
-        title: "Garages, sheds, carports & decks",
-        detail:
-          "Brick garages, carports, old sheds and rotten decks. Taken down, slab out if you want it, nothing left behind.",
-        price: `From ${PRICING.outbuilding}`,
-      },
-      {
-        slug: "concrete",
-        image: {
-          src: "/images/services/concrete.jpg",
-          alt: "Mini excavator breaking up an old concrete driveway while dust is hosed down",
-        },
+        slug: "concrete-structures",
         icon: "tipper",
-        title: "Driveway, path & slab removal",
+        title: "Adjoining concrete or structures",
         detail:
-          "Driveways, paths, patios and old slabs cut, broken and carted away, with the ground left level for what comes next.",
-        price: null,
-      },
-      {
-        slug: "asbestos",
-        image: {
-          src: "/images/services/asbestos.jpg",
-          alt: "Asbestos crew in coveralls and respirators lowering a whole fibro sheet onto plastic sheeting",
-        },
-        icon: "builder",
-        title: "Asbestos removal",
-        detail:
-          "Assessed before we quote, removed by our own licensed crew, disposed of properly — inside the same fixed price.",
-        price: null,
+          "Mention any slab, deck or outbuilding to be removed as part of the job, and any paving or access routes you’re keeping.",
+        image: { src: "/images/services/concrete.jpg", alt: "" },
       },
     ],
   },
 
-  pricing: {
-    ...houseDemolition.pricing,
-    title: "What partial demolition actually costs in Melbourne.",
-    table: [
-      {
-        job: "Non-structural wall removal",
-        how: "Stud or plasterboard wall, one room",
-        from: PRICING.wall,
-      },
-      { job: "Garage, shed or carport", how: "Single, clear access", from: PRICING.outbuilding },
-      {
-        job: "Kitchen or bathroom strip out",
-        how: "Back to the frame, rubbish gone",
-        from: PRICING.kitchen,
-      },
-      {
-        job: "Load-bearing wall removal",
-        how: "Propped, to your engineer's detail",
-        from: "Quoted on the job",
-      },
-      {
-        job: "Rear-of-house or extension demolition",
-        how: "Cut line, propping and sealing",
-        from: "Quoted on the job",
-      },
-      {
-        job: "Anything with asbestos",
-        how: "Assessed first, then priced",
-        from: "Quoted after assessment",
-      },
+  scope: {
+    eyebrow: "Your quote",
+    title: "Know where the demolition stops",
+    body: [
+      "A quote should show the sections to be removed, the areas to be retained and the agreed handover condition. Access, temporary protection, waste removal and any work assigned to your builder or another trade should be clear before you book.",
     ],
-    note: "The bottom three vary too much for a starting number to mean anything, so we don't invent one. They're priced properly, in writing, within 24 hours.",
   },
 
-  included: {
-    eyebrow: "What's included",
-    title: "What's in the price.",
-    lede: "Everything below is in the number we quote you. Hold your other quotes against this list — anything here that isn't in theirs is a cost that turns up later.",
-    groups: [
-      {
-        label: "Before we start",
-        items: [
-          { item: "Permits, where needed", means: "We tell you at the quote and coordinate them" },
-          { item: "Asbestos assessment", means: "Before the quote is final, not on the day" },
-          { item: "Neighbour notification", means: "In writing, before the noise starts" },
-          { item: "Cut line agreed", means: "Marked out with you and your builder" },
-        ],
-      },
-      {
-        label: "Protecting what stays",
-        items: [
-          { item: "Temporary propping", means: "Under any roof or wall that's staying" },
-          { item: "Service isolation", means: "Power, gas and water where they cross the cut" },
-          {
-            item: "Dust screens & floor protection",
-            means: "For the rooms you're still living in",
-          },
-          { item: "Weather-sealed junction", means: "Before we leave site" },
-        ],
-      },
-      {
-        label: "On site & handover",
-        items: [
-          { item: "Licensed asbestos removal", means: "By our own crew, disposed of properly" },
-          { item: "Demolition to the cut line", means: "Not a brick past it" },
-          { item: "All waste removed", means: "Sorted and recycled where we can" },
-          { item: "Swept & photographed", means: "Ready for your builder" },
-        ],
-      },
-    ],
-    close:
-      "If something genuinely sits outside that — a big tree needing an arborist, a retaining wall on the boundary — we price it as its own line and show it to you before you sign. What we don't do is leave it off the quote and mention it later.",
-  },
-
-  timeline: {
-    eyebrow: "How long it takes",
-    title: "From first call to a site your builder can start on.",
-    lede: "The demolition is usually the short part. If your job needs a permit, that sets the start date — so we get it moving the day you say yes.",
+  process: {
+    eyebrow: "How it works",
+    title: "From marked-up plans to handover",
     steps: [
       {
         n: "01",
-        title: "Quote",
-        when: "Within 24 hours",
-        detail: "Itemised and fixed, off your photos or a site visit.",
+        icon: "floor-plan",
+        title: "Share the scope.",
+        detail: "Send your suburb, photos or plans and your builder’s target date.",
+        image: "/images/process/01-tell-us.jpg",
       },
       {
         n: "02",
-        title: "Permits, if needed",
-        when: "Told at the quote",
-        detail: "Many partial jobs don't need one. If yours does, we coordinate it.",
+        icon: "helmet",
+        title: "Confirm how the work fits together.",
+        detail: "Review retained areas, access, structural information and any prerequisites.",
+        image: "/images/process/05-protect.jpg",
       },
       {
         n: "03",
-        title: "Asbestos out",
-        when: "1–2 days",
-        detail: "Done before the demolition starts, not around it.",
-      },
-      {
-        n: "04",
-        title: "Demolition",
-        when: "1 day to 1 week",
-        detail: "A wall or garage is usually a day. Rear-of-house is generally inside a week.",
-      },
-      {
-        n: "05",
-        title: "Handover",
-        when: "Same week",
-        detail: "Sealed, swept, photographed. Your builder starts.",
+        icon: "shovel",
+        title: "Agree on the handover.",
+        detail:
+          "Confirm what’s removed, what’s left in place and when the next trade can take over.",
+        image: "/images/process/11-handover-outside.jpg",
       },
     ],
-    close:
-      "Tell us the date your builder wants the site and we'll work back from it — or tell you straight away if it can't be done, while there's still time to move things around.",
   },
 
-  reviewsTitle: `${TRUST.rating} stars from renovations and extensions across Melbourne.`,
-
   faqs: {
-    eyebrow: "Questions we get every week",
-    title: "Straight answers, starting with the one everybody asks.",
+    eyebrow: "FAQs",
+    title: "Questions before you book",
     items: [
       {
-        q: "What does partial demolition cost?",
-        a: `Non-structural walls start at ${PRICING.wall} and garages or sheds at ${PRICING.outbuilding}. Rear-of-house and extension demolition, load-bearing walls and anything with asbestos vary too much for a starting number, so we quote those on the job. Either way you get an itemised figure in writing within 24 hours, and that figure is what you pay.`,
-      },
-      {
-        q: "Can we keep living in the house during a partial demolition?",
-        a: "Usually, yes. We seal off the part being demolished with dust screens, keep a safe path in and out, and isolate only the services that cross the cut line. We'll tell you at the quote if there's a day or two you'd be better off out.",
+        q: "How much does partial demolition cost?",
+        a: "It depends on the connection to the existing building, site access, what needs to stay and the amount of material to remove. Photos and marked-up plans help identify what needs to be priced.",
       },
       {
         q: "Can you remove a load-bearing wall?",
-        a: "Yes. We prop the structure above before anything comes out and work to your engineer's detail for the beam or lintel that replaces it. If you don't have an engineer yet, we can point you to one.",
+        a: "Send the plans or any engineering information you already have. We’ll review what needs to be confirmed before structural work can be included in the quote.",
       },
       {
-        q: "Do I need a permit for partial demolition?",
-        a: "It depends on what's coming down and where. Many internal and outbuilding jobs don't need one; rear-of-house and structural work often does. We tell you which yours is when we quote, and coordinate it if it's needed.",
+        q: "Can we stay in the house?",
+        a: "Tell us which rooms need to remain in use. Access, services and separation from the work area will affect whether staying is practical during the job.",
       },
       {
-        q: "Do you handle asbestos?",
-        a: "We do it ourselves rather than bringing someone else in. Anything pre-1990 is assessed before we quote, removed by our own licensed crew, disposed of properly, and it sits inside the same fixed price.",
-      },
-      {
-        q: "How long does it take?",
-        a: "A non-structural wall or garage is usually a day. A rear-of-house or extension demolition is generally inside a week once any permit is through. You get the dates with the quote.",
-      },
-      {
-        q: "Do you do full house demolition too?",
-        a: `Yes — permits, all four disconnections, asbestos and a level block, from ${PRICING.smallHouse} for a small house. Most of our work is partial, which is why we're set up to protect what stays.`,
-      },
-      {
-        q: "Are you insured?",
-        a: `${TRUST.licence} with ${TRUST.liability} public liability. Certificates on request before we start.`,
+        q: "What about permits, services or suspected asbestos?",
+        a: "Flag any plans, permit conditions, live services or suspect materials you know about. We’ll identify what needs clarification before work is booked and who is responsible for each item.",
       },
     ],
   },
 
   finalCta: {
-    title: "Get your fixed price.",
-    lede: "Tell us what's coming down and what's staying. We'll send an itemised number in writing within 24 hours. Free, no obligation, and it doesn't move after that.",
-    body: `Walls from ${PRICING.wall}. Garages and sheds from ${PRICING.outbuilding}. What stays, stays protected.`,
+    title: "Give your builder a clear demolition scope",
+    lede: "Send the plans or a few photos and tell us what the build needs next.",
   },
 };

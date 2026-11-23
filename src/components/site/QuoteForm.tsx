@@ -9,7 +9,6 @@ import { ImagePlus } from "lucide-react";
 import { CtaButton } from "./CtaButton";
 import { MultiSelect } from "./MultiSelect";
 import {
-  SITE,
   CTA_LABEL,
   defaultServicesFor,
   quoteForm,
@@ -136,7 +135,7 @@ export function QuoteForm({
       else photoNote = noteFor(files.length);
     }
 
-    const failMessage = `Something went wrong sending your request. Please try again, or call us on ${SITE.phone} and we'll sort it straight away.`;
+    const failMessage = quoteForm.error;
     const leadId = newLeadId();
     try {
       // Server Action — runs on the server, so GHL_WEBHOOK_URL never reaches
@@ -200,7 +199,7 @@ export function QuoteForm({
 
       <div>
         <label htmlFor={`q-name-${tone}`} className={labelClass}>
-          Name
+          Full name
         </label>
         <input
           id={`q-name-${tone}`}
@@ -283,9 +282,12 @@ export function QuoteForm({
           <label htmlFor={`q-photos-${tone}`} className={labelClass}>
             Photos of the job{" "}
             <span className={cn("font-semibold normal-case tracking-normal", t.muted)}>
-              (optional, speeds up your price)
+              (optional)
             </span>
           </label>
+          <p id={`q-photos-${tone}-hint`} className={cn("-mt-0.5 mb-2 text-sm", t.hint)}>
+            {quoteForm.photoPrompt}
+          </p>
           <label
             htmlFor={`q-photos-${tone}`}
             className={cn(
@@ -314,6 +316,7 @@ export function QuoteForm({
             type="file"
             accept="image/jpeg,image/png,image/webp,image/heic"
             multiple
+            aria-describedby={`q-photos-${tone}-hint`}
             onChange={onFilesChange}
             className="sr-only"
           />
@@ -324,7 +327,7 @@ export function QuoteForm({
       {comments && (
         <div className={WIDE}>
           <label htmlFor={`q-comments-${tone}`} className={labelClass}>
-            Anything else?{" "}
+            Job details{" "}
             <span className={cn("font-semibold normal-case tracking-normal", t.muted)}>
               (optional)
             </span>
@@ -332,7 +335,7 @@ export function QuoteForm({
           <textarea
             id={`q-comments-${tone}`}
             rows={compact ? 3 : 3}
-            placeholder="Which walls or rooms, access, living in the house, built before 1990…"
+            placeholder={quoteForm.detailsPrompt}
             className={inputClass}
             {...register("comments")}
           />
@@ -348,16 +351,14 @@ export function QuoteForm({
           size={compact ? "md" : "lg"}
           variant="primary"
         >
-          {isSubmitting ? "Sending…" : CTA_LABEL}
+          {isSubmitting ? quoteForm.submitting : CTA_LABEL}
         </CtaButton>
         {errorMsg && (
           <p role="alert" className={cn("mt-4 text-sm font-medium", t.error)}>
             {errorMsg}
           </p>
         )}
-        <p className={cn("text-xs", t.hint, compact ? "mt-3" : "mt-3.5")}>
-          {quoteForm.fine} <strong className="font-bold">{quoteForm.fineEmphasis}</strong>
-        </p>
+        <p className={cn("text-xs", t.hint, compact ? "mt-3" : "mt-3.5")}>{quoteForm.fine}</p>
       </div>
     </form>
   );

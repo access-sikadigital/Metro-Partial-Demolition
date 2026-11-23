@@ -36,7 +36,7 @@ export function Stars({ className, count = 5 }: { className?: string; count?: nu
   );
 }
 
-/** "G 4.9 ★★★★★ · 48 Google reviews" — PLACEHOLDER figures live in TRUST. */
+/** "G 4.9 ★★★★★ · 48 Google reviews". Only render once TRUST.reviewsVerified is true. */
 export function GoogleRatingBadge({
   tone = "light",
   className,
