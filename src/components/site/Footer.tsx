@@ -70,7 +70,19 @@ export function Footer() {
           <p className="text-center sm:text-left">
             © {new Date().getFullYear()} {SITE.name}
           </p>
-          <p className="text-center sm:text-right">{footer.legal}</p>
+          <p className="text-center sm:text-right">
+            {footer.legal}
+            <span className="mx-2 text-paper/25" aria-hidden="true">·</span>
+            Marketing by{" "}
+            <a
+              href="https://sikadigital.com/"
+              target="_blank"
+              rel="noopener"
+              className="font-semibold text-paper/80 underline-offset-4 transition-colors hover:text-hivis hover:underline"
+            >
+              Sika Digital
+            </a>
+          </p>
         </div>
       </div>
     </footer>
