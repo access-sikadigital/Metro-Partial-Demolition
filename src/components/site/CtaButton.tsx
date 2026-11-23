@@ -19,6 +19,8 @@ const ctaVariants = cva(
     variants: {
       variant: {
         primary: "bg-go text-white",
+        yellow: "bg-hivis text-ink",
+        white: "bg-white text-ink ring-1 ring-inset ring-ink/10",
         dark: "bg-ink text-paper",
         outlineLight: "bg-white/5 text-paper ring-1 ring-inset ring-paper/35",
         outlineDark: "bg-transparent text-ink ring-1 ring-inset ring-ink/30",
@@ -44,6 +46,17 @@ const STYLE: Record<CtaVariant, { fill: string; hoverText: string; cell: string 
     fill: "bg-ink",
     hoverText: "group-hover/cta:text-go",
     cell: "bg-ink text-go ring-[3px] ring-inset ring-go",
+  },
+  // Brand yellow, for service links that shouldn't compete with the green quote/call buttons.
+  yellow: {
+    fill: "bg-ink",
+    hoverText: "group-hover/cta:text-hivis",
+    cell: "bg-ink text-hivis ring-[3px] ring-inset ring-hivis",
+  },
+  white: {
+    fill: "bg-ink",
+    hoverText: "group-hover/cta:text-paper",
+    cell: "bg-ink text-white",
   },
   // Same reasoning in reverse: this variant sits on the yellow band.
   dark: {
