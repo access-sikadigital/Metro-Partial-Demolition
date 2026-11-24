@@ -22,9 +22,6 @@ import {
   HardHat,
   House,
   KeyRound,
-  Paintbrush,
-  ShieldAlert,
-  Truck,
 } from "lucide-react";
 
 import { Reveal } from "./Reveal";
@@ -33,15 +30,15 @@ import { useQuoteModal } from "./QuoteModal";
 import { FloatingContact } from "./FloatingContact";
 import { GoogleRatingSticky } from "./GoogleRatingSticky";
 import { StickyMobileCta } from "./StickyMobileCta";
-import { CTA_LABEL, SITE, hasPhone } from "@/lib/site-data";
+import { CTA_LABEL, SITE, audiences, hasPhone, hub, servicePages } from "@/lib/site-data";
 
 export function HubPage() {
   return (
     <>
       <HubHero />
       <ServiceShowcase />
-      <Audiences />
       <QuoteTips />
+      <Audiences />
       <FinalCta />
       <GoogleRatingSticky />
       <FloatingContact />
@@ -223,17 +220,16 @@ function HubHero() {
               variants={rise}
               className="font-display mt-5 text-[1.35rem] leading-[1.18] whitespace-nowrap sm:text-3xl lg:text-[2.4rem]"
             >
-              <FlowingText className="block">Partial Demolition</FlowingText>
-              <FlowingText className="block">Strip-Outs</FlowingText>
-              <FlowingText className="block">Rubbish Removal</FlowingText>
+              <FlowingText className="block">Melbourne partial demolition </FlowingText>
+              <FlowingText className="block">and strip-outs </FlowingText>
+              <FlowingText className="block">for your next build</FlowingText>
             </motion.h1>
 
             <motion.p
               variants={rise}
               className="mx-auto mt-5 max-w-xl text-base text-paper/70 sm:text-lg lg:mx-0"
             >
-              The part of the build that has to come out first. Tell us what goes, what stays and
-              when your builder needs the space, and we’ll scope the job around it.
+              {hub.hero.sub}
             </motion.p>
 
             <motion.div
@@ -244,7 +240,7 @@ function HubHero() {
                 {CTA_LABEL}
               </CtaButton>
               <CtaButton href="#services" variant="outlineLight" size="lg" icon={false}>
-                See our services
+                {hub.hero.secondary}
               </CtaButton>
               {hasPhone && (
                 <CtaButton href={SITE.phoneHref} variant="outlineLight" size="lg" icon="phone">
@@ -257,11 +253,11 @@ function HubHero() {
               variants={rise}
               className="mt-8 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm text-paper/55 lg:justify-start"
             >
-              <li className="font-semibold text-paper">Across Melbourne</li>
+              <li className="font-semibold text-paper">Partial demolition</li>
               <li className="text-paper/30">&bull;</li>
-              <li>Homeowners &amp; builders</li>
+              <li>Strip-outs</li>
               <li className="text-paper/30">&bull;</li>
-              <li>Scope agreed in writing</li>
+              <li>Rubbish removal</li>
             </motion.ul>
           </motion.div>
 
@@ -325,48 +321,21 @@ function HandUnderline({ children }: { children: ReactNode }) {
   );
 }
 
-const SHOWCASE = [
-  {
-    to: "/partial-demolition",
-    title: "Partial Demolition",
-    blurb:
-      "Rear sections, old extensions and selected walls, scoped around the structure and finishes you’re keeping.",
-    image: "/images/services/wall-removal.jpg",
-  },
-  {
-    to: "/strip-out",
-    title: "Strip-Outs",
-    blurb:
-      "Kitchens, bathrooms, tiles, floors and office defits, cleared back to the agreed finish for your next trade.",
-    image: "/images/breaker-wall.jpg",
-  },
-  {
-    to: "/rubbish-removal",
-    title: "Rubbish Removal",
-    blurb:
-      "Household clear-outs, renovation debris and building waste, loaded from where it sits and taken away.",
-    image: "/images/crew-shovel.jpg",
-  },
-] as const;
-
 function ServiceShowcase() {
   return (
     <section id="services" className="scroll-mt-24 bg-plaster py-14 lg:scroll-mt-28 lg:py-20">
       <div className="container-wide">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="font-display text-2xl text-ink sm:text-3xl lg:text-[2.4rem]">
-            Which job is <HandUnderline>yours</HandUnderline>?
+            What are you getting <HandUnderline>ready</HandUnderline> for?
           </h2>
-          <p className="mt-3 text-muted-foreground">
-            Three ways Metro clears the way. Tap through to see what’s included and request a quote.
-          </p>
         </div>
 
         <div className="mt-10 grid gap-6 lg:grid-cols-3">
-          {SHOWCASE.map((s) => (
+          {servicePages.map((s) => (
             <Link
-              key={s.to}
-              href={s.to}
+              key={s.path}
+              href={s.path}
               className="group flex h-full flex-col overflow-hidden rounded-2xl border border-ink/10 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-hivis hover:shadow-xl hover:shadow-hivis/15"
             >
               <div className="h-56 w-full overflow-hidden">
@@ -378,10 +347,10 @@ function ServiceShowcase() {
                 />
               </div>
               <div className="flex flex-1 flex-col p-6">
-                <h3 className="font-display text-xl text-ink lg:text-2xl">{s.title}</h3>
+                <h3 className="font-display text-xl text-ink lg:text-2xl">{s.question}</h3>
                 <p className="mt-3 flex-1 leading-relaxed text-muted-foreground">{s.blurb}</p>
                 <span className="mt-6 inline-flex items-center gap-2 text-sm font-bold tracking-[0.08em] text-ink uppercase">
-                  <span className="border-b-2 border-hivis">View {s.title}</span>
+                  <span className="border-b-2 border-hivis">{s.linkLabel}</span>
                   <span className="transition-transform duration-300 group-hover:translate-x-1">
                     &rarr;
                   </span>
@@ -400,7 +369,6 @@ function ServiceShowcase() {
 const AUDIENCES = [
   { icon: House, label: "Homeowners" },
   { icon: HardHat, label: "Builders" },
-  { icon: Paintbrush, label: "Renovators" },
   { icon: Building2, label: "Fit-out teams" },
 ] as const;
 
@@ -409,14 +377,17 @@ function Audiences() {
     <section className="border-b border-ink/10 bg-paper py-12 sm:py-16 lg:py-20">
       <div className="container-wide">
         <h2 className="font-display text-center text-[1.15rem] text-ink sm:text-2xl lg:text-[1.75rem]">
-          Who we clear the way for
+          {audiences.title}
         </h2>
-        <div className="mt-8 grid grid-cols-2 sm:mt-12 sm:grid-cols-4">
+        <p className="mx-auto mt-4 max-w-2xl text-center leading-relaxed text-muted-foreground sm:text-lg">
+          {audiences.body}
+        </p>
+        <div className="mx-auto mt-8 grid max-w-4xl grid-cols-3 sm:mt-12">
           {AUDIENCES.map((a, i) => (
             <Reveal
               key={a.label}
               delay={i * 0.06}
-              className="border-l border-ink/10 odd:border-l-0 sm:odd:border-l sm:nth-[4n+1]:border-l-0"
+              className="border-l border-ink/10 first:border-l-0"
             >
               <div className="flex flex-col items-center gap-5 px-2 py-6 text-center">
                 <a.icon
@@ -440,50 +411,25 @@ function Audiences() {
 
 /**
  * Demo Bros runs its Google reviews here. Metro has no verified reviews yet, so
- * the same scrolling belt carries what helps us quote a job instead.
+ * the same scrolling belt carries the 01-Home "clear scope" points instead.
  */
 const TIPS = [
-  {
-    icon: Camera,
-    title: "A wide photo",
-    detail: "One shot of the whole area shows us what’s involved at a glance.",
-  },
-  {
-    icon: FileText,
-    title: "Marked-up plans",
-    detail: "Circle what comes down and what stays. A phone photo of the drawing is fine.",
-  },
-  {
-    icon: Calendar,
-    title: "Your handover date",
-    detail: "When does your builder, installer or landlord need the space back?",
-  },
-  {
-    icon: Truck,
-    title: "Access notes",
-    detail: "Stairs, lifts, narrow gates or a shared driveway all change how we load.",
-  },
-  {
-    icon: KeyRound,
-    title: "What you’re keeping",
-    detail: "Floors, fixtures, paving or rooms that need to stay untouched.",
-  },
-  {
-    icon: ShieldAlert,
-    title: "Suspect materials",
-    detail: "Flag anything you’re unsure about so it’s clarified before booking.",
-  },
+  { ...hub.scope.items[0], icon: KeyRound },
+  { ...hub.scope.items[1], icon: FileText },
+  { ...hub.scope.items[2], icon: Calendar },
+  { ...hub.scope.items[3], icon: Camera },
 ];
 const SECONDS_PER_CARD = 7;
 
 function QuoteTips() {
   const { openQuote } = useQuoteModal();
-  const duration = `${TIPS.length * SECONDS_PER_CARD}s`;
+  const duration = `${TIPS.length * 2 * SECONDS_PER_CARD}s`;
   const half = (hidden: boolean) => (
     <div className="flex gap-4 pr-4" aria-hidden={hidden || undefined}>
-      {TIPS.map((t) => (
+      {[...TIPS, ...TIPS].map((t, i) => (
         <figure
-          key={t.title}
+          key={`${t.title}-${i}`}
+          aria-hidden={i >= TIPS.length || undefined}
           className="flex w-[19rem] shrink-0 flex-col rounded-xl border border-ink/10 bg-white p-5 sm:w-[23rem] sm:p-6"
         >
           <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-hivis text-ink">
@@ -505,10 +451,10 @@ function QuoteTips() {
         <div className="flex flex-col items-center text-center">
           <span className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-1.5 text-xs font-bold tracking-[0.14em] text-ink uppercase ring-1 ring-ink/10">
             <FileCheck className="h-4 w-4 text-hivis-deep" aria-hidden />
-            Before you send
+            {hub.scope.eyebrow}
           </span>
           <h2 className="font-display mt-4 max-w-2xl text-xl text-ink sm:text-balance sm:text-2xl lg:text-[1.75rem]">
-            A suburb and a short description are enough to start. These help us quote it properly.
+            {hub.scope.title}
           </h2>
         </div>
       </div>
@@ -551,15 +497,9 @@ function FinalCta() {
     <section className="bg-hivis py-12 sm:py-16 lg:py-20">
       <div className="container-wide text-center">
         <h2 className="font-display mx-auto max-w-2xl text-2xl text-ink sm:text-balance sm:text-3xl lg:text-4xl">
-          Ready to clear the way?
+          {hub.finalCta.title}
         </h2>
-        <p className="mx-auto mt-4 max-w-2xl text-ink/80">
-          Send the suburb and a short description of the job. We’ll review it and get in touch about
-          your quote.
-        </p>
-        <p className="mx-auto mt-3 max-w-2xl font-bold text-ink">
-          Partial demolition · Strip-outs · Rubbish removal
-        </p>
+        <p className="mx-auto mt-4 max-w-2xl text-ink/80">{hub.finalCta.lede}</p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
           <CtaButton variant="dark" size="md" onClick={openQuote}>
             {CTA_LABEL}
