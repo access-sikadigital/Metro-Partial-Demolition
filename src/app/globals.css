@@ -50,12 +50,22 @@
   --radius-lg: 0;
   --font-body: "Google Sans Flex", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Menseal", "Google Sans Flex", ui-sans-serif, sans-serif;
+  /* Demo Bros replica pages: their heading font token, set to Metro's Menseal. */
+  --font-heading: "Menseal", "Google Sans Flex", ui-sans-serif, sans-serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
+  /* Demo Bros token names used by the replica service pages (components/db),
+     mapped to Metro brand colours so their layouts render in Metro's palette. */
+  --color-primary-deep: var(--primary-deep);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-charcoal: var(--charcoal);
+  --color-light: var(--light);
+  --color-light-foreground: var(--light-foreground);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-border: var(--border);
@@ -101,6 +111,14 @@
   --input: rgb(21 21 21 / 0.2);
   --ring: var(--hivis);
   --destructive: #c62828;
+
+  /* Demo Bros replica tokens → Metro brand. */
+  --primary-deep: var(--hivis-deep);
+  --secondary: var(--plaster);
+  --secondary-foreground: var(--ink);
+  --charcoal: var(--ink);
+  --light: #ffffff;
+  --light-foreground: var(--ink);
 }
 
 @layer base {
@@ -376,5 +394,70 @@
   .animate-hazard,
   .animate-slow-zoom {
     animation: none;
+  }
+}
+
+/* ===== Demo Bros replica utilities (same definitions as Demo Bros) ===== */
+
+@utility font-heading {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  line-height: 1.05;
+}
+
+@utility text-hero {
+  font-size: clamp(3rem, 8vw, 6rem);
+  line-height: 1.05;
+}
+
+@utility text-section-title {
+  font-size: clamp(2.25rem, 5vw, 3.75rem);
+  line-height: 1.1;
+}
+
+@utility text-card-title {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  line-height: 1.2;
+}
+
+@utility text-body-fluid {
+  font-size: clamp(1rem, 1.5vw, 1.125rem);
+  line-height: 1.6;
+}
+
+@utility hairline {
+  height: 1px;
+  background: var(--color-border);
+}
+
+@utility animate-dust {
+  animation: dust var(--dust-d, 14s) linear infinite;
+}
+
+@keyframes step-dwell {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes dust {
+  0% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0;
+  }
+  10% {
+    opacity: var(--dust-o, 0.5);
+  }
+  90% {
+    opacity: var(--dust-o, 0.5);
+  }
+  100% {
+    transform: translate3d(var(--dust-x, 40px), -80vh, 0);
+    opacity: 0;
   }
 }

@@ -9,6 +9,7 @@ import { CtaButton } from "./CtaButton";
 import { useQuoteModal } from "./QuoteModal";
 import { Bricks } from "./Brand";
 import { CTA_LABEL, audiences } from "@/lib/site-data";
+import { beforeAfterPairs } from "@/lib/before-after";
 
 /* Sections shared by the main page, the service landing pages and /contact. */
 
@@ -31,14 +32,15 @@ export function Audiences() {
             {audiences.body}
           </p>
         </Reveal>
-        <div className="mx-auto mt-10 grid max-w-3xl grid-cols-3 sm:mt-12">
+        {/* One row on every screen, divided by hairlines (Demo Bros layout). */}
+        <div className="mx-auto mt-10 flex max-w-3xl flex-row flex-nowrap items-start justify-center sm:mt-12">
           {audiences.items.map((a, i) => {
             const Icon = AUDIENCE_ICONS[a.icon];
             return (
               <Reveal
                 key={a.label}
                 delay={i * 0.06}
-                className={`flex flex-col items-center gap-4 px-2 text-center sm:px-4 ${
+                className={`flex min-w-0 flex-1 basis-0 flex-col items-center gap-4 px-2 text-center sm:px-4 ${
                   i > 0 ? "border-l border-ink/10" : ""
                 }`}
               >
@@ -51,6 +53,63 @@ export function Audiences() {
               </Reveal>
             );
           })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/**
+ * Before / after, straight under the hero on every service page (Demo Bros
+ * "Same room, one day apart"). Each photo holds both halves side by side; the
+ * chips mark them. Two up on every width, so each pair is big enough to read.
+ */
+export function BeforeAfter() {
+  return (
+    <section className="border-b border-ink/10 bg-white py-14 sm:py-20 lg:py-24">
+      <div className="container-wide">
+        <SectionHeading
+          align="center"
+          eyebrow="Before and after"
+          title="Before we start. After we leave."
+        />
+        <div className="mx-auto mt-9 grid max-w-5xl grid-cols-2 gap-3 sm:gap-5 lg:mt-12">
+          {beforeAfterPairs.map((pair, i) => (
+            <Reveal key={pair.id} delay={(i % 2) * 0.06}>
+              <figure className="chamfer h-full overflow-hidden bg-paper ring-1 ring-ink/10 [--cut:18px]">
+                <div className="relative aspect-[3/2] overflow-hidden bg-ink">
+                  <img
+                    src={pair.image}
+                    alt={`${pair.label}: before on the left, after on the right`}
+                    width={1200}
+                    height={800}
+                    loading="lazy"
+                    decoding="async"
+                    className="h-full w-full object-cover"
+                  />
+                  {/* Hairline down the middle, where the two photos meet. */}
+                  <span
+                    aria-hidden
+                    className="absolute inset-y-0 left-1/2 w-0.5 -translate-x-1/2 bg-white/80"
+                  />
+                  <span className="absolute top-2 left-2 bg-ink px-1.5 py-0.5 text-[0.75rem] font-bold tracking-[0.1em] text-paper uppercase sm:top-3 sm:left-3 sm:px-2 sm:py-1">
+                    Before
+                  </span>
+                  <span className="absolute top-2 left-[calc(50%+0.5rem)] bg-hivis px-1.5 py-0.5 text-[0.75rem] font-bold tracking-[0.1em] text-ink uppercase sm:top-3 sm:left-[calc(50%+0.75rem)] sm:px-2 sm:py-1">
+                    After
+                  </span>
+                </div>
+                <figcaption className="px-3 py-3 sm:px-5 sm:py-4">
+                  <span className="font-display block text-[0.8rem] leading-tight text-ink sm:text-[0.95rem]">
+                    {pair.label}
+                  </span>
+                  <span className="mt-1 hidden text-sm text-muted-foreground sm:block">
+                    {pair.note}
+                  </span>
+                </figcaption>
+              </figure>
+            </Reveal>
+          ))}
         </div>
       </div>
     </section>

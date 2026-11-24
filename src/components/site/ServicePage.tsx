@@ -14,7 +14,8 @@ import { FloatingContact } from "./FloatingContact";
 import { GoogleRatingSticky } from "./GoogleRatingSticky";
 import { StickyMobileCta } from "./StickyMobileCta";
 import { Bricks, HazardBand, IconTile } from "./Brand";
-import { CtaRow, FinalCtaBand, QuoteCta } from "./Sections";
+import { BeforeAfter, CtaRow, FinalCtaBand, QuoteCta } from "./Sections";
+import { GoogleRatingPill, hasGoogleRating } from "./GoogleRating";
 import { CTA_LABEL, SITE, formCopyFor, hasPhone } from "@/lib/site-data";
 import type { ServicePageContent } from "@/lib/pages/types";
 import { cn } from "@/lib/utils";
@@ -36,6 +37,7 @@ export function ServicePage({ page }: { page: ServicePageContent }) {
   return (
     <>
       <PageHero {...page.hero} />
+      <BeforeAfter />
       <Services page={page} index={next()} />
       <Scope page={page} index={next()} />
       <Process page={page} index={next()} />
@@ -135,6 +137,13 @@ export function PageHero({
 
       <div className="container-wide relative grid gap-10 pt-24 pb-14 sm:pt-28 lg:grid-cols-[1.08fr_0.92fr] lg:items-center lg:gap-14 lg:pt-36 lg:pb-24">
         <motion.div variants={group} initial="hidden" animate="show">
+          {/* Real Google rating first, above the eyebrow (Demo Bros). Hidden
+              until TRUST holds Metro's verified figures. */}
+          {hasGoogleRating && (
+            <motion.div variants={rise} className="mb-5">
+              <GoogleRatingPill />
+            </motion.div>
+          )}
           <motion.p
             variants={rise}
             className="eyebrow flex items-center gap-2.5 [--eyebrow-color:var(--hivis)]"
@@ -274,13 +283,24 @@ function Services({ page, index }: SectionProps) {
 
         {/* Two up on phones (photo and title — the paragraph waits for
             tablet), as on Demo Bros, so the cards don't fill five screens. */}
-        <div className="mt-8 grid grid-cols-2 gap-3 sm:mt-10 sm:gap-5 lg:mt-14 lg:grid-cols-3">
+        {/* Four cards → a 2 × 2 grid on every width; other counts fill rows of three. */}
+        <div
+          className={cn(
+            "mt-8 grid grid-cols-2 gap-3 sm:mt-10 sm:gap-5 lg:mt-14",
+            s.items.length === 4 ? "lg:gap-6" : "lg:grid-cols-3",
+          )}
+        >
           {s.items.map((item, i) => (
             <Reveal key={item.slug} delay={(i % 3) * 0.06}>
               <article className="group chamfer relative flex h-full flex-col bg-white transition-transform duration-300 [--cut:14px] hover:-translate-y-1 sm:[--cut:22px]">
                 {/* Photo of the service, with the brand icon tile overlapping its
                     bottom edge so the card keeps its original identity. */}
-                <div className="relative aspect-[4/3] overflow-hidden bg-ink sm:aspect-[3/2]">
+                <div
+                  className={cn(
+                    "relative aspect-[4/3] overflow-hidden bg-ink sm:aspect-[3/2]",
+                    s.items.length === 4 && "lg:aspect-[16/9]",
+                  )}
+                >
                   <img
                     src={item.image.src}
                     alt={item.image.alt}

@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { ServicePage } from "@/components/site/ServicePage";
+import { HouseDemolitionPage } from "@/components/db/HouseDemolitionPage";
 import { resolveImages } from "@/lib/pages/images.server";
 import { JsonLd } from "@/components/site/JsonLd";
 import { faqJsonLd } from "@/components/site/FaqList";
 import { partialDemolition as page } from "@/lib/pages/partial-demolition";
+import { partialDemolitionContent } from "@/lib/db-content/partial-demolition";
 
 export const metadata: Metadata = {
   title: page.meta.title,
@@ -20,7 +21,7 @@ export default function Page() {
   return (
     <>
       <JsonLd data={faqJsonLd(page.faqs.items)} />
-      <ServicePage page={resolveImages(page)} />
+      <HouseDemolitionPage content={resolveImages(partialDemolitionContent)} />
     </>
   );
 }

@@ -36,6 +36,50 @@ export function Stars({ className, count = 5 }: { className?: string; count?: nu
   );
 }
 
+/** True once Metro's real Google rating, review count and profile link are in TRUST. */
+export const hasGoogleRating =
+  TRUST.reviewsVerified && TRUST.rating !== "" && TRUST.reviewCount > 0;
+
+/**
+ * The white Google pill at the top of the hero, as on Demo Bros:
+ * "G 4.9 ★★★★★ 54 Google reviews". Links to the Google Business Profile.
+ * Renders nothing until `hasGoogleRating` — a made-up rating on an ad landing
+ * page is a Google Ads misrepresentation and consumer-law problem.
+ */
+export function GoogleRatingPill({ className }: { className?: string }) {
+  if (!hasGoogleRating) return null;
+  const label = `Rated ${TRUST.rating} out of 5 from ${TRUST.reviewCount} Google reviews`;
+  const inner = (
+    <>
+      <GoogleG className="h-4 w-4 shrink-0 sm:h-[18px] sm:w-[18px]" />
+      <span className="text-sm leading-none font-bold text-ink">{TRUST.rating}</span>
+      <Stars className="[&_svg]:h-[13px] [&_svg]:w-[13px] sm:[&_svg]:h-[15px] sm:[&_svg]:w-[15px]" />
+      <span className="text-[0.75rem] leading-none whitespace-nowrap text-ink/60">
+        {TRUST.reviewCount} <span className="hidden sm:inline">Google </span>reviews
+      </span>
+    </>
+  );
+  const cls = cn(
+    "inline-flex items-center gap-2 rounded-full bg-white px-3 py-2 shadow-sm ring-1 ring-ink/10 sm:gap-2.5 sm:px-3.5",
+    className,
+  );
+  return TRUST.googleReviewsUrl ? (
+    <a
+      href={TRUST.googleReviewsUrl}
+      target="_blank"
+      rel="noopener"
+      aria-label={`${label} (opens Google)`}
+      className={cn(cls, "transition-shadow hover:shadow-md")}
+    >
+      {inner}
+    </a>
+  ) : (
+    <span className={cls} aria-label={label}>
+      {inner}
+    </span>
+  );
+}
+
 /** "G 4.9 ★★★★★ · 48 Google reviews". Only render once TRUST.reviewsVerified is true. */
 export function GoogleRatingBadge({
   tone = "light",

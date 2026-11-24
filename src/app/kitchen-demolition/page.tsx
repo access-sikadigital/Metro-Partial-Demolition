@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { ServicePage } from "@/components/site/ServicePage";
+import { StripOutPage } from "@/components/db/StripOutPage";
 import { resolveImages } from "@/lib/pages/images.server";
 import { JsonLd } from "@/components/site/JsonLd";
+import { kitchenDemolitionContent as content } from "@/lib/db-content/kitchen-demolition";
 import { faqJsonLd } from "@/components/site/FaqList";
 import { kitchenDemolition as page } from "@/lib/pages/kitchen-bathroom";
 
@@ -20,7 +21,7 @@ export default function Page() {
   return (
     <>
       <JsonLd data={faqJsonLd(page.faqs.items)} />
-      <ServicePage page={resolveImages(page)} />
+      <StripOutPage content={resolveImages(content)} />
     </>
   );
 }

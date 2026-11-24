@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { ServicePage } from "@/components/site/ServicePage";
-import { resolveImages } from "@/lib/pages/images.server";
 import { JsonLd } from "@/components/site/JsonLd";
 import { faqJsonLd } from "@/components/site/FaqList";
+import { RubbishRemovalPage } from "@/components/db/RubbishRemovalPage";
+import { rubbishRemovalContent as content } from "@/lib/db-content/rubbish-removal";
 import { rubbishRemoval as page } from "@/lib/pages/rubbish-removal";
 
 export const metadata: Metadata = {
@@ -19,8 +19,8 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <>
-      <JsonLd data={faqJsonLd(page.faqs.items)} />
-      <ServicePage page={resolveImages(page)} />
+      <JsonLd data={faqJsonLd(content.faqs.items)} />
+      <RubbishRemovalPage content={content} />
     </>
   );
 }
