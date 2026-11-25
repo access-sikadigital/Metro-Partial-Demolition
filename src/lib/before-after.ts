@@ -56,9 +56,13 @@ export const beforeAfterPairs: BeforeAfterPair[] = [
 ];
 
 /**
- * The pairs that match a page's job. Rubbish removal has only one so far:
- * it needs garage, yard and room clear-out photos.
+ * Four pairs for a page: the ones that match its job first, then the rest to
+ * fill the row, so the section never looks half-empty. Rubbish removal has
+ * only one matching pair so far: it needs garage, yard and room clear-out
+ * photos. When those arrive, add them here and they'll lead.
  */
-export function beforeAfterFor(page: ServiceSlug): BeforeAfterPair[] {
-  return beforeAfterPairs.filter((p) => p.pages.includes(page));
+export function beforeAfterFor(page: ServiceSlug, count = 4): BeforeAfterPair[] {
+  const matched = beforeAfterPairs.filter((p) => p.pages.includes(page));
+  const rest = beforeAfterPairs.filter((p) => !p.pages.includes(page));
+  return [...matched, ...rest].slice(0, count);
 }
