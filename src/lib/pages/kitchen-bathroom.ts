@@ -17,7 +17,7 @@ export const kitchenDemolition: ServicePageContent = {
   meta: {
     title: "Kitchen Demolition & Removal Melbourne | Metro",
     description:
-      "Request a quote for kitchen demolition and removal in Melbourne. Clear cabinetry, benchtops, splashbacks, tiles or floors so your installer can start.",
+      "Get a free quote for kitchen demolition and removal in Melbourne. Clear cabinetry, benchtops, splashbacks, tiles or floors so your installer can start.",
   },
   hero: {
     eyebrow: "Kitchen demolition · Melbourne",
@@ -74,7 +74,7 @@ export const bathroomDemolition: ServicePageContent = {
   meta: {
     title: "Bathroom Demolition Melbourne | Strip-Outs | Metro",
     description:
-      "Request a quote for bathroom demolition in Melbourne. Clear vanities, showers, baths, wall tiles and floors so your plumber or tiler can start.",
+      "Get a free quote for bathroom demolition in Melbourne. Clear vanities, showers, baths, wall tiles and floors so your plumber or tiler can start.",
   },
   hero: {
     eyebrow: "Bathroom demolition · Melbourne",

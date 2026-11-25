@@ -18,8 +18,9 @@
  */
 import { houseDemolition as page } from "@/lib/pages/house-demolition";
 import { audiences } from "@/lib/site-data";
-import { beforeAfterPairs } from "@/lib/before-after";
+import { beforeAfterFor } from "@/lib/before-after";
 import {
+  previewOnly,
   PLACEHOLDER_TRUST,
   PRICING,
   reviewsFor,
@@ -45,7 +46,7 @@ export const trustStats: HouseDemolitionContent["trustStats"] = stats.map((s, i)
 export const beforeAfter: HouseDemolitionContent["beforeAfter"] = {
   eyebrow: "Before and after",
   title: "Before we start. After we leave.",
-  pairs: beforeAfterPairs,
+  pairs: beforeAfterFor("partial-demolition"),
 };
 
 /** Metro's pre-rewrite price-table column headings. */
@@ -133,7 +134,9 @@ export const builders: HouseDemolitionContent["builders"] = {
     "Tender-ready itemised quotes you can drop straight into a feasibility",
     "Program dates committed to and held — your slab pour doesn't move",
     "SWMS, inductions and a documented safety system on every site",
-    `${PLACEHOLDER_TRUST.licence}, ${PLACEHOLDER_TRUST.liability} public liability, certificates on file`,
+    previewOnly(
+      `${PLACEHOLDER_TRUST.licence}, ${PLACEHOLDER_TRUST.liability} public liability, certificates on file`,
+    ) || "Insurance details supplied with the quote",
     "Multiple sites staged so your trades roll from one to the next",
   ],
   image: {
@@ -373,7 +376,9 @@ export const houseDemolitionContent: HouseDemolitionContent = {
   finalCta: {
     title: page.finalCta.title,
     lede: page.finalCta.lede,
-    body: `Walls from ${PRICING.wall}. Garages from ${PRICING.outbuilding}. Permits and disconnections handled.`,
+    body: previewOnly(
+      `Walls from ${PRICING.wall}. Garages from ${PRICING.outbuilding}. Permits and disconnections handled.`,
+    ),
     fine: finalCtaFine,
   },
 };

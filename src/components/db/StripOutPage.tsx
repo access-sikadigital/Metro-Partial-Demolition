@@ -38,6 +38,7 @@ import {
   Truck,
   Users,
   Warehouse,
+  Landmark,
   type LucideIcon,
 } from "lucide-react";
 
@@ -54,10 +55,11 @@ import {
 import { QuoteForm } from "@/components/site/QuoteForm";
 import { useQuoteModal } from "@/components/site/QuoteModal";
 import { FloatingContact } from "@/components/site/FloatingContact";
+import { Unconfirmed } from "@/components/site/Unconfirmed";
 import { StickyMobileCta } from "@/components/site/StickyMobileCta";
-import { CTA_LABEL, SITE, audiences, formCopyFor, hasPhone } from "@/lib/site-data";
-import { beforeAfterPairs } from "@/lib/before-after";
-import { PLACEHOLDER_TRUST, reviewsFor, serviceArea, stats } from "@/lib/db/placeholder-content";
+import { CTA_LABEL, CTA_SUBLINE, SITE, audiences, formCopyFor, hasPhone } from "@/lib/site-data";
+import { beforeAfterFor } from "@/lib/before-after";
+import { reviewsFor, serviceArea, stats } from "@/lib/db/placeholder-content";
 import type {
   GuaranteeIcon,
   HeroPointIcon,
@@ -72,17 +74,29 @@ export function StripOutPage({ content }: C) {
   return (
     <>
       <Hero content={content} />
-      <TrustStats />
-      <BeforeAfter />
-      <Price content={content} />
+      <Unconfirmed note="rating, liability and 24h not confirmed">
+        <TrustStats />
+      </Unconfirmed>
+      <BeforeAfter slug={content.slug} />
+      <Unconfirmed note="prices not confirmed">
+        <Price content={content} />
+      </Unconfirmed>
       <ServiceRouter content={content} />
       <Audiences />
       <Process content={content} />
-      <Asbestos content={content} />
+      <Unconfirmed note="in-house asbestos not confirmed">
+        <Asbestos content={content} />
+      </Unconfirmed>
       <NobodyExplains content={content} />
-      <Guarantee content={content} />
-      <Reviews content={content} />
-      <ServiceArea />
+      <Unconfirmed note="guarantees not confirmed">
+        <Guarantee content={content} />
+      </Unconfirmed>
+      <Unconfirmed note="sample reviews, not real">
+        <Reviews content={content} />
+      </Unconfirmed>
+      <Unconfirmed note="service area not confirmed">
+        <ServiceArea />
+      </Unconfirmed>
       <Faqs content={content} />
       <FinalCta content={content} />
       <GoogleRatingSticky />
@@ -177,7 +191,6 @@ function Hero({ content }: C) {
             transition={{ duration: 0.5 }}
             className="flex flex-wrap items-center gap-3"
           >
-            <GoogleRatingBadge />
             {/* Deep yellow + ink: same hue as the brand, AA at 11px. */}
             <span className="rounded-full bg-primary-deep px-2.5 py-1 text-[0.75rem] font-bold text-primary-foreground sm:px-3.5 sm:py-2 sm:text-xs">
               {hero.eyebrow}
@@ -217,7 +230,7 @@ function Hero({ content }: C) {
             {hasPhone && (
               <CtaButton
                 href={SITE.phoneHref}
-                variant="outlineLight"
+                variant="solid"
                 size="md"
                 icon={false}
                 className="w-full sm:w-auto"
@@ -227,6 +240,10 @@ function Hero({ content }: C) {
               </CtaButton>
             )}
           </motion.div>
+          <p className="mt-3 flex items-center gap-2 text-sm font-semibold text-secondary/85">
+            <Check className="h-4 w-4 shrink-0 text-go" strokeWidth={3} aria-hidden="true" />
+            {CTA_SUBLINE}
+          </p>
 
           <motion.ul
             initial={{ opacity: 0, y: 12 }}
@@ -327,7 +344,8 @@ function TrustStats() {
  * left half, after on the right. Four pairs, one row from lg and 2×2 below
  * (Demo Bros ran three with the odd last card spanning; Metro has four).
  */
-function BeforeAfter() {
+function BeforeAfter({ slug }: { slug: StripOutContent["slug"] }) {
+  const beforeAfterPairs = beforeAfterFor(slug);
   if (beforeAfterPairs.length === 0) return null;
 
   return (
@@ -417,7 +435,7 @@ function Price({ content }: C) {
                     className="flex items-center justify-between gap-4 border-b border-border px-5 py-4 transition-colors duration-200 hover:bg-primary/[0.06] sm:px-6"
                   >
                     <dt className="text-[0.95rem] font-semibold sm:text-base">{row.job}</dt>
-                    <dd className="text-xl font-extrabold whitespace-nowrap text-foreground tabular-nums sm:text-2xl">
+                    <dd className="rounded-md bg-go px-3 py-1 text-lg font-extrabold whitespace-nowrap text-white tabular-nums sm:text-xl">
                       {row.from}
                     </dd>
                   </div>
@@ -583,6 +601,7 @@ const AUDIENCE_ICONS: Record<string, LucideIcon> = {
   home: House,
   builder: HardHat,
   developer: Building2,
+  government: Landmark,
 };
 
 /**
@@ -601,14 +620,14 @@ function Audiences() {
           {audiences.body}
         </p>
 
-        <div className="mt-8 grid grid-cols-3 sm:mt-12">
+        <div className="mt-8 grid grid-cols-2 sm:mt-12 sm:grid-cols-4">
           {audiences.items.map((a, i) => {
             const Icon = AUDIENCE_ICONS[a.icon] ?? Users;
             return (
               <Reveal
                 key={a.label}
                 delay={i * 0.06}
-                className="border-l border-border first:border-l-0"
+                className="border-border sm:border-l sm:first:border-l-0"
               >
                 <div className="flex flex-col items-center gap-5 px-1 py-6 text-center sm:px-2">
                   <Icon
@@ -1025,7 +1044,6 @@ function Faqs({ content }: C) {
 
 /* COPY: from Demo Bros — needs Metro copy (Demo Bros' trust line, rebuilt from
    Metro's PLACEHOLDER trust figures). */
-const FINAL_CTA_FINE = `${PLACEHOLDER_TRUST.rating} ★ Google · ${PLACEHOLDER_TRUST.licence} · ${PLACEHOLDER_TRUST.liability} public liability`;
 
 function FinalCta({ content }: C) {
   const { openQuote } = useQuoteModal();
@@ -1060,7 +1078,7 @@ function FinalCta({ content }: C) {
 
         <p className="mt-6 flex items-center justify-center gap-1.5 text-sm text-primary-foreground/85">
           <Clock className="h-4 w-4 shrink-0" />
-          {FINAL_CTA_FINE}
+          {CTA_SUBLINE}
         </p>
       </div>
     </section>

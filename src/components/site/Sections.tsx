@@ -1,7 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { Building2, HardHat, House } from "lucide-react";
+import { Building2, HardHat, House, Landmark } from "lucide-react";
 
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
@@ -17,6 +17,7 @@ const AUDIENCE_ICONS = {
   home: House,
   builder: HardHat,
   developer: Building2,
+  government: Landmark,
 } as const;
 
 /** "For homeowners, builders and fit-out teams": heading, one paragraph, icon strip. */
@@ -33,7 +34,7 @@ export function Audiences() {
           </p>
         </Reveal>
         {/* One row on every screen, divided by hairlines (Demo Bros layout). */}
-        <div className="mx-auto mt-10 flex max-w-3xl flex-row flex-nowrap items-start justify-center sm:mt-12">
+        <div className="mx-auto mt-10 flex max-w-4xl flex-row flex-nowrap items-start justify-center sm:mt-12">
           {audiences.items.map((a, i) => {
             const Icon = AUDIENCE_ICONS[a.icon];
             return (

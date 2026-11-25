@@ -7,7 +7,7 @@
  * the old house-demolition ones), with PLACEHOLDER figures — none verified.
  */
 import { garageShedDriveway as page } from "@/lib/pages/garage-shed-driveway";
-import { PLACEHOLDER_TRUST, PRICING } from "@/lib/db/placeholder-content";
+import { previewOnly, PLACEHOLDER_TRUST, PRICING } from "@/lib/db/placeholder-content";
 import type { HeroPointIcon, StripOutContent } from "./strip-out-types";
 
 const HERO_ICONS: HeroPointIcon[] = ["warehouse", "truck", "fence"];
@@ -118,6 +118,8 @@ export const garageShedDrivewayContent: StripOutContent = {
 
   finalCta: {
     ...page.finalCta,
-    body: `Garages and sheds from ${PRICING.outbuilding}. Driveways and slabs out. Ground left level.`,
+    body: previewOnly(
+      `Garages and sheds from ${PRICING.outbuilding}. Driveways and slabs out. Ground left level.`,
+    ),
   },
 };

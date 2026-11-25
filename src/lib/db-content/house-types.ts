@@ -70,7 +70,7 @@ export interface HouseDemolitionContent {
 
   audiences: {
     title: string;
-    items: { icon: "home" | "builder" | "developer"; label: string }[];
+    items: { icon: "home" | "builder" | "developer" | "government"; label: string }[];
   };
 
   timeline: {

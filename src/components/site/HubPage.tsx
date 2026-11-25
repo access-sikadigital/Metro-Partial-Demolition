@@ -27,6 +27,7 @@ export function HubPage() {
         titleTop={h.titleTop}
         titleRibbon={h.titleRibbon}
         sub={h.sub}
+        points={[...h.points]}
         imageDesktop="/images/services/internal-strip-out.jpg"
         imageMobile="/images/services/internal-strip-out.jpg"
         secondary={{ label: h.secondary, href: "#services" }}

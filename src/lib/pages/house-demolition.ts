@@ -13,7 +13,7 @@ export const houseDemolition: ServicePageContent = {
   meta: {
     title: "House & Partial Demolition Melbourne | Metro",
     description:
-      "Request a quote for house or partial demolition in Melbourne. Tell us what needs to come down, what you’re keeping and when your builder needs the site.",
+      "Get a free quote for house or partial demolition in Melbourne. Tell us what needs to come down, what you’re keeping and when your builder needs the site.",
   },
   hero: {
     ...partialDemolition.hero,

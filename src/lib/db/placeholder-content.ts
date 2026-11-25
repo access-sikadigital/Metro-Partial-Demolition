@@ -9,6 +9,10 @@
  * before Google Ads go live.
  */
 import type { ServiceSlug } from "@/lib/pages/types";
+import { IS_PREVIEW } from "@/lib/preview";
+
+/** Text built on placeholder figures: shown on preview deploys, empty on the live site. */
+export const previewOnly = (text: string) => (IS_PREVIEW ? text : "");
 
 /** Google rating shown in the hero badge, reviews section and sticky badge. */
 export const GOOGLE_RATING = {

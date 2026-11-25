@@ -35,12 +35,14 @@ import {
   Sparkles,
   Star,
   Weight,
+  Landmark,
 } from "lucide-react";
 
 import { Reveal } from "@/components/site/Reveal";
 import { QuoteForm } from "@/components/site/QuoteForm";
 import { useQuoteModal } from "@/components/site/QuoteModal";
 import { FloatingContact } from "@/components/site/FloatingContact";
+import { Unconfirmed } from "@/components/site/Unconfirmed";
 import { StickyMobileCta } from "@/components/site/StickyMobileCta";
 import { SectionHeading } from "@/components/db/SectionHeading";
 import { FaqList } from "@/components/db/FaqList";
@@ -51,7 +53,7 @@ import {
   GoogleRatingSticky,
   GoogleStars,
 } from "@/components/db/GoogleRating";
-import { CTA_LABEL, SITE, formCopyFor, hasPhone } from "@/lib/site-data";
+import { CTA_LABEL, CTA_SUBLINE, SITE, formCopyFor, hasPhone } from "@/lib/site-data";
 import type { RubbishRemovalContent } from "@/lib/db-content/rubbish-types";
 
 export type { RubbishRemovalContent };
@@ -65,18 +67,28 @@ export function RubbishRemovalPage({ content }: { content: RubbishRemovalContent
   return (
     <>
       <Hero hero={content.hero} />
-      <TrustStats stats={content.trustStats} />
+      <Unconfirmed note="rating, liability and 24h not confirmed">
+        <TrustStats stats={content.trustStats} />
+      </Unconfirmed>
       <BeforeAfter data={content.beforeAfter} />
-      <Price pricing={content.pricing} />
+      <Unconfirmed note="prices not confirmed">
+        <Price pricing={content.pricing} />
+      </Unconfirmed>
       <ServiceRouter services={content.services} />
       <Audiences audiences={content.audiences} />
       <Process process={content.process} />
       <HeavyStuff heavyStuff={content.heavyStuff} />
       <Hoarding hoarding={content.hoarding} />
       <Builders builders={content.builders} />
-      <Guarantee guarantee={content.guarantee} />
-      <Reviews reviews={content.reviews} />
-      <ServiceArea serviceArea={content.serviceArea} />
+      <Unconfirmed note="guarantees not confirmed">
+        <Guarantee guarantee={content.guarantee} />
+      </Unconfirmed>
+      <Unconfirmed note="sample reviews, not real">
+        <Reviews reviews={content.reviews} />
+      </Unconfirmed>
+      <Unconfirmed note="service area not confirmed">
+        <ServiceArea serviceArea={content.serviceArea} />
+      </Unconfirmed>
       <Faqs faqs={content.faqs} />
       <FinalCta finalCta={content.finalCta} />
       <GoogleRatingSticky />
@@ -152,7 +164,6 @@ function Hero({ hero }: { hero: C["hero"] }) {
             transition={{ duration: 0.5 }}
             className="flex flex-wrap items-center gap-3"
           >
-            <GoogleRatingBadge />
             <span className="rounded-full bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground">
               {hero.eyebrow}
             </span>
@@ -188,7 +199,7 @@ function Hero({ hero }: { hero: C["hero"] }) {
             {hasPhone && (
               <CtaButton
                 href={SITE.phoneHref}
-                variant="outlineLight"
+                variant="solid"
                 size="md"
                 icon={false}
                 className="w-full sm:w-auto"
@@ -198,6 +209,10 @@ function Hero({ hero }: { hero: C["hero"] }) {
               </CtaButton>
             )}
           </motion.div>
+          <p className="mt-3 flex items-center gap-2 text-sm font-semibold text-secondary/85">
+            <Check className="h-4 w-4 shrink-0 text-go" strokeWidth={3} aria-hidden="true" />
+            {CTA_SUBLINE}
+          </p>
 
           <motion.ul
             initial={{ opacity: 0, y: 12 }}
@@ -404,7 +419,7 @@ function Price({ pricing }: { pricing: C["pricing"] }) {
                         {row.how}
                       </span>
                     </dt>
-                    <dd className="text-xl font-extrabold whitespace-nowrap text-foreground tabular-nums sm:text-2xl">
+                    <dd className="rounded-md bg-go px-3 py-1 text-lg font-extrabold whitespace-nowrap text-white tabular-nums sm:text-xl">
                       {row.from}
                     </dd>
                   </div>
@@ -546,6 +561,7 @@ const AUDIENCE_ICONS: Record<string, typeof House> = {
   home: House,
   builder: HardHat,
   developer: Building2,
+  government: Landmark,
 };
 
 function Audiences({ audiences }: { audiences: C["audiences"] }) {
@@ -558,14 +574,14 @@ function Audiences({ audiences }: { audiences: C["audiences"] }) {
 
         {/* Metro has three audiences, so one row of three on every width,
             with hairlines between columns (never before the first). */}
-        <div className="mx-auto mt-8 grid max-w-4xl grid-cols-3 sm:mt-12">
+        <div className="mx-auto mt-8 grid max-w-4xl grid-cols-2 sm:mt-12 sm:grid-cols-4">
           {audiences.items.map((a, i) => {
             const Icon = AUDIENCE_ICONS[a.icon] ?? House;
             return (
               <Reveal
                 key={a.label}
                 delay={i * 0.06}
-                className="border-l border-border first:border-l-0"
+                className="border-border sm:border-l sm:first:border-l-0"
               >
                 <div className="flex flex-col items-center gap-5 px-2 py-6 text-center">
                   <Icon
@@ -1029,10 +1045,10 @@ function FinalCta({ finalCta }: { finalCta: C["finalCta"] }) {
           )}
         </div>
 
-        {finalCta.fine && (
+        {CTA_SUBLINE && (
           <p className="mt-6 flex items-center justify-center gap-1.5 text-sm text-primary-foreground/85">
             <Clock className="h-4 w-4 shrink-0" />
-            {finalCta.fine}
+            {CTA_SUBLINE}
           </p>
         )}
       </div>

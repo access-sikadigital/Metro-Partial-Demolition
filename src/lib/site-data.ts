@@ -1,3 +1,5 @@
+import { IS_PREVIEW, PREVIEW_PHONE } from "./preview";
+
 // Shared content for Metro Partial Demolition.
 //
 // One main page ("/") that routes visitors to dedicated landing pages, each
@@ -20,13 +22,19 @@
 // │   · no prices, guarantees, licences or turnaround promises        │
 // └───────────────────────────────────────────────────────────────────┘
 
+/** Metro's real number (the GoHighLevel tracking number), once bought. */
+const METRO_PHONE = { phone: "" as string, phoneHref: "" as string };
+
+/** Preview deploys fall back to a placeholder so the call buttons can be reviewed. */
+const PHONE = METRO_PHONE.phone === "" && IS_PREVIEW ? PREVIEW_PHONE : METRO_PHONE;
+
 export const SITE = {
   name: "Metro Partial Demolition",
   shortName: "Metro",
-  /** Metro's current number, once supplied and verified, e.g. "03 9xxx xxxx". */
-  phone: "" as string,
+  /** Metro's number: set METRO_PHONE above. Placeholder on preview deploys only. */
+  phone: PHONE.phone as string,
   /** Matching tel: link, e.g. "tel:+6139xxxxxxx". */
-  phoneHref: "" as string,
+  phoneHref: PHONE.phoneHref as string,
   /** Metro's enquiries address, once confirmed. */
   email: "" as string,
 };
@@ -47,7 +55,10 @@ export const TRUST = {
 };
 
 /** One button label, used everywhere. */
-export const CTA_LABEL = "Request a quote";
+export const CTA_LABEL = "Get a free quote";
+
+/** The line under the main buttons (John, 23 Nov). Confirm the 24 hours with Metro. */
+export const CTA_SUBLINE = "Free quote within 24 hours. No obligation.";
 
 /* ============================== QUOTE FORM ============================== */
 
@@ -67,7 +78,7 @@ export const quoteForm = {
  */
 export const FORM_COPY: Record<string, { heading: string; prompt: string }> = {
   "/": {
-    heading: "Request a demolition or strip-out quote",
+    heading: "Get a free demolition or strip-out quote",
     prompt: "What needs to come out, and what are you keeping?",
   },
   "/partial-demolition": {
@@ -106,7 +117,7 @@ export const FORM_COPY: Record<string, { heading: string; prompt: string }> = {
       "Tell us what’s in the load and where it is. Add a photo showing the full pile, plus any stairs, gates or loading restrictions.",
   },
   "/contact": {
-    heading: "Request a quote",
+    heading: "Get a free quote",
     prompt:
       "Tell us what needs to come out, what you want to keep and when you need the work. If you’re working to a builder’s start date or a lease handover, include the date in your notes.",
   },
@@ -217,14 +228,22 @@ export const hub = {
   meta: {
     title: "Partial Demolition & Strip-Outs Melbourne | Metro",
     description:
-      "Planning a renovation or extension? Metro Partial Demolition handles selective demolition, internal strip-outs and rubbish removal across Melbourne. Request a quote.",
+      "Planning a renovation or extension? Metro Partial Demolition handles selective demolition, internal strip-outs and rubbish removal across Melbourne. Get a free quote.",
   },
   hero: {
     eyebrow: "Metro · Melbourne",
-    titleTop: "Melbourne partial demolition and strip-outs",
-    titleRibbon: "for your next build",
-    sub: "Take down an old extension, clear a room for renovation or get a site ready for the next trade. Tell us what needs to come out, what needs to stay and when your builder needs the space. We’ll help you work out the scope from there.",
-    secondary: "Explore services",
+    titleTop: "Partial demolition, strip-outs",
+    titleRibbon: "and rubbish removal",
+    sub: "One Melbourne crew for the part of the job that has to come out first. Tell us what’s going and what’s staying, and we’ll send you a quote.",
+    points: [
+      "Rear of house and extensions",
+      "Wall removal",
+      "Kitchen, bathroom and laundry strip-outs",
+      "Tile and floor removal",
+      "Garages, sheds and driveways",
+      "Rubbish and site waste",
+    ],
+    secondary: "See our services",
   },
   showcase: {
     eyebrow: "Our services",
@@ -259,7 +278,7 @@ export const hub = {
     ],
   },
   finalCta: {
-    eyebrow: "Request a quote",
+    eyebrow: "Get a free quote",
     title: "Let’s scope the first stage of your project",
     lede: "Tell us where the job is and what you want removed. We’ll review the details and get in touch about your quote.",
   },
@@ -311,12 +330,13 @@ export const servicePages = [
 /* ============================ AUDIENCES ============================ */
 
 export const audiences = {
-  title: "For homeowners, builders and fit-out teams",
-  body: "Homeowners can share a few photos and what they’re planning. Builders and fit-out teams can send marked-up plans, access notes and their handover date.",
+  title: "Who we work with",
+  body: "Homeowners, builders, developers and government. Send photos or plans and we’ll quote the job.",
   items: [
     { icon: "home", label: "Homeowners" },
     { icon: "builder", label: "Builders" },
-    { icon: "developer", label: "Fit-out teams" },
+    { icon: "developer", label: "Developers" },
+    { icon: "government", label: "Government" },
   ],
 } as const;
 

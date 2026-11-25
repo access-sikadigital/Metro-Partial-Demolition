@@ -44,6 +44,7 @@ import {
   ShieldCheck,
   Star,
   X,
+  Landmark,
   type LucideIcon,
 } from "lucide-react";
 
@@ -60,8 +61,9 @@ import {
 import { QuoteForm } from "@/components/site/QuoteForm";
 import { useQuoteModal } from "@/components/site/QuoteModal";
 import { FloatingContact } from "@/components/site/FloatingContact";
+import { Unconfirmed } from "@/components/site/Unconfirmed";
 import { StickyMobileCta } from "@/components/site/StickyMobileCta";
-import { CTA_LABEL, SITE, formCopyFor, hasPhone } from "@/lib/site-data";
+import { CTA_LABEL, CTA_SUBLINE, SITE, formCopyFor, hasPhone } from "@/lib/site-data";
 import type {
   GuaranteeIcon,
   HeroBulletIcon,
@@ -77,19 +79,31 @@ export function HouseDemolitionPage({ content }: { content: HouseDemolitionConte
   return (
     <>
       <Hero hero={content.hero} />
-      <TrustStats stats={content.trustStats} />
+      <Unconfirmed note="rating, liability and 24h not confirmed">
+        <TrustStats stats={content.trustStats} />
+      </Unconfirmed>
       <BeforeAfter data={content.beforeAfter} />
-      <Price pricing={content.pricing} scope={content.scope} services={content.services} />
+      <Unconfirmed note="prices not confirmed">
+        <Price pricing={content.pricing} scope={content.scope} services={content.services} />
+      </Unconfirmed>
       <Audiences audiences={content.audiences} />
       <Timeline timeline={content.timeline} />
       <Included included={content.included} />
       <CompareQuotes compare={content.compare} />
       <Process process={content.process} />
-      <Asbestos asbestos={content.asbestos} />
+      <Unconfirmed note="in-house asbestos not confirmed">
+        <Asbestos asbestos={content.asbestos} />
+      </Unconfirmed>
       <Builders builders={content.builders} />
-      <Guarantee guarantee={content.guarantee} />
-      <Reviews reviews={content.reviews} />
-      <ServiceArea serviceArea={content.serviceArea} />
+      <Unconfirmed note="guarantees not confirmed">
+        <Guarantee guarantee={content.guarantee} />
+      </Unconfirmed>
+      <Unconfirmed note="sample reviews, not real">
+        <Reviews reviews={content.reviews} />
+      </Unconfirmed>
+      <Unconfirmed note="service area not confirmed">
+        <ServiceArea serviceArea={content.serviceArea} />
+      </Unconfirmed>
       <Faqs faqs={content.faqs} />
       <FinalCta finalCta={content.finalCta} />
       <GoogleRatingSticky />
@@ -176,7 +190,6 @@ function Hero({ hero }: { hero: C["hero"] }) {
             transition={{ duration: 0.5 }}
             className="flex flex-wrap items-center gap-3"
           >
-            <GoogleRatingBadge />
             <span className="rounded-full bg-primary px-2.5 py-1 text-[0.75rem] font-semibold text-primary-foreground sm:py-1.5 sm:text-xs">
               {hero.eyebrow}
             </span>
@@ -212,7 +225,7 @@ function Hero({ hero }: { hero: C["hero"] }) {
             {hasPhone && (
               <CtaButton
                 href={SITE.phoneHref}
-                variant="outlineLight"
+                variant="solid"
                 size="md"
                 icon={false}
                 className="w-full sm:w-auto"
@@ -222,6 +235,10 @@ function Hero({ hero }: { hero: C["hero"] }) {
               </CtaButton>
             )}
           </motion.div>
+          <p className="mt-3 flex items-center gap-2 text-sm font-semibold text-secondary/85">
+            <Check className="h-4 w-4 shrink-0 text-go" strokeWidth={3} aria-hidden="true" />
+            {CTA_SUBLINE}
+          </p>
 
           <motion.ul
             initial={{ opacity: 0, y: 12 }}
@@ -432,10 +449,9 @@ function Price({
                           </span>
                         </td>
                         <td className="px-4 py-3.5 text-right align-top sm:px-6">
-                          {/* Yellow chip, ink figure: yellow text on white
-                              would fail contrast. */}
+                          {/* Green "from" tag (John, 23 Nov). */}
                           {isNumber ? (
-                            <span className="font-heading inline-flex items-center rounded-md bg-primary/20 px-2.5 py-1 text-base whitespace-nowrap text-foreground tabular-nums ring-1 ring-primary/50 sm:text-xl">
+                            <span className="font-heading inline-flex items-center rounded-md bg-go px-2.5 py-1 text-base whitespace-nowrap text-white tabular-nums sm:text-xl">
                               {row.from}
                             </span>
                           ) : (
@@ -680,6 +696,7 @@ const AUDIENCE_ICONS: Record<C["audiences"]["items"][number]["icon"], LucideIcon
   home: House,
   builder: HardHat,
   developer: Building2,
+  government: Landmark,
 };
 
 function Audiences({ audiences }: { audiences: C["audiences"] }) {
@@ -692,14 +709,14 @@ function Audiences({ audiences }: { audiences: C["audiences"] }) {
 
         {/* Three in one row at every width. Hairlines between columns, never at
             the start of the row — `first:` sits on the grid child (Reveal). */}
-        <div className="mx-auto mt-8 grid max-w-5xl grid-cols-3 sm:mt-12">
+        <div className="mx-auto mt-8 grid max-w-5xl grid-cols-2 sm:mt-12 sm:grid-cols-4">
           {audiences.items.map((a, i) => {
             const Icon = AUDIENCE_ICONS[a.icon] ?? House;
             return (
               <Reveal
                 key={a.label}
                 delay={i * 0.06}
-                className="border-l border-border first:border-l-0"
+                className="border-border sm:border-l sm:first:border-l-0"
               >
                 <div className="flex flex-col items-center gap-5 px-2 py-6 text-center">
                   <Icon
@@ -822,7 +839,7 @@ function Process({ process }: { process: C["process"] }) {
   const grid =
     count === 3
       ? "md:grid-cols-3"
-      : count === 4
+      : count === 4 || count === 7
         ? "sm:grid-cols-2 lg:grid-cols-4"
         : "sm:grid-cols-2 lg:grid-cols-3";
 
@@ -1089,7 +1106,11 @@ function FinalCta({ finalCta }: { finalCta: C["finalCta"] }) {
           {finalCta.title}
         </h2>
         <p className="mx-auto mt-4 max-w-2xl text-primary-foreground/90">{finalCta.lede}</p>
-        <p className="mx-auto mt-3 max-w-2xl font-bold text-primary-foreground">{finalCta.body}</p>
+        {finalCta.body && (
+          <p className="mx-auto mt-3 max-w-2xl font-bold text-primary-foreground">
+            {finalCta.body}
+          </p>
+        )}
 
         <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
           <CtaButton variant="solidLight" size="md" onClick={openQuote}>
@@ -1107,7 +1128,7 @@ function FinalCta({ finalCta }: { finalCta: C["finalCta"] }) {
 
         <p className="mt-6 flex items-center justify-center gap-1.5 text-sm text-primary-foreground/85">
           <Clock className="h-4 w-4 shrink-0" />
-          {finalCta.fine}
+          {CTA_SUBLINE}
         </p>
       </div>
     </section>

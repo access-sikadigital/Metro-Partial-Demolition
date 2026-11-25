@@ -1,4 +1,5 @@
 import { GOOGLE_RATING } from "@/lib/db/placeholder-content";
+import { IS_PREVIEW } from "@/lib/preview";
 
 /**
  * Google review badge.
@@ -92,6 +93,8 @@ function Star({ className }: { className?: string }) {
  * something that is not a button.
  */
 export function GoogleRatingSticky() {
+  // Placeholder figures: preview only until Metro confirms its Google rating.
+  if (!IS_PREVIEW) return null;
   return (
     <div className="pointer-events-none fixed bottom-5 left-5 z-40 hidden sm:block">
       <div className="animate-in fade-in slide-in-from-bottom-2 flex items-center gap-3 rounded-2xl border border-black/10 bg-white py-2.5 pr-5 pl-3 shadow-xl shadow-black/15 duration-700">
@@ -127,6 +130,8 @@ export function GoogleRatingSticky() {
  * and pushed the whole page sideways.
  */
 export function GoogleRatingBadge({ className = "" }: { className?: string }) {
+  // Placeholder figures: preview only until Metro confirms its Google rating.
+  if (!IS_PREVIEW) return null;
   return (
     <span
       className={`inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2.5 py-1 shadow-sm sm:gap-2.5 sm:px-3.5 sm:py-2 ${className}`}

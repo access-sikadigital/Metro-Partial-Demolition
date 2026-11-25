@@ -7,10 +7,10 @@
  * PLACEHOLDER figures — none of it is verified yet.
  */
 import { stripOut as page } from "@/lib/pages/strip-out";
-import { PLACEHOLDER_TRUST, PRICING } from "@/lib/db/placeholder-content";
+import { previewOnly, PLACEHOLDER_TRUST, PRICING } from "@/lib/db/placeholder-content";
 import type { HeroPointIcon, StripOutContent } from "./strip-out-types";
 
-const HERO_ICONS: HeroPointIcon[] = ["hammer", "layers", "building"];
+const HERO_ICONS: HeroPointIcon[] = ["package", "bath", "droplets", "layers", "hammer"];
 
 export const stripOutContent: StripOutContent = {
   slug: page.slug,
@@ -121,6 +121,8 @@ export const stripOutContent: StripOutContent = {
 
   finalCta: {
     ...page.finalCta,
-    body: `Kitchens from ${PRICING.kitchen}. Bathrooms from ${PRICING.bathroom}. Most rooms cleared in a day.`,
+    body: previewOnly(
+      `Kitchens from ${PRICING.kitchen}. Bathrooms from ${PRICING.bathroom}. Most rooms cleared in a day.`,
+    ),
   },
 };
