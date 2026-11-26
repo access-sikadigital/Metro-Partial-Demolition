@@ -127,7 +127,7 @@ const HERO_ICONS: Record<HeroPointIcon, LucideIcon> = {
  */
 function HandUnderline({ children }: { children: ReactNode }) {
   return (
-    <span className="relative inline-block text-primary xl:whitespace-nowrap">
+    <span className="relative inline-block whitespace-nowrap text-primary">
       {children}
       <svg
         aria-hidden="true"

@@ -163,7 +163,7 @@ export function PageHero({
             className="font-display mt-5 text-[1.85rem] leading-[1.06] sm:text-[2.7rem] lg:text-[3.05rem] xl:text-[3.5rem]"
           >
             {titleTop} <br />
-            <span className="ribbon mt-1 inline-block sm:mt-2">{titleRibbon}</span>
+            <span className="ribbon leading-[1.22]">{titleRibbon}</span>
           </motion.h1>
 
           <motion.p
