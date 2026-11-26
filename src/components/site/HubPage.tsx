@@ -68,7 +68,12 @@ function ServiceShowcase() {
   return (
     <section id="services" className="scroll-mt-20 bg-plaster py-16 sm:py-20 lg:py-24">
       <div className="container-wide">
-        <SectionHeading index="01" eyebrow={s.eyebrow} title={s.title} />
+        <SectionHeading
+          index="01"
+          eyebrow={s.eyebrow}
+          title={s.title}
+          description={s.description}
+        />
 
         <div className="mt-10 grid gap-5 lg:mt-14 lg:grid-cols-3">
           {servicePages.map((p, i) => (
@@ -96,7 +101,7 @@ function ServiceShowcase() {
                 <HazardBand className="h-1.5" />
                 <div className="flex flex-1 flex-col p-6 sm:p-7">
                   <h3 className="font-display text-xl leading-tight text-ink sm:text-[1.3rem]">
-                    {p.question}
+                    {p.title}
                   </h3>
                   <p className="mt-3 flex-1 text-[0.95rem] leading-relaxed text-muted-foreground">
                     {p.blurb}
