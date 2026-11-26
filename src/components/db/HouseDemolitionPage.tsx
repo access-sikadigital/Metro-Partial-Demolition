@@ -141,9 +141,14 @@ const HERO_ICONS: Record<HeroBulletIcon, LucideIcon> = {
  * around a price token; Metro's H1 has no price, so it goes under the ribbon
  * phrase — which is too long to hold on one line, hence no `whitespace-nowrap`.
  */
+/* The swoosh goes under the ribbon's last two words only, kept on one line,
+   so it can never stretch across a wrapped line or cut through the text. */
+const ribbonHead = (r: string) => r.split(" ").slice(0, -2).join(" ");
+const ribbonTail = (r: string) => r.split(" ").slice(-2).join(" ");
+
 function HandUnderline({ children }: { children: ReactNode }) {
   return (
-    <span className="relative inline-block text-primary">
+    <span className="relative inline-block whitespace-nowrap text-primary">
       {children}
       <svg
         aria-hidden="true"
@@ -202,7 +207,11 @@ function Hero({ hero }: { hero: C["hero"] }) {
             transition={{ duration: 0.5, delay: 0.05 }}
             className="font-heading mt-5 text-[1.875rem] leading-[1.13] text-secondary sm:text-[2rem] lg:text-[2.5rem]"
           >
-            {hero.titleTop} <HandUnderline>{hero.titleRibbon}</HandUnderline>
+            {hero.titleTop}{" "}
+            {ribbonHead(hero.titleRibbon) && (
+              <span className="text-primary">{ribbonHead(hero.titleRibbon)} </span>
+            )}
+            <HandUnderline>{ribbonTail(hero.titleRibbon)}</HandUnderline>
           </motion.h1>
 
           <motion.p
