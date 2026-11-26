@@ -28,8 +28,8 @@ export function HubPage() {
         titleRibbon={h.titleRibbon}
         sub={h.sub}
         points={[...h.points]}
-        imageDesktop="/images/services/internal-strip-out.jpg"
-        imageMobile="/images/services/internal-strip-out.jpg"
+        imageDesktop="/images/services/cladding-removal-hero.jpg"
+        imageMobile="/images/services/cladding-removal-hero.jpg"
         secondary={{ label: h.secondary, href: "#services" }}
         // The form heading belongs to the last section in the copy, so it
         // mustn't come before "What are you getting ready for?" as an h2.
