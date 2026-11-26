@@ -1,4 +1,3 @@
-import { IS_PREVIEW } from "@/lib/preview";
 import type { ServicePageContent } from "./types";
 
 /**
@@ -18,12 +17,9 @@ export const stripOut: ServicePageContent = {
   hero: {
     eyebrow: "Strip-outs · Melbourne",
     titleTop: "Internal strip-outs in Melbourne.",
-    // John, 26 Nov: lead with price and speed like Demo Bros. Metro hasn't
-    // confirmed the $800 or the one-day turnaround, so they show on preview only.
-    titleRibbon: IS_PREVIEW
-      ? "From $800. Cleared in a day."
-      : "Cleared fast, ready for the next trade.",
-    sub: "From a single room to a full interior, Metro removes the fittings, finishes and materials in your agreed scope. Tell us what’s changing and which surfaces or fixtures you want to keep.",
+    // John, 26 Nov call: lead with price and speed.
+    titleRibbon: "From $800. Cleared in a day.",
+    sub: "We remove old cabinetry, fixtures, tiles and flooring from homes, shops and offices. Tell us what your builder needs cleared before the fit-out starts.",
     points: [
       "Kitchen strip-outs",
       "Bathroom strip-outs",
