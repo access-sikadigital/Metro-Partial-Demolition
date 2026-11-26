@@ -23,7 +23,9 @@ import { IS_PREVIEW, PREVIEW_PHONE } from "./preview";
 // └───────────────────────────────────────────────────────────────────┘
 
 /** Metro's real number (the GoHighLevel tracking number), once bought. */
-const METRO_PHONE = { phone: "" as string, phoneHref: "" as string };
+// Billy (Metro founder) mobile, from John 26 Nov. Swap for the GHL tracking
+// number once it's bought so calls are tracked.
+const METRO_PHONE = { phone: "0410 894 567" as string, phoneHref: "tel:+61410894567" as string };
 
 /** Preview deploys fall back to a placeholder so the call buttons can be reviewed. */
 const PHONE = METRO_PHONE.phone === "" && IS_PREVIEW ? PREVIEW_PHONE : METRO_PHONE;
