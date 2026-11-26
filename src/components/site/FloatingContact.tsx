@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import { Phone } from "lucide-react";
 import { SITE, hasPhone } from "@/lib/site-data";
 
@@ -10,14 +13,28 @@ import { SITE, hasPhone } from "@/lib/site-data";
  *
  * Two staggered green rings pulse outward behind it (like Demo Bros) to draw
  * the eye; they stop for people who prefer reduced motion (globals.css).
+ *
+ * Like Demo Bros, it fades in once the visitor scrolls past the top of the
+ * hero (the hero already has a call button), and stays for the rest of the page.
  */
 export function FloatingContact() {
+  const [shown, setShown] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setShown(window.scrollY > window.innerHeight * 0.5);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
   if (!hasPhone) return null;
   return (
     <a
       href={SITE.phoneHref}
       aria-label="Call Metro"
-      className="group fixed right-4 bottom-[5.25rem] z-50 block h-14 w-14 lg:right-6 lg:bottom-6"
+      aria-hidden={!shown || undefined}
+      tabIndex={shown ? undefined : -1}
+      className={`group fixed right-4 bottom-[5.25rem] z-50 block h-14 w-14 transition-all duration-500 lg:right-6 lg:bottom-6 ${
+        shown ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-3 opacity-0"
+      }`}
     >
       <span
         aria-hidden
