@@ -120,7 +120,7 @@ export interface HouseDemolitionContent {
   process: {
     eyebrow: string;
     title: string;
-    steps: { n: string; title: string; detail: string }[];
+    steps: { n: string; title: string; detail: string; image?: string }[];
   };
 
   asbestos: {

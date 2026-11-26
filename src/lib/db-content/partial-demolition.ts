@@ -190,7 +190,12 @@ export const partialDemolitionContent: HouseDemolitionContent = {
   process: {
     eyebrow: page.process.eyebrow,
     title: page.process.title,
-    steps: page.process.steps.map((s) => ({ n: s.n, title: s.title, detail: s.detail })),
+    steps: page.process.steps.map((s) => ({
+      n: s.n,
+      title: s.title,
+      detail: s.detail,
+      image: s.image,
+    })),
   },
 
   asbestos,
