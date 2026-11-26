@@ -17,8 +17,8 @@ export const rubbishRemoval: ServicePageContent = {
   hero: {
     eyebrow: "Rubbish removal · Melbourne",
     titleTop: "Rubbish removal in Melbourne.",
-    titleRibbon: "Point at it. We load it and take it away.",
-    sub: "Old furniture, renovation debris or building waste taking up space? Show us what needs to go and where it’s sitting. We’ll scope the loading and removal around the material, the access and the size of the load.",
+    titleRibbon: "From $99. We load it and take it away.",
+    sub: "Old furniture in the garage? Timber and broken tiles left after a reno? Show us the pile and tell us where the truck can park. We’ll quote to load it and take it away.",
     points: [
       "Household hard rubbish",
       "Garage and shed clean-outs",

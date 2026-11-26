@@ -233,8 +233,8 @@ export const hub = {
   hero: {
     eyebrow: "Metro · Melbourne",
     titleTop: "Partial demolition, strip-outs",
-    titleRibbon: "and rubbish removal",
-    sub: "One Melbourne crew for the part of the job that has to come out first. Tell us what’s going and what’s staying, and we’ll send you a quote.",
+    titleRibbon: "and rubbish removal in Melbourne",
+    sub: "Taking out a rear extension, stripping an old kitchen or clearing a pile of building waste? Tell us what needs to go and where the job is. We’ll quote the work.",
     points: [
       "Rear of house and extensions",
       "Wall removal",
@@ -297,8 +297,7 @@ export const servicePages = [
     title: "Partial Demolition",
     short: "Partial demolition",
     question: "An extension or structural renovation",
-    blurb:
-      "Walls, rear extensions, old additions and decks taken out, with the rest of the house left standing. Ready for your builder.",
+    blurb: "Rear extensions, decks, sheds and driveways, with the rest of the house left standing.",
     linkLabel: "View partial demolition",
     image: "/images/services/wall-removal.jpg",
   },
@@ -309,8 +308,7 @@ export const servicePages = [
     title: "Strip-Outs",
     short: "Strip-outs",
     question: "A new kitchen, bathroom or fit-out",
-    blurb:
-      "Kitchens, bathrooms, laundries and full internal strip-outs, back to the frame so the next trade can start.",
+    blurb: "Kitchens, bathrooms and commercial interiors, cleared for the next trade.",
     linkLabel: "View strip-outs",
     image: "/images/services/kitchen-strip-out-card.jpg",
   },
@@ -321,8 +319,7 @@ export const servicePages = [
     title: "Rubbish Removal",
     short: "Rubbish removal",
     question: "A clear site without the tip runs",
-    blurb:
-      "Household junk, renovation waste and building-site rubbish. We load it and take it away.",
+    blurb: "Household junk and renovation waste. We load it and take it away.",
     linkLabel: "View rubbish removal",
     image: "/images/services/renovation-rubbish-card.jpg",
   },

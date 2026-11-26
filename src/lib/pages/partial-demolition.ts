@@ -18,7 +18,7 @@ export const partialDemolition: ServicePageContent = {
     eyebrow: "Partial demolition · Melbourne",
     titleTop: "Partial demolition in Melbourne",
     titleRibbon: "done safely, by the book.",
-    sub: "Taking out the back of a house, removing an old extension or opening up a room? Metro scopes the demolition around the structure and finishes you’re keeping, so you and your builder know where the work stops and what the next trade will walk into.",
+    sub: "Removing a rear extension, old deck or shed? Show us the part that’s coming down and the part that’s staying. We’ll quote the removal and confirm what happens to the debris.",
     points: [
       "Rear of house and extensions",
       "Wall removal and new openings",
