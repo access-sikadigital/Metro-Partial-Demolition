@@ -7,7 +7,7 @@
  * (commit 91fe2c1) with PLACEHOLDER figures.
  */
 import { kitchenDemolition as page } from "@/lib/pages/kitchen-bathroom";
-import { PLACEHOLDER_TRUST, PRICING } from "@/lib/db/placeholder-content";
+import { previewOnly, PLACEHOLDER_TRUST, PRICING } from "@/lib/db/placeholder-content";
 import { stripOutContent } from "./strip-out";
 import type { HeroPointIcon, StripOutContent } from "./strip-out-types";
 
@@ -43,6 +43,6 @@ export const kitchenDemolitionContent: StripOutContent = {
 
   finalCta: {
     ...page.finalCta,
-    body: `Kitchens from ${PRICING.kitchen}. Out in a day. Rubbish gone.`,
+    body: previewOnly(`Kitchens from ${PRICING.kitchen}. Out in a day. Rubbish gone.`),
   },
 };

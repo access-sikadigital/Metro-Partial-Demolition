@@ -16,7 +16,7 @@ import { StickyMobileCta } from "./StickyMobileCta";
 import { Bricks, HazardBand, IconTile } from "./Brand";
 import { BeforeAfter, CtaRow, FinalCtaBand, QuoteCta } from "./Sections";
 import { GoogleRatingPill, hasGoogleRating } from "./GoogleRating";
-import { CTA_LABEL, SITE, formCopyFor, hasPhone } from "@/lib/site-data";
+import { CTA_LABEL, CTA_SUBLINE, SITE, formCopyFor, hasPhone } from "@/lib/site-data";
 import type { ServicePageContent } from "@/lib/pages/types";
 import { cn } from "@/lib/utils";
 
@@ -214,19 +214,14 @@ export function PageHero({
               )}
             </span>
             {secondary && (
-              <CtaButton
-                href={secondary.href}
-                variant="outlineLight"
-                fullWidth
-                className="lg:w-auto"
-              >
+              <CtaButton href={secondary.href} variant="white" fullWidth className="lg:w-auto">
                 {secondary.label}
               </CtaButton>
             )}
             {hasPhone && (
               <CtaButton
                 href={SITE.phoneHref}
-                variant="white"
+                variant="primary"
                 icon="phone"
                 fullWidth
                 className="lg:w-auto"
@@ -235,6 +230,13 @@ export function PageHero({
               </CtaButton>
             )}
           </motion.div>
+          <motion.p
+            variants={rise}
+            className="mt-4 flex items-center gap-2 text-sm font-semibold text-paper/85"
+          >
+            <Check className="h-4 w-4 shrink-0 text-go" strokeWidth={3} aria-hidden="true" />
+            {CTA_SUBLINE}
+          </motion.p>
         </motion.div>
 
         {/* The quote form, in the hero — the one action this page exists for. */}

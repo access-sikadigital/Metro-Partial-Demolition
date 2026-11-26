@@ -11,7 +11,7 @@ export const stripOut: ServicePageContent = {
   meta: {
     title: "Strip-Outs Melbourne | Internal Demolition & Defits | Metro",
     description:
-      "Request a quote for internal strip-outs in Melbourne. Clear kitchens, bathrooms, tiles, floors or commercial interiors for the next stage of your project.",
+      "Get a free quote for internal strip-outs in Melbourne. Clear kitchens, bathrooms, tiles, floors or commercial interiors for the next stage of your project.",
   },
 
   hero: {
@@ -20,9 +20,11 @@ export const stripOut: ServicePageContent = {
     titleRibbon: "Get the space ready for the next trade.",
     sub: "From a single room to a full interior, Metro removes the fittings, finishes and materials in your agreed scope. Tell us what’s changing and which surfaces or fixtures you want to keep.",
     points: [
-      "Kitchen, bathroom and laundry strip-outs",
-      "Tiles, floor coverings and selected internal finishes",
-      "Office and retail defit enquiries",
+      "Kitchen strip-outs",
+      "Bathroom strip-outs",
+      "Laundry strip-outs",
+      "Wall and tile removal",
+      "Floor coverings",
     ],
     imageDesktop: "/images/hero/strip-out-desktop.jpg",
     imageMobile: "/images/hero/strip-out-mobile.jpg",
@@ -76,28 +78,56 @@ export const stripOut: ServicePageContent = {
   },
 
   process: {
-    eyebrow: "The process",
-    title: "How it works",
+    eyebrow: "How it works",
+    title: "Seven steps. You know the price before anything moves.",
     steps: [
       {
         n: "01",
         icon: "floor-plan",
-        title: "Send the room list or scope.",
-        detail: "Include photos, marked-up drawings or a landlord’s schedule if you have one.",
+        title: "Tell us what’s coming out",
+        detail: "Send the form with a few photos, or call us.",
         image: "/images/process/01-tell-us.jpg",
       },
       {
         n: "02",
         icon: "tape-measure",
-        title: "Check the details before booking.",
-        detail: "Agree on removal, retained surfaces, access, waste and the handover finish.",
-        image: "/images/process/06-strip-it-out.jpg",
+        title: "Site inspection, if it needs one",
+        detail: "On bigger jobs we come out and measure up first.",
+        image: "/images/process/02-site-inspection.jpg",
       },
       {
         n: "03",
+        icon: "floor-plan",
+        title: "Your free quote, in writing",
+        detail: "Itemised, so you can see exactly what’s included.",
+        image: "/images/process/03-price-in-writing.jpg",
+      },
+      {
+        n: "04",
+        icon: "helmet",
+        title: "We protect what stays",
+        detail: "Floors covered, doorways sealed, services isolated.",
+        image: "/images/process/05-protect.jpg",
+      },
+      {
+        n: "05",
+        icon: "sledgehammer",
+        title: "We strip it out",
+        detail: "Cabinets, fixtures, tiles and floors in your scope come out.",
+        image: "/images/process/06-strip-it-out.jpg",
+      },
+      {
+        n: "06",
+        icon: "tipper",
+        title: "Waste gone",
+        detail: "We load it and take it away.",
+        image: "/images/process/08-waste-gone.jpg",
+      },
+      {
+        n: "07",
         icon: "shovel",
-        title: "Hand over to the next trade.",
-        detail: "Confirm the planned sequence and the condition the space needs to be left in.",
+        title: "Swept and ready for your trades",
+        detail: "Bare walls and a clean floor. Your next trade can start.",
         image: "/images/process/10-handover-inside.jpg",
       },
     ],

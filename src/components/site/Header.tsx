@@ -12,8 +12,9 @@ import { useQuoteModal } from "./QuoteModal";
 import { CTA_LABEL, SITE, hasPhone, servicePages } from "@/lib/site-data";
 
 /**
- * Landing-page header: logo, a Contact link, the phone (once Metro's number is
- * verified) and one CTA. Kept this short on purpose — on a paid-traffic page
+ * Landing-page header: logo, the phone (once Metro's number is verified) and
+ * one green CTA, the same as Demo Bros. No Contact link: /contact stays in the
+ * footer. Kept this short on purpose — on a paid-traffic page
  * every link is an exit from the one action the page exists for.
  *
  * The hero is off-black, so the header is dark on every page and the
@@ -72,13 +73,6 @@ export function Header() {
         )}
 
         <nav aria-label="Main" className="flex items-center gap-3 sm:gap-6">
-          <Link
-            href="/contact"
-            aria-current={pathname === "/contact" ? "page" : undefined}
-            className="flex min-h-11 items-center px-1 text-sm font-bold text-paper transition-colors hover:text-hivis aria-[current=page]:text-hivis"
-          >
-            Contact
-          </Link>
           {hasPhone && (
             <a
               href={SITE.phoneHref}

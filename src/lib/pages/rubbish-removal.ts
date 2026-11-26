@@ -11,7 +11,7 @@ export const rubbishRemoval: ServicePageContent = {
   meta: {
     title: "Rubbish Removal Melbourne | Loading & Haul-Away | Metro",
     description:
-      "Request a quote for household rubbish, renovation debris or building waste removal in Melbourne. Tell us what needs to go and where it needs to be loaded.",
+      "Get a free quote for household rubbish, renovation debris or building waste removal in Melbourne. Tell us what needs to go and where it needs to be loaded.",
   },
 
   hero: {
@@ -20,9 +20,11 @@ export const rubbishRemoval: ServicePageContent = {
     titleRibbon: "We do the lifting.",
     sub: "Old furniture, renovation debris or building waste taking up space? Show us what needs to go and where it’s sitting. We’ll scope the loading and removal around the material, the access and the size of the load.",
     points: [
-      "Household rubbish and clear-outs",
-      "Renovation debris and building-site waste",
-      "Heavy materials such as bricks and concrete assessed separately",
+      "Household hard rubbish",
+      "Garage and shed clean-outs",
+      "Yard and garden cleanups",
+      "Brick and concrete",
+      "Renovation and building waste",
     ],
     imageDesktop: "/images/hero/rubbish-removal-desktop.jpg",
     imageMobile: "/images/hero/rubbish-removal-mobile.jpg",
@@ -76,28 +78,35 @@ export const rubbishRemoval: ServicePageContent = {
   },
 
   process: {
-    eyebrow: "The process",
-    title: "How it works",
+    eyebrow: "How it works",
+    title: "Four steps. You know the price before we turn up.",
     steps: [
       {
         n: "01",
         icon: "floor-plan",
-        title: "Show us what needs to go.",
-        detail: "Send photos and the suburb, and flag anything unusually heavy or restricted.",
+        title: "Tell us what needs to go",
+        detail: "Send a photo of the pile and where it is.",
         image: "/images/process/01-tell-us.jpg",
       },
       {
         n: "02",
-        icon: "barrow",
-        title: "Confirm the load and access.",
-        detail: "Check what’s included, where we need to load from and what you’re keeping.",
-        image: "/images/process/09-we-load-it.jpg",
+        icon: "floor-plan",
+        title: "Your free quote",
+        detail: "A price before we load anything.",
+        image: "/images/process/03-price-in-writing.jpg",
       },
       {
         n: "03",
+        icon: "barrow",
+        title: "We load it",
+        detail: "We lift, carry and load the lot. You don’t touch a thing.",
+        image: "/images/process/09-we-load-it.jpg",
+      },
+      {
+        n: "04",
         icon: "shovel",
-        title: "Book the clearance.",
-        detail: "Agree on a time and confirm any site or building access requirements.",
+        title: "Swept and gone",
+        detail: "Space left clear and swept.",
         image: "/images/process/12-swept-and-gone.jpg",
       },
     ],

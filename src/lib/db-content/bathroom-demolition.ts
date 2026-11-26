@@ -7,7 +7,7 @@
  * (commit 91fe2c1) with PLACEHOLDER figures.
  */
 import { bathroomDemolition as page } from "@/lib/pages/kitchen-bathroom";
-import { PLACEHOLDER_TRUST, PRICING } from "@/lib/db/placeholder-content";
+import { previewOnly, PLACEHOLDER_TRUST, PRICING } from "@/lib/db/placeholder-content";
 import { stripOutContent } from "./strip-out";
 import type { HeroPointIcon, StripOutContent } from "./strip-out-types";
 
@@ -43,6 +43,8 @@ export const bathroomDemolitionContent: StripOutContent = {
 
   finalCta: {
     ...page.finalCta,
-    body: `Bathrooms from ${PRICING.bathroom}. Out in a day. Your tiler starts tomorrow.`,
+    body: previewOnly(
+      `Bathrooms from ${PRICING.bathroom}. Out in a day. Your tiler starts tomorrow.`,
+    ),
   },
 };

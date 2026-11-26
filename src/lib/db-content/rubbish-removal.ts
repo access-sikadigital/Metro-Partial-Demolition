@@ -12,8 +12,9 @@
  *      stats, reviews, service area. NOTHING there is verified.
  * Strings marked `COPY: from Demo Bros` had no Metro wording in any source.
  */
-import { beforeAfterPairs } from "@/lib/before-after";
+import { beforeAfterFor } from "@/lib/before-after";
 import {
+  previewOnly,
   PLACEHOLDER_TRUST,
   PRICING,
   reviewsFor,
@@ -28,7 +29,7 @@ import type { RubbishRemovalContent } from "./rubbish-types";
 const STAT_IDS = ["rating", "turnaround", "liability", "crew"];
 
 /** Icon keys for the current hero points, in order. */
-const HERO_POINT_ICONS = ["home", "site", "weight"];
+const HERO_POINT_ICONS = ["home", "home", "site", "weight", "site"];
 
 export const rubbishRemovalContent: RubbishRemovalContent = {
   slug: "rubbish-removal",
@@ -52,7 +53,7 @@ export const rubbishRemovalContent: RubbishRemovalContent = {
     // Metro's own before/after heading (components/site/Sections.tsx).
     eyebrow: "Before and after",
     title: "Before we start. After we leave.",
-    pairs: beforeAfterPairs,
+    pairs: beforeAfterFor("rubbish-removal"),
   },
 
   pricing: {
@@ -175,7 +176,9 @@ export const rubbishRemovalContent: RubbishRemovalContent = {
       "Concrete, brick, timber, plasterboard and packaging — mixed loads are fine, we sort them",
       "Staged through the build or one clear at the end, whichever suits your program",
       "Broom-swept before handover, so the next trade starts on a clear floor",
-      `SWMS on every job, ${PLACEHOLDER_TRUST.liability} public liability, inducted before we arrive`,
+      previewOnly(
+        `SWMS on every job, ${PLACEHOLDER_TRUST.liability} public liability, inducted before we arrive`,
+      ) || "SWMS on every job, inducted before we arrive",
       "After-hours work where the site needs it",
     ],
     image: {

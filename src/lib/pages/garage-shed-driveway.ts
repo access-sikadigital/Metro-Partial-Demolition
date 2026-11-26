@@ -12,7 +12,7 @@ export const garageShedDriveway: ServicePageContent = {
   meta: {
     title: "Garage, Shed & Driveway Removal Melbourne | Metro",
     description:
-      "Request a quote for garage, shed, carport or concrete driveway removal in Melbourne. Tell us what needs to come out and what you’re keeping.",
+      "Get a free quote for garage, shed, carport or concrete driveway removal in Melbourne. Tell us what needs to come out and what you’re keeping.",
   },
 
   hero: {

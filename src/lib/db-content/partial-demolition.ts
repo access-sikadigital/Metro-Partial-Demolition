@@ -16,7 +16,7 @@
  * see placeholder-content.ts.
  */
 import { partialDemolition as page } from "@/lib/pages/partial-demolition";
-import { PLACEHOLDER_TRUST, PRICING, reviewsFor } from "@/lib/db/placeholder-content";
+import { previewOnly, PLACEHOLDER_TRUST, PRICING, reviewsFor } from "@/lib/db/placeholder-content";
 import {
   TIMELINE_IMAGES,
   asbestos,
@@ -41,11 +41,10 @@ export const partialDemolitionContent: HouseDemolitionContent = {
     titleTop: page.hero.titleTop,
     titleRibbon: page.hero.titleRibbon,
     sub: page.hero.sub,
-    bullets: [
-      { icon: "layers", label: page.hero.points[0] },
-      { icon: "bricks", label: page.hero.points[1] },
-      { icon: "shield", label: page.hero.points[2] },
-    ],
+    bullets: page.hero.points.map((label, i) => ({
+      icon: (["home", "bricks", "home", "layers", "layers"] as const)[i] ?? "layers",
+      label,
+    })),
     imageDesktop: page.hero.imageDesktop,
     imageMobile: page.hero.imageMobile,
   },
@@ -210,7 +209,9 @@ export const partialDemolitionContent: HouseDemolitionContent = {
   finalCta: {
     title: page.finalCta.title,
     lede: page.finalCta.lede,
-    body: `Walls from ${PRICING.wall}. Garages and sheds from ${PRICING.outbuilding}. What stays, stays protected.`,
+    body: previewOnly(
+      `Walls from ${PRICING.wall}. Garages and sheds from ${PRICING.outbuilding}. What stays, stays protected.`,
+    ),
     fine: finalCtaFine,
   },
 };
