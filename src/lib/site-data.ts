@@ -247,7 +247,8 @@ export const hub = {
   },
   showcase: {
     eyebrow: "Our services",
-    title: "What are you getting ready for?",
+    title: "What needs to come out?",
+    description: "Three ways we help. Tap through for examples and a free quote.",
   },
   scope: {
     eyebrow: "How we scope it",
@@ -297,8 +298,8 @@ export const servicePages = [
     short: "Partial demolition",
     question: "An extension or structural renovation",
     blurb:
-      "Removing the back of a house, an old addition or selected walls? Start with a scope that shows exactly where the demolition stops.",
-    linkLabel: "Explore partial demolition",
+      "Walls, rear extensions, old additions and decks taken out, with the rest of the house left standing. Ready for your builder.",
+    linkLabel: "View partial demolition",
     image: "/images/services/wall-removal.jpg",
   },
   {
@@ -309,8 +310,8 @@ export const servicePages = [
     short: "Strip-outs",
     question: "A new kitchen, bathroom or fit-out",
     blurb:
-      "Clear the existing cabinetry, fixtures, tiles or interiors so the next trade can work to the agreed scope.",
-    linkLabel: "Explore strip-outs",
+      "Kitchens, bathrooms, laundries and full internal strip-outs, back to the frame so the next trade can start.",
+    linkLabel: "View strip-outs",
     image: "/images/breaker-wall.jpg",
   },
   {
@@ -321,8 +322,8 @@ export const servicePages = [
     short: "Rubbish removal",
     question: "A clear site without the tip runs",
     blurb:
-      "Have old furniture, renovation debris or building waste to move? Tell us what’s there and where we’ll need to load it from.",
-    linkLabel: "Explore rubbish removal",
+      "Household junk, renovation waste and building-site rubbish. We load it and take it away.",
+    linkLabel: "View rubbish removal",
     image: "/images/crew-shovel.jpg",
   },
 ];
