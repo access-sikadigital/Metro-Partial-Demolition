@@ -23,6 +23,7 @@
  *    and three audiences sit in one row; an odd last timeline tile spans the row
  *    at sm, so no grid leaves a lone card.
  */
+import { MessageSquare } from "lucide-react";
 import { beforeAfterGrid } from "@/lib/before-after";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
@@ -1049,7 +1050,10 @@ function Reviews({ reviews }: { reviews: C["reviews"] }) {
                   &ldquo;{t.quote}&rdquo;
                 </blockquote>
                 <figcaption className="mt-5 flex items-center gap-2.5 text-sm">
-                  <GoogleG className="h-4 w-4 shrink-0" />
+                  <MessageSquare
+                    aria-hidden="true"
+                    className="h-4 w-4 shrink-0 text-muted-foreground"
+                  />
                   <span>
                     <span className="block font-semibold">{t.name}</span>
                     <span className="text-muted-foreground">{t.role}</span>

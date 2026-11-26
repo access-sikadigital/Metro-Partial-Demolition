@@ -96,84 +96,109 @@ export type Testimonial = {
 };
 
 /**
- * PLACEHOLDER — SAMPLE REVIEWS ONLY.
+ * PLACEHOLDER — SAMPLE REVIEWS ONLY (Vicky's design handoff, 26 Nov).
  *
- * Illustrative copy written for the design build. These are NOT real reviews
- * and must be replaced with verified Google reviews (with the reviewer's real
- * name) before the site goes live.
+ * Drafted for the mock-up, not written by customers. They render on preview
+ * deploys only (wrapped in <Unconfirmed>), labelled "Sample review" with no
+ * Google mark. Replace with verified customer quotes, with permission, and
+ * add Google attribution only for reviews traceable to Metro's listing.
  */
 export const testimonials: Testimonial[] = [
   {
-    name: "Sarah K.",
-    role: "Rear extension, Brunswick",
+    name: "Sample review",
+    role: "Rear extension",
     quote:
-      "They took the back half of our house off while we were still living in the front. Everything was propped and sealed off properly, and the price on the quote was exactly what we paid.",
+      "We needed the old extension down before our builder could start. Billy walked around the back with us and marked out exactly where the work would stop.",
     rating: 5,
-    pages: ["partial-demolition", "house-demolition"],
+    pages: ["partial-demolition", "house-demolition", "garage-shed-driveway-removal"],
   },
   {
-    name: "Daniel M.",
-    role: "Builder, Moonee Ponds",
+    name: "Sample review",
+    role: "Deck removal",
     quote:
-      "We give Metro the cut line and the date, and that's the last we think about it. Quote's itemised, crew's on time, and the site's swept when our framers arrive.",
+      "The deck was right against our back door, so access was my main concern. The crew explained how they’d get the timber out through the side gate.",
     rating: 5,
-    pages: ["house-demolition", "strip-out"],
+    pages: ["partial-demolition", "house-demolition", "garage-shed-driveway-removal"],
   },
   {
-    name: "Priya R.",
-    role: "Kitchen & wall removal, Hawthorn",
+    name: "Sample review",
+    role: "Shed removal",
     quote:
-      "Kitchen out and the wall to the dining room gone in two days. They found asbestos in the old splashback and just dealt with it — no surprise invoice.",
+      "I wanted the shed gone but still needed the slab. That detail was written into the quote, and the slab was there ready for me to use afterwards.",
     rating: 5,
-    pages: ["kitchen-demolition", "partial-demolition", "strip-out", "house-demolition"],
+    pages: ["partial-demolition", "house-demolition", "garage-shed-driveway-removal"],
   },
   {
-    name: "Tom W.",
-    role: "Garage demolition, Coburg",
+    name: "Sample review",
+    role: "Veranda removal",
     quote:
-      "Old brick garage and the slab under it, gone in a day. Neighbours were told in advance and the driveway was left cleaner than it's been in years.",
+      "We were keeping the paving under the veranda. It was good being able to point that out to the same person who talked us through the job.",
     rating: 5,
-    pages: ["garage-shed-driveway-removal", "house-demolition", "rubbish-removal"],
+    pages: ["partial-demolition", "house-demolition", "garage-shed-driveway-removal"],
   },
   {
-    name: "Elena V.",
-    role: "Bathroom strip out, St Kilda",
+    name: "Sample review",
+    role: "Kitchen",
     quote:
-      "Third-floor unit with one tiny lift and they still had it stripped by knock-off. Floors and hallway covered the whole way. Couldn't fault them.",
+      "The cabinets and splashback had to go, but we wanted to keep the timber floor. Billy went through it with us before the crew started taking the kitchen apart.",
     rating: 5,
-    pages: ["bathroom-demolition", "strip-out"],
+    pages: ["strip-out", "kitchen-demolition", "bathroom-demolition"],
   },
   {
-    name: "Marcus L.",
-    role: "Builder, Fitzroy",
+    name: "Sample review",
+    role: "Bathroom",
     quote:
-      "Took out exactly what was on the plans and photographed every stage. That documentation alone saves us hours with our clients.",
+      "Our tiler had given us a list of what needed to come out. We sent it over with a few photos, and Metro quoted against that list. Made the handover easy.",
     rating: 5,
-    pages: ["house-demolition", "strip-out"],
+    pages: ["strip-out", "kitchen-demolition", "bathroom-demolition"],
   },
   {
-    name: "Jenny H.",
-    role: "Deceased estate, Essendon",
+    name: "Sample review",
+    role: "Flooring",
     quote:
-      "Clearing Mum's house was the part I'd been dreading. They went room by room, set aside every photo and document, and never once rushed us.",
+      "We’d pulled up a corner of the old flooring and realised it was a bigger job than we thought. The crew took care of the rest, including the stubborn bits around the doorways.",
+    rating: 5,
+    pages: ["strip-out", "kitchen-demolition", "bathroom-demolition"],
+  },
+  {
+    name: "Sample review",
+    role: "Shop fit-out",
+    quote:
+      "Our landlord wanted the counters and display fittings removed. We could see from the quote what Metro would take out and what we needed to leave in the shop.",
+    rating: 5,
+    pages: ["strip-out", "kitchen-demolition", "bathroom-demolition"],
+  },
+  {
+    name: "Sample review",
+    role: "Household furniture",
+    quote:
+      "The old sofa was too awkward for us to get down the front steps. I sent a photo of the doorway as well as the sofa, so the crew knew what to expect.",
     rating: 5,
     pages: ["rubbish-removal"],
   },
   {
-    name: "Chris P.",
-    role: "Backyard clear-out, Reservoir",
+    name: "Sample review",
+    role: "Garage clean-out",
     quote:
-      "Two other companies knocked back the old concrete path and the half-collapsed shed. Metro quoted it, took the lot in one visit and swept up after.",
+      "Half the garage was rubbish and half was stuff we were keeping. They checked the two piles with me before loading up. I appreciated that.",
     rating: 5,
     pages: ["rubbish-removal"],
   },
   {
-    name: "Aisha N.",
-    role: "Office defit, Melbourne CBD",
+    name: "Sample review",
+    role: "Yard clean-up",
     quote:
-      "End-of-lease make good on a tight deadline. Partitions, carpet and ceiling tiles out over a weekend, and the landlord signed it off first inspection.",
+      "The pile was behind the shed, a fair way from the driveway. They collected it from there, which saved me dragging everything out to the kerb.",
     rating: 5,
-    pages: ["strip-out", "rubbish-removal"],
+    pages: ["rubbish-removal"],
+  },
+  {
+    name: "Sample review",
+    role: "Renovation waste",
+    quote:
+      "We had timber offcuts, plasterboard and broken tiles left after the kitchen reno. Being able to send photos of the whole pile made getting a quote straightforward.",
+    rating: 5,
+    pages: ["rubbish-removal"],
   },
 ];
 
@@ -186,6 +211,8 @@ const REVIEW_FALLBACK: Partial<Record<ServiceSlug, ServiceSlug>> = {
 };
 
 export function reviewsFor(page: ServiceSlug) {
+  // Live builds get no sample reviews at all, not even in the page payload.
+  if (!IS_PREVIEW) return [];
   const own = testimonials.filter((t) => t.pages.includes(page));
   const fallback = REVIEW_FALLBACK[page];
   const borrowed = fallback

@@ -15,6 +15,7 @@
  * gated on `hasPhone`, and colour fixes where Demo Bros' green primary would
  * become yellow text on a light background.
  */
+import { MessageSquare } from "lucide-react";
 import { beforeAfterGrid } from "@/lib/before-after";
 import type { ReactNode } from "react";
 import { usePathname } from "next/navigation";
@@ -930,7 +931,7 @@ function Reviews({ reviews }: { reviews: C["reviews"] }) {
             &ldquo;{t.quote}&rdquo;
           </blockquote>
           <figcaption className="mt-5 flex items-center gap-2.5 text-sm">
-            <GoogleG className="h-4 w-4 shrink-0" />
+            <MessageSquare aria-hidden="true" className="h-4 w-4 shrink-0 text-muted-foreground" />
             <span>
               <span className="block font-semibold">{t.name}</span>
               <span className="text-muted-foreground">{t.role}</span>
