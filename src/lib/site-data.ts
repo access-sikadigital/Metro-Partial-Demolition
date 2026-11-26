@@ -312,7 +312,7 @@ export const servicePages = [
     blurb:
       "Kitchens, bathrooms, laundries and full internal strip-outs, back to the frame so the next trade can start.",
     linkLabel: "View strip-outs",
-    image: "/images/breaker-wall.jpg",
+    image: "/images/services/kitchen-strip-out-card.jpg",
   },
   {
     path: "/rubbish-removal",
@@ -324,7 +324,7 @@ export const servicePages = [
     blurb:
       "Household junk, renovation waste and building-site rubbish. We load it and take it away.",
     linkLabel: "View rubbish removal",
-    image: "/images/crew-shovel.jpg",
+    image: "/images/services/renovation-rubbish-card.jpg",
   },
 ];
 
