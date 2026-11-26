@@ -148,11 +148,12 @@ export function PageHero({
             variants={rise}
             className="eyebrow flex items-center gap-2.5 [--eyebrow-color:var(--hivis)]"
           >
-            <span className="relative flex h-2.5 w-2.5">
+            {/* Green so the live dot stands out against the yellow eyebrow (John, 26 Nov). */}
+            <span className="relative flex h-3 w-3">
               {!reduce && (
-                <span className="absolute inline-flex h-full w-full animate-ping bg-hivis opacity-70" />
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-go opacity-80" />
               )}
-              <span className="relative inline-flex h-2.5 w-2.5 bg-hivis" />
+              <span className="relative inline-flex h-3 w-3 rounded-full bg-go" />
             </span>
             {eyebrow}
           </motion.p>
