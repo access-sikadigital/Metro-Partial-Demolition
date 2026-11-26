@@ -1,5 +1,6 @@
 import { GOOGLE_RATING } from "@/lib/db/placeholder-content";
 import { IS_PREVIEW } from "@/lib/preview";
+import { TRUST } from "@/lib/site-data";
 
 /**
  * Google review badge.
@@ -11,9 +12,16 @@ import { IS_PREVIEW } from "@/lib/preview";
  * rounded up to five.
  */
 
-/* PLACEHOLDER figures until Metro's real Google profile numbers are supplied. */
-const RATING = GOOGLE_RATING.rating;
-const REVIEW_COUNT = GOOGLE_RATING.reviewCount;
+/*
+ * One switch for every page: once TRUST in site-data.ts holds Metro's real
+ * Google figures (reviewsVerified true), the badges show them on the live
+ * site. Until then they show the placeholder figures on preview builds only.
+ */
+const VERIFIED = TRUST.reviewsVerified && TRUST.rating !== "" && TRUST.reviewCount > 0;
+const SHOW_RATING = VERIFIED || IS_PREVIEW;
+const RATING: number = VERIFIED ? Number(TRUST.rating) : GOOGLE_RATING.rating;
+const REVIEW_COUNT = VERIFIED ? TRUST.reviewCount : GOOGLE_RATING.reviewCount;
+const REVIEWS_URL = VERIFIED ? TRUST.googleReviewsUrl : "";
 
 /** Google's four-colour G. */
 export function GoogleG({ className = "h-5 w-5" }: { className?: string }) {
@@ -93,10 +101,14 @@ function Star({ className }: { className?: string }) {
  * something that is not a button.
  */
 export function GoogleRatingSticky() {
-  // Placeholder figures: preview only until Metro confirms its Google rating.
-  if (!IS_PREVIEW) return null;
+  if (!SHOW_RATING) return null;
+  const Wrap = REVIEWS_URL ? "a" : "div";
   return (
-    <div className="pointer-events-none fixed bottom-5 left-5 z-40 hidden sm:block">
+    <Wrap
+      {...(REVIEWS_URL ? { href: REVIEWS_URL, target: "_blank", rel: "noopener noreferrer" } : {})}
+      aria-label={`Google rating ${RATING} from ${REVIEW_COUNT} reviews`}
+      className={`fixed bottom-5 left-5 z-40 hidden sm:block ${REVIEWS_URL ? "" : "pointer-events-none"}`}
+    >
       <div className="animate-in fade-in slide-in-from-bottom-2 flex items-center gap-3 rounded-2xl border border-black/10 bg-white py-2.5 pr-5 pl-3 shadow-xl shadow-black/15 duration-700">
         <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-black/5 bg-white shadow-sm">
           <GoogleG className="h-6 w-6" />
@@ -104,7 +116,7 @@ export function GoogleRatingSticky() {
         <span className="leading-tight">
           <span className="block text-[0.8rem] font-bold text-[#1A1A1A]">Google Rating</span>
           <span className="mt-0.5 flex items-center gap-1.5">
-            <span className="text-[0.9rem] font-bold text-[#E7711B]">{RATING}</span>
+            <span className="text-[0.9rem] font-bold text-[#E7711B]">{RATING.toFixed(1)}</span>
             <GoogleStars className="h-[15px] w-[15px]" />
           </span>
           <span className="mt-0.5 block text-[0.75rem] text-black/55">
@@ -112,7 +124,7 @@ export function GoogleRatingSticky() {
           </span>
         </span>
       </div>
-    </div>
+    </Wrap>
   );
 }
 
@@ -130,14 +142,13 @@ export function GoogleRatingSticky() {
  * and pushed the whole page sideways.
  */
 export function GoogleRatingBadge({ className = "" }: { className?: string }) {
-  // Placeholder figures: preview only until Metro confirms its Google rating.
-  if (!IS_PREVIEW) return null;
+  if (!SHOW_RATING) return null;
   return (
     <span
       className={`inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2.5 py-1 shadow-sm sm:gap-2.5 sm:px-3.5 sm:py-2 ${className}`}
     >
       <GoogleG className="h-3.5 w-3.5 sm:h-[18px] sm:w-[18px]" />
-      <span className="text-[0.8rem] font-bold text-foreground sm:text-sm">{RATING}</span>
+      <span className="text-[0.8rem] font-bold text-foreground sm:text-sm">{RATING.toFixed(1)}</span>
       <GoogleStars className="h-3 w-3 sm:h-[15px] sm:w-[15px]" />
       <span className="text-[0.75rem] whitespace-nowrap text-muted-foreground sm:text-xs">
         {REVIEW_COUNT} <span className="hidden sm:inline">Google </span>reviews
