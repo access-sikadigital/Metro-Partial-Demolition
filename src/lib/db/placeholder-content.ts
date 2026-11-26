@@ -211,6 +211,8 @@ const REVIEW_FALLBACK: Partial<Record<ServiceSlug, ServiceSlug>> = {
 };
 
 export function reviewsFor(page: ServiceSlug) {
+  // Live builds get no sample reviews at all, not even in the page payload.
+  if (!IS_PREVIEW) return [];
   const own = testimonials.filter((t) => t.pages.includes(page));
   const fallback = REVIEW_FALLBACK[page];
   const borrowed = fallback
