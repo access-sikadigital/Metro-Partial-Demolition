@@ -17,7 +17,7 @@ export const rubbishRemoval: ServicePageContent = {
   hero: {
     eyebrow: "Rubbish removal · Melbourne",
     titleTop: "Rubbish removal in Melbourne.",
-    titleRibbon: "We do the lifting.",
+    titleRibbon: "Point at it. We load it and take it away.",
     sub: "Old furniture, renovation debris or building waste taking up space? Show us what needs to go and where it’s sitting. We’ll scope the loading and removal around the material, the access and the size of the load.",
     points: [
       "Household hard rubbish",

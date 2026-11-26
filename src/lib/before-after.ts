@@ -46,23 +46,26 @@ export const beforeAfterPairs: BeforeAfterPair[] = [
     label: "Shed & slab removal",
     note: "Shed down, slab broken out, ground left level",
     image: "/images/before-after/shed-and-slab.jpg",
-    pages: [
-      "partial-demolition",
-      "house-demolition",
-      "garage-shed-driveway-removal",
-      "rubbish-removal",
-    ],
+    pages: ["partial-demolition", "house-demolition", "garage-shed-driveway-removal"],
   },
 ];
 
 /**
- * Four pairs for a page: the ones that match its job first, then the rest to
- * fill the row, so the section never looks half-empty. Rubbish removal has
- * only one matching pair so far: it needs garage, yard and room clear-out
- * photos. When those arrive, add them here and they'll lead.
+ * Only the pairs that match the page's job (John, 26 Nov: before/after must be
+ * relevant to the page). The section hides itself when a page has none.
+ *
+ * Still needed: rear-of-house and deck/driveway pairs for partial demolition,
+ * and hard rubbish, garage/shed clean-out, yard, brick and concrete, and
+ * renovation-waste pairs for rubbish removal.
  */
-export function beforeAfterFor(page: ServiceSlug, count = 4): BeforeAfterPair[] {
-  const matched = beforeAfterPairs.filter((p) => p.pages.includes(page));
-  const rest = beforeAfterPairs.filter((p) => !p.pages.includes(page));
-  return [...matched, ...rest].slice(0, count);
+export function beforeAfterFor(page: ServiceSlug): BeforeAfterPair[] {
+  return beforeAfterPairs.filter((p) => p.pages.includes(page));
+}
+
+/** Grid that keeps one, two or three cards centred and large, four in a row. */
+export function beforeAfterGrid(count: number): string {
+  if (count <= 1) return "mx-auto max-w-md grid-cols-1";
+  if (count === 2) return "mx-auto max-w-4xl grid-cols-2";
+  if (count === 3) return "mx-auto max-w-6xl grid-cols-2 lg:grid-cols-3";
+  return "mx-auto max-w-7xl grid-cols-2 lg:grid-cols-4";
 }

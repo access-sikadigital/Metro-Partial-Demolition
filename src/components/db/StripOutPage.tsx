@@ -58,7 +58,7 @@ import { FloatingContact } from "@/components/site/FloatingContact";
 import { Unconfirmed } from "@/components/site/Unconfirmed";
 import { StickyMobileCta } from "@/components/site/StickyMobileCta";
 import { CTA_LABEL, CTA_SUBLINE, SITE, audiences, formCopyFor, hasPhone } from "@/lib/site-data";
-import { beforeAfterFor } from "@/lib/before-after";
+import { beforeAfterFor, beforeAfterGrid } from "@/lib/before-after";
 import { reviewsFor, serviceArea, stats } from "@/lib/db/placeholder-content";
 import type {
   GuaranteeIcon,
@@ -357,7 +357,7 @@ function BeforeAfter({ slug }: { slug: StripOutContent["slug"] }) {
           title="Before we start. After we leave."
         />
 
-        <div className="mx-auto mt-10 grid max-w-7xl grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-4">
+        <div className={`mt-10 grid gap-3 sm:gap-5 ${beforeAfterGrid(beforeAfterPairs.length)}`}>
           {beforeAfterPairs.map((pair, i) => (
             <Reveal key={pair.id} delay={(i % 4) * 0.05} className="h-full">
               <figure className="h-full overflow-hidden rounded-xl border border-border bg-card">

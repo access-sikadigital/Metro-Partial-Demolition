@@ -15,6 +15,7 @@
  * gated on `hasPhone`, and colour fixes where Demo Bros' green primary would
  * become yellow text on a light background.
  */
+import { beforeAfterGrid } from "@/lib/before-after";
 import type { ReactNode } from "react";
 import { usePathname } from "next/navigation";
 import { motion, useReducedMotion } from "framer-motion";
@@ -334,7 +335,7 @@ function BeforeAfter({ data }: { data: C["beforeAfter"] }) {
           description={data.description}
         />
 
-        <div className="mt-10 grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-4">
+        <div className={`mt-10 grid gap-3 sm:gap-5 ${beforeAfterGrid(data.pairs.length)}`}>
           {data.pairs.map((pair, i) => (
             <Reveal key={pair.id} delay={(i % 4) * 0.05}>
               <figure className="h-full overflow-hidden rounded-xl border border-border bg-card">

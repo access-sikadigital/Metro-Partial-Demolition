@@ -148,7 +148,9 @@ export function GoogleRatingBadge({ className = "" }: { className?: string }) {
       className={`inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2.5 py-1 shadow-sm sm:gap-2.5 sm:px-3.5 sm:py-2 ${className}`}
     >
       <GoogleG className="h-3.5 w-3.5 sm:h-[18px] sm:w-[18px]" />
-      <span className="text-[0.8rem] font-bold text-foreground sm:text-sm">{RATING.toFixed(1)}</span>
+      <span className="text-[0.8rem] font-bold text-foreground sm:text-sm">
+        {RATING.toFixed(1)}
+      </span>
       <GoogleStars className="h-3 w-3 sm:h-[15px] sm:w-[15px]" />
       <span className="text-[0.75rem] whitespace-nowrap text-muted-foreground sm:text-xs">
         {REVIEW_COUNT} <span className="hidden sm:inline">Google </span>reviews

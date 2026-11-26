@@ -23,6 +23,7 @@
  *    and three audiences sit in one row; an odd last timeline tile spans the row
  *    at sm, so no grid leaves a lone card.
  */
+import { beforeAfterGrid } from "@/lib/before-after";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import type { ReactNode } from "react";
@@ -344,7 +345,7 @@ function BeforeAfter({ data }: { data: C["beforeAfter"] }) {
       <div className="container-wide">
         <SectionHeading align="center" eyebrow={data.eyebrow} title={data.title} />
 
-        <div className="mt-10 grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-4 lg:gap-5">
+        <div className={`mt-10 grid gap-3 sm:gap-5 ${beforeAfterGrid(data.pairs.length)}`}>
           {data.pairs.map((pair, i) => (
             <Reveal key={pair.id} delay={(i % 4) * 0.05}>
               <figure className="h-full overflow-hidden rounded-xl border border-border bg-card">
@@ -851,7 +852,16 @@ function Process({ process }: { process: C["process"] }) {
         <div className={`mt-10 grid gap-4 ${grid}`}>
           {process.steps.map((step, i) => (
             <Reveal key={step.n} delay={(i % 3) * 0.05}>
-              <article className="flex h-full flex-col rounded-xl border border-border bg-background p-6 transition-colors duration-300 hover:border-primary/50">
+              <article className="flex h-full flex-col overflow-hidden rounded-xl border border-border bg-background p-6 transition-colors duration-300 hover:border-primary/50">
+                {step.image && (
+                  <img
+                    src={step.image}
+                    alt=""
+                    aria-hidden="true"
+                    loading="lazy"
+                    className="-mx-6 -mt-6 mb-5 aspect-[4/3] w-[calc(100%+3rem)] max-w-none object-cover"
+                  />
+                )}
                 {/* Ink, not Demo Bros' brand colour: yellow on white fails contrast. */}
                 <span className="font-heading text-2xl text-foreground">{step.n}</span>
                 <h3 className="font-heading mt-3 text-base sm:text-lg">{step.title}</h3>

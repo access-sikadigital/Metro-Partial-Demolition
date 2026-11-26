@@ -153,7 +153,7 @@ export function FinalCtaBand({
         </div>
         <div className="relative hidden min-h-[22rem] lg:block">
           <img
-            src="/images/services/internal-strip-out.jpg"
+            src="/images/sections/house-clean-cut.jpg"
             alt=""
             aria-hidden="true"
             loading="lazy"
