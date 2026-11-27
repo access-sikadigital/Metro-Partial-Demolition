@@ -11,6 +11,7 @@ import { StickyMobileCta } from "./StickyMobileCta";
 import { HazardBand, IconTile } from "./Brand";
 import { Audiences, FinalCtaBand, QuoteCta } from "./Sections";
 import { PageHero } from "./ServicePage";
+import { HomeBeforeAfter } from "@/components/db/ProjectsBeforeAfter";
 import { hub, servicePages } from "@/lib/site-data";
 
 /**
@@ -35,6 +36,7 @@ export function HubPage() {
         // mustn't come before "What are you getting ready for?" as an h2.
         formHeadingAs="p"
       />
+      <HomeBeforeAfter />
       <ServiceShowcase />
       <ScopePoints />
       <Audiences />

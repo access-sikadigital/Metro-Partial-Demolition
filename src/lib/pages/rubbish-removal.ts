@@ -16,8 +16,8 @@ export const rubbishRemoval: ServicePageContent = {
 
   hero: {
     eyebrow: "Rubbish removal · Melbourne",
-    titleTop: "Rubbish removal in Melbourne.",
-    titleRibbon: "From $99. We load it and take it away.",
+    titleTop: "Rubbish removal in Melbourne",
+    titleRibbon: "from $99. We load it and take it away.",
     sub: "Old furniture in the garage? Timber and broken tiles left after a reno? Show us the pile and tell us where the truck can park. We’ll quote to load it and take it away.",
     points: [
       "Household hard rubbish",

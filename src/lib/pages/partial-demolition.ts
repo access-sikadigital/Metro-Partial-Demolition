@@ -16,14 +16,15 @@ export const partialDemolition: ServicePageContent = {
 
   hero: {
     eyebrow: "Partial demolition · Melbourne",
-    titleTop: "Partial demolition in Melbourne",
-    titleRibbon: "done safely, by the book.",
-    sub: "Removing a rear extension, old deck or shed? Show us the part that’s coming down and the part that’s staying. We’ll quote the removal and confirm what happens to the debris.",
+    // John, 27 Nov call: replaces "done safely, by the book".
+    titleTop: "Melbourne partial demolition",
+    titleRibbon: "for your next renovation",
+    sub: "Taking down a rear extension, removing an old deck or opening up a room? Tell us what needs to go and what you want to keep. We’ll quote the work, explain how we’ll protect the areas you’re keeping and confirm what’s included in the clean-up.",
     points: [
-      "Rear of house and extensions",
+      "Rear-of-house and extension demolition",
       "Wall removal and new openings",
-      "Garages, sheds and carports",
-      "Decks and driveways",
+      "Garage, shed and carport removal",
+      "Deck and driveway removal",
       "Internal demolition",
     ],
     imageDesktop: "/images/hero/partial-demolition-desktop.jpg",

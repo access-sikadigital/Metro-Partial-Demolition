@@ -234,7 +234,7 @@ export const hub = {
   hero: {
     eyebrow: "Metro · Melbourne",
     titleTop: "Partial demolition, strip-outs",
-    titleRibbon: "and rubbish removal in Melbourne",
+    titleRibbon: "& rubbish removal in Melbourne",
     sub: "Taking out a rear extension, stripping an old kitchen or clearing a pile of building waste? Tell us what needs to go and where the job is. We’ll quote the work.",
     points: [
       "Rear of house and extensions",

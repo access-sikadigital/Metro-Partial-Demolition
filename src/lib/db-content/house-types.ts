@@ -34,6 +34,9 @@ export interface HouseDemolitionContent {
     titleRibbon: string;
     sub: string;
     bullets: { icon: HeroBulletIcon; label: string }[];
+    /** Optional per-page hero button label and line under it. */
+    ctaLabel?: string;
+    ctaSubline?: string;
     imageDesktop: string;
     imageMobile: string;
   };

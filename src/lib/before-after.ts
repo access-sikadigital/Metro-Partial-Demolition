@@ -55,6 +55,89 @@ export const beforeAfterPairs: BeforeAfterPair[] = [
 ];
 
 /**
+ * Metro's own job photos (shared by Metro on WhatsApp, gathered by Vicky),
+ * shown as drag sliders. Live on John's go-ahead (27 Nov). They still load
+ * from Vicky's photo preview. When the original files arrive, commit them
+ * under public/images/before-after/ and point these paths at them.
+ */
+const VICKY = "https://metro-project-photo-preview.madebyvicky.chatgpt.site";
+const PARTIAL: ServiceSlug[] = ["partial-demolition", "house-demolition"];
+const metroPairs: BeforeAfterPair[] = [
+  {
+    id: "deck",
+    label: "Deck removal",
+    note: "Timber deck and frame out, ground cleared",
+    image: `${VICKY}/deck-removal-after-preview.webp`,
+    before: `${VICKY}/deck-removal-before-preview.webp`,
+    after: `${VICKY}/deck-removal-after-preview.webp`,
+    pages: PARTIAL,
+  },
+  {
+    id: "granny-flat",
+    label: "Granny flat removal",
+    note: "Structure down and the site cleared",
+    image: `${VICKY}/granny-flat-removal-after-preview.webp`,
+    before: `${VICKY}/granny-flat-removal-before-preview.webp`,
+    after: `${VICKY}/granny-flat-removal-after-preview.webp`,
+    pages: PARTIAL,
+  },
+  {
+    id: "shed",
+    label: "Shed removal",
+    note: "Shed down and taken away, ground left clear",
+    image: `${VICKY}/shed-removal-after-preview.webp`,
+    before: `${VICKY}/shed-removal-before-preview.webp`,
+    after: `${VICKY}/shed-removal-after-preview.webp`,
+    pages: [...PARTIAL, "garage-shed-driveway-removal"],
+  },
+  {
+    id: "brick-garage",
+    label: "Brick garage demolition",
+    note: "Brick garage down, rubble removed",
+    image: `${VICKY}/brick-garage-demolition-after-preview.webp`,
+    before: `${VICKY}/brick-garage-demolition-before-preview.webp`,
+    after: `${VICKY}/brick-garage-demolition-after-preview.webp`,
+    pages: [...PARTIAL, "garage-shed-driveway-removal"],
+  },
+  {
+    id: "kitchen-window",
+    label: "Kitchen strip-out",
+    note: "Cabinets, benchtops and splashback out",
+    image: `${VICKY}/kitchen-beside-window-after-preview.webp`,
+    before: `${VICKY}/kitchen-beside-window-before-preview.webp`,
+    after: `${VICKY}/kitchen-beside-window-after-preview.webp`,
+    pages: ["strip-out", "kitchen-demolition"],
+  },
+  {
+    id: "kitchen-island",
+    label: "Island kitchen strip-out",
+    note: "Island, cabinets and benchtops out",
+    image: `${VICKY}/kitchen-with-island-after-preview.webp`,
+    before: `${VICKY}/kitchen-with-island-before-preview.webp`,
+    after: `${VICKY}/kitchen-with-island-after-preview.webp`,
+    pages: ["strip-out", "kitchen-demolition"],
+  },
+  {
+    id: "bathroom-wall",
+    label: "Bathroom wall strip-out",
+    note: "Tiles and lining off the wall",
+    image: `${VICKY}/metro-3053-preview.webp`,
+    before: `${VICKY}/metro-3054-preview.webp`,
+    after: `${VICKY}/metro-3053-preview.webp`,
+    pages: ["strip-out", "bathroom-demolition"],
+  },
+  {
+    id: "shopfront",
+    label: "Shopfront strip-out",
+    note: "Fit-out removed back to an empty shell",
+    image: `${VICKY}/metro-3055-preview.webp`,
+    before: `${VICKY}/metro-3056-preview.webp`,
+    after: `${VICKY}/metro-3055-preview.webp`,
+    pages: ["strip-out"],
+  },
+];
+
+/**
  * Only the pairs that match the page's job (John, 26 Nov: before/after must be
  * relevant to the page). The section hides itself when a page has none.
  *
@@ -63,7 +146,7 @@ export const beforeAfterPairs: BeforeAfterPair[] = [
  * renovation-waste pairs for rubbish removal.
  */
 export function beforeAfterFor(page: ServiceSlug): BeforeAfterPair[] {
-  return beforeAfterPairs.filter((p) => p.pages.includes(page));
+  return metroPairs.filter((p) => p.pages.includes(page));
 }
 
 /** Grid that keeps one, two or three cards centred and large, four in a row. */

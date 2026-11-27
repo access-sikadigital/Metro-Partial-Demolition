@@ -19,6 +19,7 @@ export function BeforeAfterCard({ pair }: { pair: BeforeAfterPair }) {
             src={pair.image}
             alt={`${pair.label}: before on the left, after on the right`}
             loading="lazy"
+            referrerPolicy="no-referrer"
             className="aspect-[3/2] w-full object-cover"
           />
           <span
@@ -82,6 +83,7 @@ function CompareSlider({ before, after, label }: { before: string; after: string
         src={after}
         alt={`${label}, after`}
         loading="lazy"
+        referrerPolicy="no-referrer"
         draggable={false}
         className="absolute inset-0 h-full w-full object-cover"
       />
@@ -89,6 +91,7 @@ function CompareSlider({ before, after, label }: { before: string; after: string
         src={before}
         alt={`${label}, before`}
         loading="lazy"
+        referrerPolicy="no-referrer"
         draggable={false}
         className="absolute inset-0 h-full w-full object-cover"
         style={{ clipPath: `inset(0 ${100 - pos}% 0 0)` }}

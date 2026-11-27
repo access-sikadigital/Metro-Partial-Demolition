@@ -1,10 +1,9 @@
 /**
- * Headline text with only the key terms highlighted: the service names and
- * "Melbourne" (John, 27 Nov call: highlight the main words, not half the
- * headline).
+ * Headlines are all white; only the starting price is highlighted ("from $99",
+ * "From $800"). John, 27 Nov second call: every word on the home headline is a
+ * keyword, so partial highlighting looked odd.
  */
-const KEYWORDS =
-  /(garage, shed and driveway removal|partial demolition|internal strip-outs|strip-outs|rubbish removal|kitchen demolition|bathroom demolition|house|melbourne)/gi;
+const KEYWORDS = /(from \$\d[\d,]*)/gi;
 
 export function Keywords({ text, className }: { text: string; className: string }) {
   const parts = text.split(KEYWORDS);
