@@ -45,6 +45,8 @@ export const partialDemolitionContent: HouseDemolitionContent = {
       icon: (["home", "bricks", "home", "layers", "layers"] as const)[i] ?? "layers",
       label,
     })),
+    ctaLabel: "Get my free quote",
+    ctaSubline: "Get a free, no-obligation quote within 24 hours.",
     imageDesktop: page.hero.imageDesktop,
     imageMobile: page.hero.imageMobile,
   },

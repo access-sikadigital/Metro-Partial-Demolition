@@ -13,6 +13,7 @@ const ROUTES = [
   "/rubbish-removal",
   "/house-demolition",
   "/contact",
+  "/projects",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

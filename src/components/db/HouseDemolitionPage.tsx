@@ -74,7 +74,6 @@ import type {
   HouseDemolitionContent,
   TrustStatId,
 } from "@/lib/db-content/house-types";
-import { OurWork } from "@/components/db/OurWork";
 
 export type { HouseDemolitionContent } from "@/lib/db-content/house-types";
 
@@ -88,7 +87,6 @@ export function HouseDemolitionPage({ content }: { content: HouseDemolitionConte
         <TrustStats stats={content.trustStats} />
       </Unconfirmed>
       <BeforeAfter data={content.beforeAfter} />
-      <OurWork kind="partial" />
       <Unconfirmed note="prices not confirmed">
         <Price pricing={content.pricing} scope={content.scope} services={content.services} />
       </Unconfirmed>
@@ -182,7 +180,7 @@ function Hero({ hero }: { hero: C["hero"] }) {
             transition={{ duration: 0.5, delay: 0.05 }}
             className="font-heading mt-5 text-[1.875rem] leading-[1.13] text-secondary sm:text-[2rem] lg:text-[2.5rem]"
           >
-            <Keywords text={hero.titleTop} className="text-primary" /> {hero.titleRibbon}
+            <Keywords text={`${hero.titleTop} ${hero.titleRibbon}`} className="text-primary" />
           </motion.h1>
 
           <motion.p
@@ -201,7 +199,7 @@ function Hero({ hero }: { hero: C["hero"] }) {
             className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4"
           >
             <CtaButton size="md" onClick={openQuote} className="w-full sm:w-auto">
-              {CTA_LABEL}
+              {hero.ctaLabel ?? CTA_LABEL}
             </CtaButton>
             {hasPhone && (
               <CtaButton
@@ -218,7 +216,7 @@ function Hero({ hero }: { hero: C["hero"] }) {
           </motion.div>
           <p className="mt-3 flex items-center gap-2 text-sm font-semibold text-secondary/85">
             <Check className="h-4 w-4 shrink-0 text-go" strokeWidth={3} aria-hidden="true" />
-            {CTA_SUBLINE}
+            {hero.ctaSubline ?? CTA_SUBLINE}
           </p>
 
           <motion.ul

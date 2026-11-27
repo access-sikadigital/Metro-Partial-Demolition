@@ -153,7 +153,7 @@ function Hero({ hero }: { hero: C["hero"] }) {
             transition={{ duration: 0.5, delay: 0.05 }}
             className="font-heading mt-5 text-[2rem] leading-[1.12] text-secondary sm:text-[2.1rem] lg:text-[2.65rem]"
           >
-            <Keywords text={hero.titleTop} className="text-primary" /> {hero.titleRibbon}
+            <Keywords text={`${hero.titleTop} ${hero.titleRibbon}`} className="text-primary" />
           </motion.h1>
 
           <motion.p

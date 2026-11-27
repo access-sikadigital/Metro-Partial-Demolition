@@ -67,7 +67,6 @@ import type {
   HeroPointIcon,
   StripOutContent,
 } from "@/lib/db-content/strip-out-types";
-import { OurWork } from "@/components/db/OurWork";
 
 export type { StripOutContent } from "@/lib/db-content/strip-out-types";
 
@@ -81,7 +80,6 @@ export function StripOutPage({ content }: C) {
         <TrustStats />
       </Unconfirmed>
       <BeforeAfter slug={content.slug} />
-      <OurWork kind="strip" />
       <Unconfirmed note="prices not confirmed">
         <Price content={content} />
       </Unconfirmed>
@@ -167,7 +165,7 @@ function Hero({ content }: C) {
             transition={{ duration: 0.5, delay: 0.05 }}
             className="font-heading mt-5 text-[2rem] leading-[1.15] text-secondary sm:text-[2.5rem] lg:text-[3rem]"
           >
-            <Keywords text={hero.titleTop} className="text-primary" /> {hero.titleRibbon}
+            <Keywords text={`${hero.titleTop} ${hero.titleRibbon}`} className="text-primary" />
           </motion.h1>
 
           {/* Hidden on phones: the points below restate it, and the button
