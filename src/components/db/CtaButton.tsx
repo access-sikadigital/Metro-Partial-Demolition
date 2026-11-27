@@ -107,8 +107,10 @@ export function CtaButton({
   href,
   ...rest
 }: CtaButtonProps) {
-  const v: CtaVariant = variant ?? "solid";
-  const classes = cn(ctaVariants({ variant, size, fullWidth }), className);
+  // John, 27 Nov: quote buttons are green, call buttons are white, everywhere.
+  const isCall = typeof href === "string" && href.startsWith("tel:");
+  const v: CtaVariant = isCall ? "solidLight" : (variant ?? "solid");
+  const classes = cn(ctaVariants({ variant: v, size, fullWidth }), className);
 
   const inner = (
     <>

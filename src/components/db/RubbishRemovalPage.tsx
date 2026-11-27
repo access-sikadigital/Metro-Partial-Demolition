@@ -16,8 +16,9 @@
  * become yellow text on a light background.
  */
 import { MessageSquare } from "lucide-react";
+import { Keywords } from "@/components/site/Keywords";
+import { BeforeAfterCard } from "@/components/db/BeforeAfterCard";
 import { beforeAfterGrid } from "@/lib/before-after";
-import type { ReactNode } from "react";
 import { usePathname } from "next/navigation";
 import { motion, useReducedMotion } from "framer-motion";
 import {
@@ -113,36 +114,6 @@ const HERO_ICONS: Record<string, typeof House> = {
  * around the price token; Metro's H1 has no price, so it sits under the
  * ribbon phrase. It may wrap on phones (a whole phrase, not a "$99").
  */
-/* The swoosh goes under the ribbon's last two words only, kept on one line,
-   so it can never stretch across a wrapped line or cut through the text. */
-const ribbonHead = (r: string) => r.split(" ").slice(0, -2).join(" ");
-const ribbonTail = (r: string) => r.split(" ").slice(-2).join(" ");
-
-function HandUnderline({ children }: { children: ReactNode }) {
-  return (
-    <span className="relative inline-block whitespace-nowrap text-primary">
-      {children}
-      <svg
-        aria-hidden="true"
-        viewBox="0 0 200 14"
-        preserveAspectRatio="none"
-        className="absolute -bottom-1 left-0 h-[0.42em] w-full overflow-visible"
-      >
-        <motion.path
-          d="M3 9.5C34 4.2 74 2.4 116 5.1c28 1.8 52 3.6 81 1.4"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth={4}
-          strokeLinecap="round"
-          vectorEffect="non-scaling-stroke"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 1 }}
-          transition={{ delay: 0.55, duration: 0.7, ease: "easeOut" }}
-        />
-      </svg>
-    </span>
-  );
-}
 
 function Hero({ hero }: { hero: C["hero"] }) {
   const { openQuote } = useQuoteModal();
@@ -182,11 +153,7 @@ function Hero({ hero }: { hero: C["hero"] }) {
             transition={{ duration: 0.5, delay: 0.05 }}
             className="font-heading mt-5 text-[2rem] leading-[1.12] text-secondary sm:text-[2.1rem] lg:text-[2.65rem]"
           >
-            {hero.titleTop}{" "}
-            {ribbonHead(hero.titleRibbon) && (
-              <span className="text-primary">{ribbonHead(hero.titleRibbon)} </span>
-            )}
-            <HandUnderline>{ribbonTail(hero.titleRibbon)}</HandUnderline>
+            <Keywords text={hero.titleTop} className="text-primary" /> {hero.titleRibbon}
           </motion.h1>
 
           <motion.p
@@ -348,35 +315,7 @@ function BeforeAfter({ data }: { data: C["beforeAfter"] }) {
         <div className={`mt-10 grid gap-3 sm:gap-5 ${beforeAfterGrid(data.pairs.length)}`}>
           {data.pairs.map((pair, i) => (
             <Reveal key={pair.id} delay={(i % 4) * 0.05}>
-              <figure className="h-full overflow-hidden rounded-xl border border-border bg-card">
-                <div className="relative">
-                  <img
-                    src={pair.image}
-                    alt={`${pair.label} — before on the left, after on the right`}
-                    loading="lazy"
-                    className="aspect-[3/2] w-full object-cover"
-                  />
-                  {/* Seam marking the split between the two halves. */}
-                  <span
-                    aria-hidden="true"
-                    className="absolute inset-y-0 left-1/2 w-0.5 -translate-x-1/2 bg-primary/80"
-                  />
-                  <span className="absolute top-2 left-2 rounded-sm bg-charcoal/80 px-1.5 py-0.5 text-[0.75rem] font-bold tracking-[0.14em] text-secondary uppercase backdrop-blur sm:top-3 sm:left-3 sm:px-2.5 sm:py-1 sm:text-[0.75rem] sm:tracking-[0.18em]">
-                    Before
-                  </span>
-                  <span className="absolute top-2 right-2 rounded-sm bg-primary px-1.5 py-0.5 text-[0.75rem] font-bold tracking-[0.14em] text-primary-foreground uppercase sm:top-3 sm:right-3 sm:px-2.5 sm:py-1 sm:text-[0.75rem] sm:tracking-[0.18em]">
-                    After
-                  </span>
-                </div>
-                <figcaption className="border-t border-border px-3 py-2.5 sm:px-5 sm:py-4">
-                  <span className="font-heading block text-[0.8rem] leading-snug sm:text-base">
-                    {pair.label}
-                  </span>
-                  <span className="mt-0.5 block text-[0.75rem] text-muted-foreground sm:text-sm">
-                    {pair.note}
-                  </span>
-                </figcaption>
-              </figure>
+              <BeforeAfterCard pair={pair} />
             </Reveal>
           ))}
         </div>

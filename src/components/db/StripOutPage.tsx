@@ -12,8 +12,9 @@
  * (src/lib/db-content/*). Header and footer come from the Metro layout; the
  * quote modal provider is already in the app layout.
  */
-import type { ReactNode } from "react";
 import { MessageSquare } from "lucide-react";
+import { Keywords } from "@/components/site/Keywords";
+import { BeforeAfterCard } from "@/components/db/BeforeAfterCard";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import {
@@ -121,51 +122,11 @@ const HERO_ICONS: Record<HeroPointIcon, LucideIcon> = {
   fence: Fence,
 };
 
-/**
- * Highlighted phrase with a hand-drawn underline swoosh (Demo Bros verbatim).
- * `preserveAspectRatio="none"` stretches the curve to the words; the
- * non-scaling stroke keeps the line an even weight at any size.
- */
-function HandUnderline({ children }: { children: ReactNode }) {
-  return (
-    <span className="relative inline-block whitespace-nowrap text-primary">
-      {children}
-      <svg
-        aria-hidden="true"
-        viewBox="0 0 200 14"
-        preserveAspectRatio="none"
-        className="absolute -bottom-1 left-0 h-[0.42em] w-full overflow-visible"
-      >
-        <motion.path
-          d="M3 9.5C34 4.2 74 2.4 116 5.1c28 1.8 52 3.6 81 1.4"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth={4}
-          strokeLinecap="round"
-          vectorEffect="non-scaling-stroke"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 1 }}
-          transition={{ delay: 0.55, duration: 0.7, ease: "easeOut" }}
-        />
-      </svg>
-    </span>
-  );
-}
-
 function Hero({ content }: C) {
   const { openQuote } = useQuoteModal();
   const pathname = usePathname() ?? "/";
   const form = formCopyFor(pathname);
   const { hero } = content;
-
-  /* Demo Bros draws the swoosh around a short price token. Metro's highlighted
-     phrase is the whole ribbon line, which is too long to keep on one line, so
-     the ribbon is yellow throughout and the swoosh (a nowrap span) takes only
-     its last two words — trailing punctuation included, so it never wraps away
-     on its own. */
-  const ribbonWords = hero.titleRibbon.split(" ");
-  const ribbonHead = ribbonWords.slice(0, -2).join(" ");
-  const ribbonTail = ribbonWords.slice(-2).join(" ");
 
   return (
     <section id="top" className="relative overflow-hidden bg-background">
@@ -204,8 +165,7 @@ function Hero({ content }: C) {
             transition={{ duration: 0.5, delay: 0.05 }}
             className="font-heading mt-5 text-[2rem] leading-[1.15] text-secondary sm:text-[2.5rem] lg:text-[3rem]"
           >
-            {hero.titleTop} {ribbonHead && <span className="text-primary">{ribbonHead} </span>}
-            <HandUnderline>{ribbonTail}</HandUnderline>
+            <Keywords text={hero.titleTop} className="text-primary" /> {hero.titleRibbon}
           </motion.h1>
 
           {/* Hidden on phones: the points below restate it, and the button
@@ -361,34 +321,7 @@ function BeforeAfter({ slug }: { slug: StripOutContent["slug"] }) {
         <div className={`mt-10 grid gap-3 sm:gap-5 ${beforeAfterGrid(beforeAfterPairs.length)}`}>
           {beforeAfterPairs.map((pair, i) => (
             <Reveal key={pair.id} delay={(i % 4) * 0.05} className="h-full">
-              <figure className="h-full overflow-hidden rounded-xl border border-border bg-card">
-                <div className="relative">
-                  <img
-                    src={pair.image}
-                    alt={`${pair.label}, before and after`}
-                    loading="lazy"
-                    className="aspect-[3/2] w-full object-cover"
-                  />
-                  {/* The composite splits at exactly 50%, so AFTER is inset from
-                      the midpoint by the same amount BEFORE is from the edge. */}
-                  <span className="absolute top-1.5 left-1.5 rounded-sm bg-charcoal/80 px-1.5 py-0.5 text-[0.75rem] font-bold tracking-[0.06em] text-secondary uppercase backdrop-blur sm:top-3 sm:left-3 sm:px-2.5 sm:py-1 sm:text-[0.75rem] sm:tracking-[0.18em]">
-                    Before
-                  </span>
-                  <span className="absolute top-1.5 left-[calc(50%+0.375rem)] rounded-sm bg-primary px-1.5 py-0.5 text-[0.75rem] font-bold tracking-[0.06em] text-primary-foreground uppercase sm:top-3 sm:left-[calc(50%+0.75rem)] sm:px-2.5 sm:py-1 sm:text-[0.75rem] sm:tracking-[0.18em]">
-                    After
-                  </span>
-                </div>
-                <figcaption className="border-t border-border px-3 py-2.5 sm:px-4 sm:py-3">
-                  <span className="font-heading text-[0.75rem] leading-snug sm:text-sm">
-                    {pair.label}
-                  </span>
-                  {/* Caption line is desktop-only, and kept to two lines so the
-                      four-across row stays compact. */}
-                  <span className="mt-0.5 line-clamp-2 hidden text-[0.8rem] leading-snug text-muted-foreground sm:block">
-                    {pair.note}
-                  </span>
-                </figcaption>
-              </figure>
+              <BeforeAfterCard pair={pair} />
             </Reveal>
           ))}
         </div>

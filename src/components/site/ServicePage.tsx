@@ -1,5 +1,6 @@
 "use client";
 
+import { Keywords } from "@/components/site/Keywords";
 import { usePathname } from "next/navigation";
 import { motion, useReducedMotion } from "framer-motion";
 import { Camera, Check } from "lucide-react";
@@ -162,8 +163,7 @@ export function PageHero({
             variants={rise}
             className="font-display mt-5 text-[1.85rem] leading-[1.06] sm:text-[2.7rem] lg:text-[3.05rem] xl:text-[3.5rem]"
           >
-            {titleTop} <br />
-            <span className="ribbon leading-[1.22]">{titleRibbon}</span>
+            <Keywords text={`${titleTop} ${titleRibbon}`} className="text-hivis" />
           </motion.h1>
 
           <motion.p
