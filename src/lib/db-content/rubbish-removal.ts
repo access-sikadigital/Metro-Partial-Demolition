@@ -145,7 +145,7 @@ export const rubbishRemovalContent: RubbishRemovalContent = {
     ],
     image: {
       src: "/images/sections/rubbish-heavy-lift.jpg",
-      alt: "Two crew lifting an old cast-iron bath onto a trolley",
+      alt: "Two crew carrying an old couch out to the truck",
     },
   },
 
