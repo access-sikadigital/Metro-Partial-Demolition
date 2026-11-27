@@ -12,6 +12,7 @@ import { HazardBand, IconTile } from "./Brand";
 import { Audiences, FinalCtaBand, QuoteCta } from "./Sections";
 import { PageHero } from "./ServicePage";
 import { hub, servicePages } from "@/lib/site-data";
+import { OurWork } from "@/components/db/OurWork";
 
 /**
  * The main page, from the 01-Home copy: hero with the quote form, the three
@@ -36,6 +37,7 @@ export function HubPage() {
         formHeadingAs="p"
       />
       <ServiceShowcase />
+      <OurWork />
       <ScopePoints />
       <Audiences />
       <FinalCtaBand

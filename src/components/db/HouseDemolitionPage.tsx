@@ -74,6 +74,7 @@ import type {
   HouseDemolitionContent,
   TrustStatId,
 } from "@/lib/db-content/house-types";
+import { OurWork } from "@/components/db/OurWork";
 
 export type { HouseDemolitionContent } from "@/lib/db-content/house-types";
 
@@ -87,6 +88,7 @@ export function HouseDemolitionPage({ content }: { content: HouseDemolitionConte
         <TrustStats stats={content.trustStats} />
       </Unconfirmed>
       <BeforeAfter data={content.beforeAfter} />
+      <OurWork kind="partial" />
       <Unconfirmed note="prices not confirmed">
         <Price pricing={content.pricing} scope={content.scope} services={content.services} />
       </Unconfirmed>

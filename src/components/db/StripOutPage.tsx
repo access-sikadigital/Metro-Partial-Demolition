@@ -67,6 +67,7 @@ import type {
   HeroPointIcon,
   StripOutContent,
 } from "@/lib/db-content/strip-out-types";
+import { OurWork } from "@/components/db/OurWork";
 
 export type { StripOutContent } from "@/lib/db-content/strip-out-types";
 
@@ -80,6 +81,7 @@ export function StripOutPage({ content }: C) {
         <TrustStats />
       </Unconfirmed>
       <BeforeAfter slug={content.slug} />
+      <OurWork kind="strip" />
       <Unconfirmed note="prices not confirmed">
         <Price content={content} />
       </Unconfirmed>
