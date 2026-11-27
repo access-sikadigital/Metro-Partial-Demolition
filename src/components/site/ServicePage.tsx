@@ -219,17 +219,6 @@ export function PageHero({
                 {secondary.label}
               </CtaButton>
             )}
-            {hasPhone && (
-              <CtaButton
-                href={SITE.phoneHref}
-                variant="primary"
-                icon="phone"
-                fullWidth
-                className="lg:w-auto"
-              >
-                Call Metro
-              </CtaButton>
-            )}
           </motion.div>
           <motion.p
             variants={rise}
