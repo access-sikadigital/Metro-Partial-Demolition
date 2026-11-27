@@ -9,7 +9,6 @@
  * same file names when they're supplied.
  */
 import type { ServiceSlug } from "./pages/types";
-import { IS_PREVIEW } from "./preview";
 
 export interface BeforeAfterPair {
   id: string;
@@ -57,10 +56,9 @@ export const beforeAfterPairs: BeforeAfterPair[] = [
 
 /**
  * Metro's own job photos (shared by Metro on WhatsApp, gathered by Vicky),
- * shown as drag sliders. PREVIEW ONLY for now: they load from Vicky's photo
- * preview until the original files are committed under
- * public/images/before-after/. Then point these paths at the local files and
- * make them the live set.
+ * shown as drag sliders. Live on John's go-ahead (27 Nov). They still load
+ * from Vicky's photo preview. When the original files arrive, commit them
+ * under public/images/before-after/ and point these paths at them.
  */
 const VICKY = "https://metro-project-photo-preview.madebyvicky.chatgpt.site";
 const PARTIAL: ServiceSlug[] = ["partial-demolition", "house-demolition"];
@@ -148,8 +146,7 @@ const metroPairs: BeforeAfterPair[] = [
  * renovation-waste pairs for rubbish removal.
  */
 export function beforeAfterFor(page: ServiceSlug): BeforeAfterPair[] {
-  const pool = IS_PREVIEW ? metroPairs : beforeAfterPairs;
-  return pool.filter((p) => p.pages.includes(page));
+  return metroPairs.filter((p) => p.pages.includes(page));
 }
 
 /** Grid that keeps one, two or three cards centred and large, four in a row. */
