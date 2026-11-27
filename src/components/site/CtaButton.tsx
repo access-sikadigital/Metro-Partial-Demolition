@@ -114,11 +114,9 @@ export function CtaButton({
   // solid green primary whenever the button dials the phone.
   // The black "dark" style was getting lost on the yellow bands, so it renders as
   // the green primary too: every quote, service and call button is the same green.
+  // John, 27 Nov: quote buttons are green, call buttons are white, everywhere.
   const v: CtaVariant =
-    variant === "dark" ||
-    (icon === "phone" && (variant === "outlineLight" || variant === "outlineDark"))
-      ? "primary"
-      : (variant ?? "primary");
+    icon === "phone" ? "white" : variant === "dark" ? "primary" : (variant ?? "primary");
   const s: CtaSize = size ?? "lg";
   const style = STYLE[v];
   const Glyph = icon === "phone" ? Phone : ArrowRight;

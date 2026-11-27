@@ -14,7 +14,11 @@ export interface BeforeAfterPair {
   id: string;
   label: string;
   note: string;
+  /** Combined side-by-side image (before left, after right). */
   image: string;
+  /** Separate photos: when both are set the card becomes a drag-to-compare slider. */
+  before?: string;
+  after?: string;
   /** Service pages this pair suits. Pages only show pairs that match the job. */
   pages: ServiceSlug[];
 }
