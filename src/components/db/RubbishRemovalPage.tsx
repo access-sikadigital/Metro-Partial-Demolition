@@ -299,8 +299,48 @@ function TrustStats({ stats }: { stats: C["trustStats"] }) {
  * Each pair is one combined photo: before on the left half, after on the
  * right. All four in one row from lg, 2 × 2 below.
  */
+/**
+ * Until Metro sends real rubbish before/afters, this slot shows what we clear.
+ * These photos are AI-made, so they're captioned as illustrative and are never
+ * shown as before/afters or as Metro's own jobs (John, 27 Nov).
+ */
+const WHAT_WE_CLEAR = [
+  { src: "/images/rubbish/clear-hard-rubbish.jpg", label: "Hard rubbish" },
+  { src: "/images/rubbish/clear-garage.jpg", label: "Garage and shed clean-outs" },
+  { src: "/images/rubbish/clear-green-waste.jpg", label: "Yard and green waste" },
+  { src: "/images/rubbish/clear-reno-waste.jpg", label: "Renovation waste" },
+];
+
+function WhatWeClear() {
+  return (
+    <section className="py-12 sm:py-16 lg:py-20">
+      <div className="container-wide">
+        <SectionHeading align="center" eyebrow="What we clear" title="Point at it. We load it." />
+        <div className="mx-auto mt-10 grid max-w-7xl grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-4">
+          {WHAT_WE_CLEAR.map((item, i) => (
+            <Reveal key={item.src} delay={(i % 4) * 0.05}>
+              <figure className="h-full overflow-hidden rounded-xl border border-border bg-card">
+                <img
+                  src={item.src}
+                  alt={`${item.label} being loaded for removal`}
+                  loading="lazy"
+                  className="aspect-[4/3] w-full object-cover"
+                />
+                <figcaption className="font-heading block px-3 py-3 text-[0.8rem] leading-tight sm:px-5 sm:text-base">
+                  {item.label}
+                </figcaption>
+              </figure>
+            </Reveal>
+          ))}
+        </div>
+        <p className="mt-4 text-center text-xs text-muted-foreground">Illustrative photos</p>
+      </div>
+    </section>
+  );
+}
+
 function BeforeAfter({ data }: { data: C["beforeAfter"] }) {
-  if (data.pairs.length === 0) return null;
+  if (data.pairs.length === 0) return <WhatWeClear />;
 
   return (
     <section className="py-12 sm:py-16 lg:py-20">
