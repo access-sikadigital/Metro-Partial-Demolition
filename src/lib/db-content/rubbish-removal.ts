@@ -52,7 +52,11 @@ export const rubbishRemovalContent: RubbishRemovalContent = {
   beforeAfter: {
     // Metro's own before/after heading (components/site/Sections.tsx).
     eyebrow: "Before and after",
-    title: "Before we start. After we leave.",
+    // These pairs are AI illustrations (John, 28 Nov), so the heading and
+    // description must not present them as Metro's own jobs.
+    title: "What a clear-out looks like",
+    description:
+      "AI-generated illustrations of the jobs we take on, not photos of Metro jobs. Drag the divider to compare.",
     pairs: beforeAfterFor("rubbish-removal"),
   },
 

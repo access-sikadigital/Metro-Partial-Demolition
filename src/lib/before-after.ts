@@ -138,6 +138,29 @@ const metroPairs: BeforeAfterPair[] = [
 ];
 
 /**
+ * Rubbish removal: AI-generated illustrations made with ChatGPT (John, 28 Nov),
+ * cropped to remove the CBD skyline. Labelled as AI on every card. Replace with
+ * Metro's own rubbish before/afters when they arrive.
+ */
+const AI_NOTE = "AI-generated illustration, not a Metro job";
+const rubbishPairs: BeforeAfterPair[] = (
+  [
+    ["hard-rubbish", "Hard rubbish clear-out"],
+    ["garage", "Garage clean-out"],
+    ["green-waste", "Yard and green waste"],
+    ["reno-waste", "Renovation waste"],
+  ] as const
+).map(([id, label]) => ({
+  id: `rubbish-${id}`,
+  label,
+  note: AI_NOTE,
+  image: `/images/before-after/rubbish-${id}-after.jpg`,
+  before: `/images/before-after/rubbish-${id}-before.jpg`,
+  after: `/images/before-after/rubbish-${id}-after.jpg`,
+  pages: ["rubbish-removal"],
+}));
+
+/**
  * Only the pairs that match the page's job (John, 26 Nov: before/after must be
  * relevant to the page). The section hides itself when a page has none.
  *
@@ -146,7 +169,7 @@ const metroPairs: BeforeAfterPair[] = [
  * renovation-waste pairs for rubbish removal.
  */
 export function beforeAfterFor(page: ServiceSlug): BeforeAfterPair[] {
-  return metroPairs.filter((p) => p.pages.includes(page));
+  return [...metroPairs, ...rubbishPairs].filter((p) => p.pages.includes(page));
 }
 
 /** Grid that keeps one, two or three cards centred and large, four in a row. */
